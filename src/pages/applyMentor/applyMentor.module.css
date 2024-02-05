@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(0, 255, 255, 0.365);
+  margin: 0 150px;
+  box-shadow: 0 0 20px lightblue;
+}
+
+.heading {
+    color: rgba(0, 0, 255, 0.365);
+    margin: 15px auto;
+    text-align: center;
+    font-style: bold;
+    margin: 10px; 
+  
+}
+.text {
+  color: rgba(0, 0, 255, 0.365);
+  margin: 15px auto;
+  text-align: center;
+}
+
+.wrapperPro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,53 @@
+/* Styles for the filter */
+.filter-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .filter-btn {
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 15px;
+    font: 15px;
+    width: 150px;
+    height: 30;
+
+  }
+  
+  .filter-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 220px;
+   
+  }
+  
+  .filter-container:hover .filter-options {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-option {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .filter-option:last-child {
+    border-bottom: none;
+  }
+  
+  .filter-option:hover {
+    background-color: #ddd;
+  }
+  

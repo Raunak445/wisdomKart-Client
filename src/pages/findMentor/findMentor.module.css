@@ -1,0 +1,30 @@
+
+.buttonWrapper{
+display: flex;
+margin: 10px;
+
+}
+
+
+.helpButton {
+  display: inline-block;
+  border-radius: 15px;
+  font-weight: bold;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #3498db; /* Border color */
+  color: #3498db; /* Text color */
+  background-color: #fff; /* Background color */
+
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition effect */
+  margin-left:600px
+}
+
+.helpButton:hover {
+  background-color: #3498db; /* Hover background color */
+  color: #fff; /* Hover text color */
+  border-color: #3498db; /* Hover border color */
+  
+}
