@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter , Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar.jsx";
 import FindMentor from "./pages/findMentor/findMentor.jsx";
 import About from "./pages/about/about.jsx";
@@ -11,13 +11,15 @@ import Home from "./pages/home/home";
 import Profile from "./pages/profile/profile.jsx";
 import "./App.css";
 import BookMentor from "./pages/bookMentor/bookMentor.jsx";
-import { BrowserRouter } from "react-router-dom";
+import Notification from "./pages/notification/notification.jsx";
 import Spinner from "./components/spinner.jsx";
 import { useSelector } from "react-redux";
 
 import ProtectedRoutes from "./components/protectedRoutes.jsx";
 import Logout from "./pages/logout/logout.jsx";
 import ApplyMentor from "./pages/applyMentor/applyMentor.jsx";
+import Users from "./pages/users/users.jsx";
+import Mentors from "./pages/mentors/mentors.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -100,7 +102,29 @@ function App() {
                   <BookMentor />
                 </ProtectedRoutes>
               }
-            ></Route>
+            /> <Route
+              path="/notification"
+              element={
+                <ProtectedRoutes>
+                  <Notification/>
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoutes>
+                  <Users/>
+                </ProtectedRoutes>
+              }
+            /><Route
+              path="/admin/mentors"
+              element={
+                <ProtectedRoutes>
+                  <Mentors/>
+                </ProtectedRoutes>
+              }
+            />
 
             <Route
               path="/signUp"

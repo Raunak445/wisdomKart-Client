@@ -1,0 +1,9 @@
+.btn-danger{
+    background-color: red;
+    width: 70px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    border:1px solid white
+}

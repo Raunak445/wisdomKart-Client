@@ -6,7 +6,7 @@ import { FcComments } from "react-icons/fc";
 import { FcContacts } from "react-icons/fc";
 import { FcVideoFile } from "react-icons/fc";
 import { MdDashboard } from "react-icons/md";
-import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBroadcastTower,FaUserGraduate } from 'react-icons/fa';
+import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBroadcastTower,FaUserGraduate,FaPlayCircle  } from 'react-icons/fa';
 
 export const userMenu = [
   {
@@ -36,7 +36,7 @@ export const userMenu = [
   {
     title: "Courses",
     path: "/courses",
-    icons: <FcVideoFile />,
+    icons: <FaPlayCircle  />,
     cName: "nav-text",
   },
 
@@ -74,12 +74,12 @@ export const adminMenu = [
   },
   {
     title: "Mentors",
-    path: "/mentors ",
+    path: "/admin/mentors ",
     icons: <FaChalkboardTeacher/>,
     cName: "nav-text",
   }, {
     title: "Users",
-    path: "/users ",
+    path: "/admin/users ",
     icons: <FaUser />,
     cName: "nav-text",
   },
@@ -99,7 +99,7 @@ export const adminMenu = [
   {
     title: "Courses",
     path: "/courses",
-    icons: <FcVideoFile />,
+    icons: <FaPlayCircle  />,
     cName: "nav-text",
   },
 
@@ -111,7 +111,7 @@ export const adminMenu = [
   },
   {
     title: "Log out",
-    path: "/logOut",
+    path: "/logout",
     icons: <FaSignOutAlt/>,
     cName: "nav-text",
   },

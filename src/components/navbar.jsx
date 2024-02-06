@@ -49,9 +49,11 @@ function Navbar() {
   };
 
   useEffect(() => {
-    getUserData();
+    getUserData(); 
   }, [navigate]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
+
+  
 
   return (
     <>
@@ -66,6 +68,11 @@ function Navbar() {
               <div
                 className="bell-notification"
                 count={(user===null)?0:(user?.notification.length)}
+                onClick={()=>{
+                  navigate('/notification')
+                }}
+
+                style={{cursor:'pointer'}}
               >
                 <FaBell size={25} className="bell" />
               </div>

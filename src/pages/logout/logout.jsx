@@ -12,7 +12,7 @@ function Logout() {
 
     // Redirect to the home page
     navigate('/');
-    dispatch(hideLoading)
+    dispatch(hideLoading())
     message.success("Logged out Successfully")
     window.location.reload()
     
@@ -20,9 +20,7 @@ function Logout() {
 
   return (
     <div>
-
-    dispatch(showLoading)
-      <h2>Logging Out...</h2>
+    dispatch(showLoading())
     </div>
   );
 }
