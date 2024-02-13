@@ -14,13 +14,12 @@ const Form = ({name="Get in Touch",disable=false,placeholder}) => {
       designation: "",
     },
     onSubmit: (values) => {
-      // Handle form submission logic here
+     axios.post('ur;')
       console.log(values);
     },
 
     validate:values=>{
       let errors={
-
       }
       
       if(!values.fullName){

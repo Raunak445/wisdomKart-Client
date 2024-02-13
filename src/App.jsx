@@ -1,4 +1,4 @@
-import { BrowserRouter , Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar.jsx";
 import FindMentor from "./pages/findMentor/findMentor.jsx";
 import About from "./pages/about/about.jsx";
@@ -20,6 +20,9 @@ import Logout from "./pages/logout/logout.jsx";
 import ApplyMentor from "./pages/applyMentor/applyMentor.jsx";
 import Users from "./pages/users/users.jsx";
 import Mentors from "./pages/mentors/mentors.jsx";
+import MentorProfile from "./pages/mentorProfile/mentorProfile.jsx";
+import BookingPage from "./pages/bookingPage/bookingPage.jsx";
+import Appointments from "./pages/appointments/appointments.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -38,27 +41,12 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
-            <Route
-              path="/"
-              element={
-               
-                  <Home />
-              
-              }
-            >
+            <Route path="/" element={<Home />}>
               Home
             </Route>
-            <Route
-              path="/about"
-              element={
-               
-                  <About />
-              
-              }
-            >
+            <Route path="/about" element={<About />}>
               About Us
             </Route>
-
             <Route
               path="/findMentor"
               element={
@@ -72,18 +60,11 @@ function App() {
             <Route path="/courses" />
             <Route path="/liveSessions" />
             <Route path="/caseStudies" />
-            <Route
-              path="/contactUs"
-              element={
-                
-                  <ContactUs />
-              
-              }
-            />
+            <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/dashboard" />
             <Route path="/resources" />
             <Route path="/price" element={<Price />} />
-            <Route path="/logout" element={<Logout/>} />
+            <Route path="/logout" element={<Logout />} />
             <Route
               path="/help"
               element={
@@ -94,7 +75,6 @@ function App() {
                 />
               }
             />
-
             <Route
               path="/bookMentor"
               element={
@@ -102,11 +82,12 @@ function App() {
                   <BookMentor />
                 </ProtectedRoutes>
               }
-            /> <Route
+            />{" "}
+            <Route
               path="/notification"
               element={
                 <ProtectedRoutes>
-                  <Notification/>
+                  <Notification />
                 </ProtectedRoutes>
               }
             />
@@ -114,39 +95,41 @@ function App() {
               path="/admin/users"
               element={
                 <ProtectedRoutes>
-                  <Users/>
+                  <Users />
                 </ProtectedRoutes>
               }
-            /><Route
+            />
+            <Route
+              path="/mentor/profile/:id"
+              element={
+                <ProtectedRoutes>
+                  <MentorProfile />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
               path="/admin/mentors"
               element={
                 <ProtectedRoutes>
-                  <Mentors/>
+                  <Mentors />
                 </ProtectedRoutes>
               }
             />
-
-            <Route
-              path="/signUp"
-              element={
-            
-                  <SignUp />
-            
-              }
-            />
-            <Route
-              path="/login"
-              element={
-               
-                  <Login />
-              
-              }
-            />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="/findMentor/:mentor"
               element={
                 <ProtectedRoutes>
                   <Price />
+                </ProtectedRoutes>
+              }
+            ></Route>
+            <Route
+              path="/mentor/appointment/:mentorId"
+              element={
+                <ProtectedRoutes>
+                  <BookingPage />
                 </ProtectedRoutes>
               }
             ></Route>
@@ -158,7 +141,15 @@ function App() {
                 </ProtectedRoutes>
               }
             />
-            <Route path="/applyMentor" element={<ApplyMentor/>}/>
+            <Route path="/applyMentor" element={<ApplyMentor />} />
+            <Route
+              path="/appointments"
+              element={
+                <ProtectedRoutes>
+                  <Appointments />
+                </ProtectedRoutes>
+              }
+            />
             <Route path="*" />
           </Routes>
         )}

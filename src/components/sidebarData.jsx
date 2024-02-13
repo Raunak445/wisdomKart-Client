@@ -1,24 +1,23 @@
 import React from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
-import { FcComments } from "react-icons/fc";
-import { FcContacts } from "react-icons/fc";
-import { FcVideoFile } from "react-icons/fc";
+
+
 import { MdDashboard } from "react-icons/md";
 import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBroadcastTower,FaUserGraduate,FaPlayCircle  } from 'react-icons/fa';
+
+import { RiCalendar2Fill } from 'react-icons/ri'
+import { AiOutlineMail,AiFillHome } from 'react-icons/ai';
 
 export const userMenu = [
   {
     title: "Home",
     path: "/",
-    icons: <AiIcons.AiFillHome />,
+    icons: <AiFillHome />,
     cName: "nav-text",
   },
   {
     title: "Book an Appointment",
     path: "/bookMentor",
-    icons: <FcComments />,
+    icons: <RiCalendar2Fill/>,
     cName: "nav-text",
   },
   {
@@ -45,7 +44,8 @@ export const userMenu = [
     path: "/liveSessions",
     icons: <FaBroadcastTower />,
     cName: "nav-text",
-  },  {
+  }, 
+   {
     title: "Register as Mentor",
     path: "/applyMentor",
     icons: <FaUserGraduate />,
@@ -54,7 +54,7 @@ export const userMenu = [
   {
     title: "Contact Us",
     path: "/contactUs",
-    icons: <FcContacts />,
+    icons: <AiOutlineMail />,
     cName: "nav-text",
   },{
     title: "Log out",
@@ -69,7 +69,7 @@ export const adminMenu = [
   {
     title: "Home",
     path: "/",
-    icons: <AiIcons.AiFillHome />,
+    icons: <AiFillHome />,
     cName: "nav-text",
   },
   {

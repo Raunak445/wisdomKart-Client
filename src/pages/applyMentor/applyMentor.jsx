@@ -1,44 +1,56 @@
-import React from "react";
-import { Form, Input, Button, Select, TimePicker, message } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Select, message,TimePicker } from "antd";
 import style from "./applyMentor.module.css";
 const { Option } = Select;
 import moment from "moment"; // Import moment library for time format
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { hideLoading, showLoading } from "../../redux/features/alert";
+
+
 import axios from "axios";
 
 const ApplyMentor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+
+
+ 
+ 
+
   const onFinish = async (values) => {
     try {
-      dispatch(showLoading());
+      dispatch(showLoading()); 
       const res = await axios.post(
         "http://localhost:8080/api/v1/user/applyMentor",
-        { ...values, userId: user._id },
+        {
+          ...values,
+          userId: user._id
+         
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+      
+    
 
       dispatch(hideLoading());
 
       if (res.data.success) {
         message.success("Applied for Mentor Successfully");
-        navigate("/");
+       // navigate('/')
       } else {
-        message.error("Couldnt Apply for Mentor");
+        message.error("Could not apply for Mentor");
       }
     } catch (error) {
       dispatch(hideLoading());
-
       console.log(error);
       message.error("Something went wrong");
-      message.error(error.message)  
+      message.error(error.message);
     }
   };
 
@@ -103,7 +115,7 @@ const ApplyMentor = () => {
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 12 }}
         onFinish={onFinish}
-        autoComplete="off"
+        // autoComplete="off"
       >
         <Form.Item
           label="First Name"
@@ -194,22 +206,22 @@ const ApplyMentor = () => {
             ))}
           </Select>
         </Form.Item>
+
         <Form.Item
           label="Work Timings"
           name="timings"
           rules={[{ required: true, message: "Work timings are required" }]}
         >
           <TimePicker.RangePicker
-            format="hh:mm A"
-            use12Hours
+            format="HH:mm"
             style={{ width: "100%" }}
-            placeholder={["  Start Time  ", "   End Time"]}
-            defaultOpenValue={[
-              moment("09:00", "hh:mm A"),
-              moment("18:00", "hh:mm A"),
-            ]}
+            placeholder={["Start Time", "End Time"]}
+            // Set the value to update the TimePicker's selected times
           />
+
         </Form.Item>
+
+  
 
         <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
           <Button type="primary" htmlType="submit">

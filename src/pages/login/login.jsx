@@ -39,7 +39,7 @@ const Login = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-       message(error.message)
+       message.error(error.message)
       }
     }
   };
