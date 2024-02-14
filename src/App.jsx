@@ -23,6 +23,7 @@ import Mentors from "./pages/mentors/mentors.jsx";
 import MentorProfile from "./pages/mentorProfile/mentorProfile.jsx";
 import BookingPage from "./pages/bookingPage/bookingPage.jsx";
 import Appointments from "./pages/appointments/appointments.jsx";
+import MentorAppointments from "./pages/mentorAppointments/mentorAppointments.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -147,6 +148,14 @@ function App() {
               element={
                 <ProtectedRoutes>
                   <Appointments />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/mentorAppointments"
+              element={
+                <ProtectedRoutes>
+                  <MentorAppointments />
                 </ProtectedRoutes>
               }
             />

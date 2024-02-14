@@ -104,8 +104,8 @@ const MentorProfile = () => {
             initialValues={{
               ...mentor,
               timings: [
-                moment(mentor.timings[0]),
-                moment(mentor.timings[1]),
+                moment(mentor.timings[0],"HH:mm"),
+                moment(mentor.timings[1],"HH:mm"),
               ],
             }}
           >

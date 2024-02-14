@@ -5,6 +5,7 @@ import moment from "moment";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState();
+  
   const getAppointments = async () => {
     try {
       await axios

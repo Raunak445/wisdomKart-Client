@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { adminMenu, userMenu } from "./SidebarData";
 import "./navbar.css";
-import { FaBell, FaUser, FaPlayCircle, FaBroadcastTower,FaSignOutAlt,FaBars } from "react-icons/fa";
+import { FaBell, FaUser, FaPlayCircle, FaBroadcastTower,FaSignOutAlt,FaBars,FaCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 import { setUser } from "../redux/features/userSlice";
 import { MdDashboard } from "react-icons/md";
 import { RiCalendar2Fill } from 'react-icons/ri'
-import { AiOutlineMail,AiFillHome,AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineMail,AiFillHome,AiOutlineClose  } from 'react-icons/ai';
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -30,6 +30,12 @@ function Navbar() {
       title: "Book an Appointment",
       path: "/bookMentor",
       icons: <RiCalendar2Fill/>,
+      cName: "nav-text",
+    },
+    {
+      title: "Appointments",
+      path: "/mentorAppointments ",
+      icons: <FaCalendarAlt />,
       cName: "nav-text",
     },
     {

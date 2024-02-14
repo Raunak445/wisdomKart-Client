@@ -60,7 +60,7 @@ const Notification = () => {
   };
 
   const { user } = useSelector((state) => state.user);
-
+  const path=!user?.isMentor?'/appointments':'/mentorAppointments'
   return (
     <div className={style.wrapper}>
       <h1 className={style.noti}>Notification</h1>
@@ -76,7 +76,7 @@ const Notification = () => {
 
           {user?.notification.map((m) => (
             <div className={style.card}  >
-              <div className={style.cardText}  onClick={()=>navigate(m.onClickPath)}>{m.message}</div>
+              <div className={style.cardText}  onClick={()=>navigate(path)}>{m.message}</div>
             </div>
           ))}
         </Tabs.TabPane>
@@ -88,7 +88,8 @@ const Notification = () => {
           </div>
           {user?.seenNotification.map((m) => (
             <div className={style.card}  >
-              <div className={style.cardText}  onClick={()=>navigate(m.onClickPath)}>{m.message}</div>
+              <div className={style.cardText}  onClick={(m)=>navigate(m.onClickPath)}>
+              {m.message}</div>
             </div>
           ))}
 

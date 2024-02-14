@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Select, message,TimePicker } from "antd";
+import { Form, Input, Button, Select, message, TimePicker } from "antd";
 import style from "./applyMentor.module.css";
 const { Option } = Select;
 import moment from "moment"; // Import moment library for time format
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { hideLoading, showLoading } from "../../redux/features/alert";
-
 
 import axios from "axios";
 
@@ -15,19 +14,19 @@ const ApplyMentor = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
-
- 
- 
+  const [time, setTime] = useState("12:08");
+  const format = "HH:mm";
 
   const onFinish = async (values) => {
     try {
-      dispatch(showLoading()); 
+      dispatch(showLoading());
+
       const res = await axios.post(
         "http://localhost:8080/api/v1/user/applyMentor",
         {
           ...values,
-          userId: user._id
-         
+          userId: user._id,
+          timings: time,
         },
         {
           headers: {
@@ -35,14 +34,12 @@ const ApplyMentor = () => {
           },
         }
       );
-      
-    
 
       dispatch(hideLoading());
 
       if (res.data.success) {
         message.success("Applied for Mentor Successfully");
-       // navigate('/')
+         navigate('/')
       } else {
         message.error("Could not apply for Mentor");
       }
@@ -213,15 +210,17 @@ const ApplyMentor = () => {
           rules={[{ required: true, message: "Work timings are required" }]}
         >
           <TimePicker.RangePicker
-            format="HH:mm"
+            format={format}
+            value={moment(time, format)}
+            onChange={(value, dateString) => {
+              // console.log("Time", value, dateString);
+              setTime(dateString);
+            }}
             style={{ width: "100%" }}
             placeholder={["Start Time", "End Time"]}
             // Set the value to update the TimePicker's selected times
           />
-
         </Form.Item>
-
-  
 
         <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
           <Button type="primary" htmlType="submit">

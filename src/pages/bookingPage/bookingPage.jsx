@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { DatePicker, TimePicker, message } from "antd";
@@ -11,14 +11,16 @@ const BookingPage = () => {
   const params = useParams();
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const [isAvailable, setIsAvailable] = useState();
+  const [isAvailable, setIsAvailable] = useState(<true></true>);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const dateRef=useRef()
   const disabledDate = (current) => {
     // Disable all dates before today
     return current && current < moment().startOf("day");
   };
   const handleBooking = async () => {
+  
     try {
 
       setIsAvailable(true)
@@ -27,7 +29,7 @@ const BookingPage = () => {
       }
 
 
-      dispatch(showLoading());
+      
       await axios
         .post(
           "http://localhost:8080/api/v1/user/bookAppointment",
@@ -46,13 +48,13 @@ const BookingPage = () => {
           }
         )
         .then((res) => {
-          dispatch(hideLoading());
+    
           if (res.data.success) {
             message.success(res.data.message);
           }
         });
     } catch (error) {
-      dispatch(hideLoading());
+       message.error("Cannot book this date/time")
       console.log(error);
     }
   };
@@ -83,7 +85,7 @@ const BookingPage = () => {
 
   const handleAvailability = async () => {
     try {
-      dispatch(showLoading());
+   
       await axios
         .post(
           "http://localhost:8080/api/v1/user/bookingAvailability",
@@ -99,17 +101,17 @@ const BookingPage = () => {
           }
         )
         .then((res) => {
-          dispatch(hideLoading());
           if (res.data.success) {
             setIsAvailable(true)
+            dateRef.current=date
             message.success(res.data.message);
+         
           } else {
             message.error(res.data.message);
           }
         });
     } catch (error) {
-      dispatch(hideLoading());
-      console.log(error);
+    console.log(error);
     }
   };
 
@@ -133,18 +135,21 @@ const BookingPage = () => {
                 format="DD-MM-YYYY"
                 className="m-2"
                 onChange={(value) => {
-                  setIsAvailable(true)
+                   setIsAvailable(false)
                   setDate(moment(value).format("DD-MM-YYYY"));
                 }}
                 disabledDate={disabledDate}
+                ref={dateRef}
+              
               
               />
               <TimePicker
                 format="HH:mm"
                 className="m-2"
                 onChange={(value) => {
-                  setIsAvailable(true )
+                   setIsAvailable(false)
                   setTime(value)}}
+                  
               />
               <button
                 className="btn btn-primary mt-2 "
@@ -152,10 +157,14 @@ const BookingPage = () => {
               >
                 Check Availability
               </button>
-             
-                <button className="btn btn-dark mt-2" onClick={handleBooking}>
+                  
+                  { isAvailable &&(   
+                    <button className="btn btn-dark mt-2" onClick={handleBooking}>
                   Book Now
-                </button>
+                </button>)
+
+                  }
+                
             
             </div>
           </>
