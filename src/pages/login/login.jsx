@@ -20,15 +20,16 @@ const Login = () => {
     e.preventDefault();
     dispatch(showLoading());
     try {
-      const url = "http://localhost:8080/api/v1/user/login	";
+      const url = "http://localhost:8080/api/v1/user/login";
       const res = await axios.post(url, data);
 
       if (res.data.success) {
         message.success("Logged In Successfully");
         localStorage.setItem("token", res.data.token);
+        console.log(res.data)
         navigate("/");
         // Reload the page after navigation
-        //window.location.reload();
+        window.location.reload();
       }
 
       dispatch(hideLoading());
@@ -39,7 +40,7 @@ const Login = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-       message.error(error.message)
+       message.error(error.message) 
       }
     }
   };

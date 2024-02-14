@@ -1,10 +1,11 @@
 .container{
-    width: 100vw;
-height: 100vh;
+padding: 20px;
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column;
+margin: 20px;
+
 }
 
 
@@ -14,10 +15,17 @@ flex-direction: column;
     padding: 12px 0;
     background-color: #3bb19b;
     border-radius: 20px;
-    width: 180px;
+    /* width: 180px; */
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;
     
 
+}
+
+.success_img{
+    width: 10%;
+    height: 20%;
+    margin-bottom: 20px;
+    padding: 0;
 }

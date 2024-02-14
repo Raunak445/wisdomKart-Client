@@ -24,6 +24,7 @@ import MentorProfile from "./pages/mentorProfile/mentorProfile.jsx";
 import BookingPage from "./pages/bookingPage/bookingPage.jsx";
 import Appointments from "./pages/appointments/appointments.jsx";
 import MentorAppointments from "./pages/mentorAppointments/mentorAppointments.jsx";
+import EmailVerify from "./pages/emailVerify/emailVerify.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -66,6 +67,8 @@ function App() {
             <Route path="/resources" />
             <Route path="/price" element={<Price />} />
             <Route path="/logout" element={<Logout />} />
+             <Route path="/user/:id/verify/:token" element={<EmailVerify/>} />
+
             <Route
               path="/help"
               element={

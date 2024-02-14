@@ -1,58 +1,52 @@
-import { useEffect, useState } from 'react'
-import styles from './styles.modules.css'
-import axios from 'axios'
-import { Link, useParams } from 'react-router-dom';
-import success from "./successImg.png";
-
+import { useEffect, useState } from "react";
+import styles from "./emailVerify.module.css";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import success from "../../images/successImg.png";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/features/alert";
 
 const EmailVerify = () => {
-    const [validUrl,setValidUrl]= useState(false)
-    const params=useParams()
-    useEffect(()=>{
-     const verifyEmailUrl=async()=>{
-             try{
-                 const url=`http://localhost:8080/api/users/${params.id}/verify/${params.token}`
-                 const {data}=await axios.get(url)
-                 console.log("axios part done")
-                 console.log(data)
-                 setValidUrl(true)
- 
-             }
-             catch(error){
-                 console.log(error)
-                 setValidUrl(false)
- 
-             }
-     }
- 
-     verifyEmailUrl()
- 
-    },[params])
-    
-     return (
- 
- <>
-         {
-             validUrl ?(
-                 <div className={styles.container}>
-                 <img alt={success} className={styles.success_img}/>
-                 <h1>Email verified sucessfully</h1>
-                 <Link to ='/login'>
-                     <button className={styles.green_btn}></button>
-                 </Link>
- 
-                 </div>
-             ):(<h1>
- 
-                 404 Not found
-             </h1>)
-         }
- 
- 
- 
- </>
- 
-     )  
-}
+  const [validUrl, setValidUrl] = useState(false);
+  const params = useParams();
+  // const dispatch=useDispatch()
+  const verifyEmailUrl = async () => {
+    try {
+      // dispatch(showLoading())
+      const url = `http://localhost:8080/api/v1/user/${params.id}/verify/${params.token}`;
+      const { data } = await axios.get(url);
+      // dispatch(hideLoading())
+      console.log("axios part done");
+      console.log(data);
+      setValidUrl(true);
+    } catch (error) {
+      // dispatch(hideLoading())
+      console.log(error);
+      setValidUrl(false);
+    }
+  };
 
-export default EmailVerify
+  
+
+  useEffect(() => {
+    verifyEmailUrl();
+  }, [params]);
+
+  return (
+    <>
+      {validUrl ? (
+        <div className={styles.container}>
+          <img src={success} className={styles.success_img} />
+          <h1>Email verified sucessfully</h1>
+          <Link to="/login">
+            <button className={styles.green_btn}></button>
+          </Link>
+        </div>
+      ) : (
+        <h1>404 Not found</h1>
+      )}
+    </>
+  );
+};
+
+export default EmailVerify;

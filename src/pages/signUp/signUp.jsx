@@ -17,6 +17,8 @@ const SignUp = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [msg,setMsg]=useState("")
+
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -24,27 +26,29 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(showLoading());
+    // dispatch(showLoading());
     try {
       const url = "http://localhost:8080/api/v1/user/signUp";
       const res = await axios.post(url, data);
+      
+      setMsg(res.data.message)
 
       if (res.data.success) {
-        message.success("Registered Successfully");
-        navigate("/login");
+        message.success("Please verify your email");
+        // navigate("/login");
       } else {
         message.error("User already exist ");
       }
 
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
     } catch (error) {
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       if (
         error.response &&
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        //setError(error.response.data.message);
+        setError(error.response.data.message);
         message.error(error.response.data.message);
       }
     }
@@ -100,8 +104,8 @@ const SignUp = () => {
               required
               className={signUpCss.input}
             />
-            {/* {error && <div className={signUpCss.error_msg}>{error}</div>}
-            {msg && <div className={signUpCss.succsess_msg}>{msg}</div>} */}
+            {error && <div className={signUpCss.error_msg}>{error}</div>}
+            {msg && <div className={signUpCss.succsess_msg}>{msg}</div>}
             <button type="submit" className={signUpCss.green_btn}>
               Sign Up
             </button>

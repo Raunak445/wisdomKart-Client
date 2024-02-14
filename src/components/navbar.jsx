@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { adminMenu, userMenu } from "./SidebarData";
 import "./navbar.css";
-import { FaBell, FaUser, FaPlayCircle, FaBroadcastTower,FaSignOutAlt,FaBars,FaCalendarAlt } from "react-icons/fa";
+import {
+  FaBell,
+  FaUser,
+  FaPlayCircle,
+  FaBroadcastTower,
+  FaSignOutAlt,
+  FaBars,
+  FaCalendarAlt,
+} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 import { useEffect } from "react";
@@ -10,8 +18,8 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 import { setUser } from "../redux/features/userSlice";
 import { MdDashboard } from "react-icons/md";
-import { RiCalendar2Fill } from 'react-icons/ri'
-import { AiOutlineMail,AiFillHome,AiOutlineClose  } from 'react-icons/ai';
+import { RiCalendar2Fill } from "react-icons/ri";
+import { AiOutlineMail, AiFillHome, AiOutlineClose } from "react-icons/ai";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -29,7 +37,7 @@ function Navbar() {
     {
       title: "Book an Appointment",
       path: "/bookMentor",
-      icons: <RiCalendar2Fill/>,
+      icons: <RiCalendar2Fill />,
       cName: "nav-text",
     },
     {
@@ -77,11 +85,11 @@ function Navbar() {
     },
   ];
 
-  console.log(`User is mentor ${user?.isMentor}`)
+  console.log(`User is mentor ${user?.isMentor}`);
 
   const SidebarData = user?.isAdmin
     ? adminMenu
-    : (user?.isMentor)
+    : user?.isMentor
     ? mentorMenu
     : userMenu;
 
@@ -95,7 +103,7 @@ function Navbar() {
           {},
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           }
         )
@@ -107,7 +115,7 @@ function Navbar() {
         })
         .catch(() => {
           localStorage.clear();
-          navigate("/login"); // Use navigate to redirect
+          navigate("/signUp"); // Use navigate to redirect
         });
     } catch (error) {
       console.log(error);
@@ -116,7 +124,7 @@ function Navbar() {
 
   useEffect(() => {
     getUserData();
-  }, [navigate]); // Include navigate in the dependencies array
+  }, [location]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
 
   return (
