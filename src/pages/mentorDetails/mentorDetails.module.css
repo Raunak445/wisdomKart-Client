@@ -1,0 +1,33 @@
+/* MentorCard.module.css */
+
+.card {
+    border: 1px solid black;
+    box-shadow: 0px 0px 10px lightblue;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 40vw;
+    height: auto;
+    margin: auto;
+
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .details {
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .tag {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  

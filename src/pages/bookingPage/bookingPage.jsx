@@ -62,7 +62,7 @@ const BookingPage = () => {
     await axios
       .post(
         `http://localhost:8080/api/v1/mentor/getMentorById`,
-        {
+        { 
           mentorId: params.mentorId,
         },
         {
@@ -79,8 +79,21 @@ const BookingPage = () => {
       .catch((error) => console.log(error));
   };
 
+  const availableSlots=async()=>{
+    await axios.get('http://localhost:8080/api/v1/user/availableSlots',{
+      headers:{
+        Authorization:"Bearer "+localStorage.getItem('token')
+      }
+    }).then((res)=>{
+      console.log(res)
+    })
+  }
+
+
+
   useEffect(() => {
     getData();
+    availableSlots()
   }, []);
 
   const handleAvailability = async () => {

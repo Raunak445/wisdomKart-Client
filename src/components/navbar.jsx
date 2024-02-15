@@ -109,7 +109,7 @@ function Navbar() {
         )
         .then((res) => {
           const userData = res.data.data;
-          console.log(userData);
+          //console.log(userData);
 
           dispatch(setUser(userData));
         })

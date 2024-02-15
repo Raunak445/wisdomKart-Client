@@ -26,7 +26,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(showLoading());
+     dispatch(showLoading());
     try {
       const url = "http://localhost:8080/api/v1/user/signUp";
       const res = await axios.post(url, data);
@@ -40,9 +40,9 @@ const SignUp = () => {
         message.error("User already exist ");
       }
 
-      // dispatch(hideLoading());
+       dispatch(hideLoading());
     } catch (error) {
-      // dispatch(hideLoading());
+       dispatch(hideLoading());
       if (
         error.response &&
         error.response.status >= 400 &&

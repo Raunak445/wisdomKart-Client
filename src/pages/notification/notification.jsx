@@ -76,7 +76,7 @@ const Notification = () => {
 
           {user?.notification.map((m) => (
             <div className={style.card}  >
-              <div className={style.cardText}  onClick={()=>navigate(path)}>{m.message}</div>
+              <div className={style.cardText}  onClick={()=>navigate(m.onClickPath)}>{m.message}</div>
             </div>
           ))}
         </Tabs.TabPane>

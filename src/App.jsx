@@ -25,6 +25,10 @@ import BookingPage from "./pages/bookingPage/bookingPage.jsx";
 import Appointments from "./pages/appointments/appointments.jsx";
 import MentorAppointments from "./pages/mentorAppointments/mentorAppointments.jsx";
 import EmailVerify from "./pages/emailVerify/emailVerify.jsx";
+import MentorDetails from "./pages/mentorDetails/mentorDetails.jsx";
+import AdminAppointments from "./pages/adminAppointments/adminAppointments.jsx";
+import Lobby from "./screens/lobby.jsx";
+import Room from "./screens/room.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -67,8 +71,7 @@ function App() {
             <Route path="/resources" />
             <Route path="/price" element={<Price />} />
             <Route path="/logout" element={<Logout />} />
-             <Route path="/user/:id/verify/:token" element={<EmailVerify/>} />
-
+            <Route path="/user/:id/verify/:token" element={<EmailVerify />} />
             <Route
               path="/help"
               element={
@@ -104,6 +107,14 @@ function App() {
               }
             />
             <Route
+              path="/admin/appointments"
+              element={
+                <ProtectedRoutes>
+                  <AdminAppointments />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
               path="/mentor/profile/:id"
               element={
                 <ProtectedRoutes>
@@ -120,6 +131,7 @@ function App() {
               }
             />
             <Route path="/signUp" element={<SignUp />} />
+            <Route path="/mentorDetails/:userId" element={<MentorDetails />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/findMentor/:mentor"
@@ -162,6 +174,23 @@ function App() {
                 </ProtectedRoutes>
               }
             />
+            <Route
+              path="/lobby"
+              element={
+                <ProtectedRoutes>
+                  <Lobby />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/room/:roomId"
+              element={
+                <ProtectedRoutes>
+                  <Room />
+                </ProtectedRoutes>
+              }
+            />
+
             <Route path="*" />
           </Routes>
         )}

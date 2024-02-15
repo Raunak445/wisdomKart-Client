@@ -85,7 +85,7 @@ export const adminMenu = [
   },
   {
     title: "Appointments",
-    path: "/appointments ",
+    path: "/admin/appointments ",
     icons: <FaCalendarAlt />,
     cName: "nav-text",
   },

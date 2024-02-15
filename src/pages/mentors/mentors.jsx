@@ -2,9 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Row, Table, message } from "antd";
 import "./mentors.css";
-import MentorList from "../../components/mentorList";
+import MentorDetails from "../mentorDetails/mentorDetails";
+import { useNavigate } from "react-router-dom";
 const Mentors = () => {
   const [mentors, setMentors] = useState([]);
+  const [mentorInfo,setMentorInfo]=useState("")
+  const [showData,setShowData]=useState(false)
+  const navigate=useNavigate()
   const handleAccountStatus = async (record, status) => {
     try {
       await axios
@@ -42,10 +46,10 @@ const Mentors = () => {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.success) {
             setMentors(res.data.data);
-            console.log(res.data.data);
+            // console.log(res.data.data);
           } else {
             console.log("Cannot get Users");
           }
@@ -58,6 +62,14 @@ const Mentors = () => {
   useEffect(() => {
     getMentors();
   }, []);
+
+
+  const handleMentorDetails=(record)=>{
+  // navigate(`/mentorDetails/${record.userId}`,{ state: { data: record } })
+
+    setMentorInfo(record)
+    setShowData(!showData)
+  }
 
   const columns = [
     {
@@ -96,6 +108,24 @@ const Mentors = () => {
         );
       },
     },
+    {
+      title: "Info",
+      dataIndex: "info",
+      render: (text, record) => {
+        console.log(record);
+        // console.log(text)
+        return (
+          <div className="d-flex">
+            <button
+              className="btn-success w-100 h-80"
+              onClick={() => handleMentorDetails(record)}
+            >
+              Mentor Info
+            </button>
+          </div>
+        );
+      },
+    },
   ];
 
   const [approvedMentors, setApprovedMentors] = useState([]);
@@ -116,17 +146,20 @@ const Mentors = () => {
     }
   };
 
-  useEffect(()=>{
-  getApprovedMentors()
-  },[])
+  useEffect(() => {
+    getApprovedMentors();
+  }, []);
 
   return (
     <div className="wrapper">
       <div className="text-blue">Mentors</div>
       <Table columns={columns} dataSource={mentors} />
-      <Row>
-        {approvedMentors && approvedMentors.map(m=> <MentorList mentor={m}/>) }
-      </Row>
+      {
+        showData &&
+        (
+          <MentorDetails mentor={mentorInfo}/>
+        )
+      }
     </div>
   );
 };

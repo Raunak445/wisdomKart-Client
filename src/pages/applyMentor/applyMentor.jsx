@@ -166,7 +166,7 @@ const ApplyMentor = () => {
         </Form.Item>
 
         <Form.Item
-          label="Fees per Consultation"
+          label="Fees per Hour"
           name="feesPerConsultation"
           rules={[{ required: true, message: "Fees is required" }]}
         >
