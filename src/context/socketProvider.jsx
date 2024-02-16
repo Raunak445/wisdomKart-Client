@@ -10,7 +10,7 @@ export const useSocket = () => {
 
 export const SocketProvider = (props) => {
   const socket = useMemo(() => {
-    return io("https://main.d15md73voiwnrw.amplifyapp.com:8080");
+    return io("https://wisdomkart-server.onrender.com:8080");
   }, []);
 
   
