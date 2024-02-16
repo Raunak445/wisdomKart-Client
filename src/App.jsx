@@ -139,14 +139,7 @@ function App() {
                 </ProtectedRoutes>
               }
             ></Route>
-            <Route
-              path="/findMentor/profile/:mentor"
-              element={
-                <ProtectedRoutes>
-                  <Profile />
-                </ProtectedRoutes>
-              }
-            />
+           
             <Route path="/applyMentor" element={
             <ProtectedRoutes>
             <ApplyMentor />
