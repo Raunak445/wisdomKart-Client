@@ -8,7 +8,6 @@ import Price from "./pages/price/price.jsx";
 import SignUp from "./pages/signUp/signUp.jsx";
 import Login from "./pages/login/login.jsx";
 import Home from "./pages/home/home";
-import Profile from "./pages/profile/profile.jsx";
 import "./App.css";
 import BookMentor from "./pages/bookMentor/bookMentor.jsx";
 import Notification from "./pages/notification/notification.jsx";
@@ -148,14 +147,7 @@ function App() {
                 </ProtectedRoutes>
               }
             ></Route>
-            <Route
-              path="/findMentor/profile/:mentor"
-              element={
-                <ProtectedRoutes>
-                  <Profile />
-                </ProtectedRoutes>
-              }
-            />
+           
             <Route path="/applyMentor" element={
             <ProtectedRoutes>
             <ApplyMentor />
