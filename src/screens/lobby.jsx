@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSocket } from "../context/SocketProvider";
+import { useSocket } from "../context/socketProvider";
 import style from './lobby.module.css'
-
+  
 const Lobby = () => {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
