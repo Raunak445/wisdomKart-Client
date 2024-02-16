@@ -15,7 +15,7 @@ const Notification = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "/api/v1/user/getAllNotification",
+        "https://wisdomkart-server.onrender.com/api/v1/user/getAllNotification",
         { userId: user._id },{
           headers:{
             Authorization:"Bearer "+localStorage.getItem('token')
@@ -38,7 +38,7 @@ const Notification = () => {
   const handleDeleteAllRead = async() => {
     try {
       dispatch(showLoading())
-      const res =await axios.post('/api/v1/user/deleteAllNotification',{userId:user._id},{
+      const res =await axios.post('https://wisdomkart-server.onrender.com/api/v1/user/deleteAllNotification',{userId:user._id},{
         headers:{
           Authorization:"Bearer "+localStorage.getItem('token')
         }
@@ -76,7 +76,7 @@ const Notification = () => {
 
           {user?.notification.map((m) => (
             <div className={style.card}  >
-              <div className={style.cardText}  onClick={()=>navigate(m.onClickPath)}>{m.message}</div>
+              <div className={style.cardText}  onClick={()=>navigate(m.data.onClickPath)}>{m.message}</div>
             </div>
           ))}
         </Tabs.TabPane>
@@ -86,12 +86,16 @@ const Notification = () => {
             Delete All Read
           </h4>
           </div>
-          {user?.seenNotification.map((m) => (
+          {user?.seenNotification.map((m) => {
+            // Simple onClickPath was in data hence not working
+            {/* console.log(m); */}
+            
+            return (
             <div className={style.card}  >
-              <div className={style.cardText}  onClick={(m)=>navigate(m.onClickPath)}>
+              <div className={style.cardText}  onClick={()=>navigate(m.data.onClickPath)}>
               {m.message}</div>
             </div>
-          ))}
+          )})}
 
 
         </Tabs.TabPane>

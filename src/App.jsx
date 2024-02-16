@@ -14,7 +14,6 @@ import BookMentor from "./pages/bookMentor/bookMentor.jsx";
 import Notification from "./pages/notification/notification.jsx";
 import Spinner from "./components/spinner.jsx";
 import { useSelector } from "react-redux";
-
 import ProtectedRoutes from "./components/protectedRoutes.jsx";
 import Logout from "./pages/logout/logout.jsx";
 import ApplyMentor from "./pages/applyMentor/applyMentor.jsx";
@@ -157,7 +156,11 @@ function App() {
                 </ProtectedRoutes>
               }
             />
-            <Route path="/applyMentor" element={<ApplyMentor />} />
+            <Route path="/applyMentor" element={
+            <ProtectedRoutes>
+            <ApplyMentor />
+            </ProtectedRoutes>
+            } />
             <Route
               path="/appointments"
               element={

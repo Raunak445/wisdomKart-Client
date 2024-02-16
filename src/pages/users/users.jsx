@@ -8,7 +8,7 @@ const Users = () => {
   const getUsers = async () => {
     try {
        await axios
-        .get("/api/v1/admin/getAllUsers", {
+        .get("https://wisdomkart-server.onrender.com/api/v1/admin/getAllUsers", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

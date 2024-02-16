@@ -28,7 +28,7 @@ const SignUp = () => {
     e.preventDefault();
      dispatch(showLoading());
     try {
-      const url = "/api/v1/user/signUp";
+      const url = "https://wisdomkart-server.onrender.com/api/v1/user/signUp";
       const res = await axios.post(url, data);
       
       setMsg(res.data.message)

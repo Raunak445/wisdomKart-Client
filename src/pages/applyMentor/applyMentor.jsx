@@ -22,7 +22,7 @@ const ApplyMentor = () => {
       dispatch(showLoading());
 
       const res = await axios.post(
-        "/api/v1/user/applyMentor",
+        "https://wisdomkart-server.onrender.com/api/v1/user/applyMentor",
         {
           ...values,
           userId: user._id,

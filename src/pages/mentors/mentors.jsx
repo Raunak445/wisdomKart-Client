@@ -13,7 +13,7 @@ const Mentors = () => {
     try {
       await axios
         .post(
-          "/api/v1/admin/changeAccountStatus",
+          "https://wisdomkart-server.onrender.com/api/v1/admin/changeAccountStatus",
           {
             mentorId: record._id,
             userId: record.userId,
@@ -40,7 +40,7 @@ const Mentors = () => {
   const getMentors = async () => {
     try {
       await axios
-        .get("/api/v1/admin/getAllMentors", {
+        .get("https://wisdomkart-server.onrender.com/api/v1/admin/getAllMentors", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -133,7 +133,7 @@ const Mentors = () => {
   const getApprovedMentors = async () => {
     try {
       await axios
-        .get("/api/v1/user/getAllMentors", {
+        .get("https://wisdomkart-server.onrender.com/api/v1/user/getAllMentors", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

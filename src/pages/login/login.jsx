@@ -6,11 +6,13 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/features/alert";
 
+
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -20,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(showLoading());
     try {
-      const url = "/api/v1/user/login";
+      const url = `https://wisdomkart-server.onrender.com/api/v1/user/login`;
       const res = await axios.post(url, data);
       dispatch(hideLoading());
       if (res.data.success) {

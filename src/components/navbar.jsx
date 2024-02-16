@@ -99,7 +99,7 @@ function Navbar() {
     try {
       const res = await axios
         .post(
-          "/api/v1/user/getUserData",
+          "https://wisdomkart-server.onrender.com/api/v1/user/getUserData",
           {},
           {
             headers: {
@@ -110,7 +110,6 @@ function Navbar() {
         .then((res) => {
           const userData = res.data.data;
           //console.log(userData);
-
           dispatch(setUser(userData));
         })
         .catch(() => {

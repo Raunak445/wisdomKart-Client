@@ -24,7 +24,7 @@ const BookMentor = () => {
        dispatch(showLoading());
 
       const res = await axios.post(
-        "/api/v1/user/bookMentor",
+        "https://wisdomkart-server.onrender.com/api/v1/user/bookMentor",
         {
           ...values,
           userId: user._id,

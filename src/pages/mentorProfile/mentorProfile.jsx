@@ -22,7 +22,7 @@ const MentorProfile = () => {
     try {
       dispatch(showLoading()); // Assuming showLoading and hideLoading are action creators
       const res = await axios.post(
-        "/api/v1/mentor/updateProfile",
+        "https://wisdomkart-server.onrender.com/api/v1/mentor/updateProfile",
         {
           ...values,
           userId: user._id, timings: [
@@ -70,7 +70,7 @@ const MentorProfile = () => {
   const getMentorInfo = async () => {
     try {
       const res = await axios.post(
-        "/api/v1/mentor/getMentorInfo",
+        "https://wisdomkart-server.onrender.com/api/v1/mentor/getMentorInfo",
         { userId: params.id },
         {
           headers: {
