@@ -120,6 +120,14 @@ function App() {
                 </ProtectedRoutes>
               }
             />
+             <Route
+              path="/mentor/profile/:id"
+              element={
+                <ProtectedRoutes>
+                  <MentorProfile />
+                </ProtectedRoutes>
+              }
+            />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/mentorDetails/:userId" element={<MentorDetails />} />
             <Route path="/login" element={<Login />} />
