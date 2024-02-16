@@ -113,18 +113,18 @@ function App() {
               }
             />
             <Route
-              path="/mentor/profile/:id"
-              element={
-                <ProtectedRoutes>
-                  <MentorProfile />
-                </ProtectedRoutes>
-              }
-            />
-            <Route
               path="/admin/mentors"
               element={
                 <ProtectedRoutes>
                   <Mentors />
+                </ProtectedRoutes>
+              }
+            />
+             <Route
+              path="/mentor/profile/:id"
+              element={
+                <ProtectedRoutes>
+                  <MentorProfile />
                 </ProtectedRoutes>
               }
             />
