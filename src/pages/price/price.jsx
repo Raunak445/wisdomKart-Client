@@ -3,7 +3,7 @@ import PriceCss from "./price.module.css"; // Import the CSS file for styling
 import profile1 from "../findMentor/PRRameshProfile.png";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import TimeSlots from "../../components/timeslots";
+import TimeSlots from "../../components/timeSlots";
 const Price = () => {
   const [selectedDuration, setSelectedDuration] = useState(null);
 
