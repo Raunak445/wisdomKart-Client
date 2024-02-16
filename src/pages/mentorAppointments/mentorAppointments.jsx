@@ -8,7 +8,7 @@ const MentorAppointments = () => {
 
   const handleStatus=async(record,status)=>{
     try {
-      await axios.post('http://localhost:8080/api/v1/mentor/updateAppointmentStatus',{
+      await axios.post('/api/v1/mentor/updateAppointmentStatus',{
         appointmentsId:record._id,status
       },{
         headers:{
@@ -27,7 +27,7 @@ const MentorAppointments = () => {
   const getAppointments = async () => {
     try {
       await axios
-        .get("http://localhost:8080/api/v1/mentor/mentorAppointments", {
+        .get("/api/v1/mentor/mentorAppointments", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

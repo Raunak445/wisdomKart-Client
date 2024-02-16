@@ -24,7 +24,7 @@ const BookMentor = () => {
        dispatch(showLoading());
 
       const res = await axios.post(
-        "http://localhost:8080/api/v1/user/bookMentor",
+        "/api/v1/user/bookMentor",
         {
           ...values,
           userId: user._id,

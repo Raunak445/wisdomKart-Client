@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { adminMenu, userMenu } from "./SidebarData";
+import { adminMenu, userMenu } from './sidebarData';
 import "./navbar.css";
 import {
   FaBell,
@@ -99,7 +99,7 @@ function Navbar() {
     try {
       const res = await axios
         .post(
-          "http://localhost:8080/api/v1/user/getUserData",
+          "/api/v1/user/getUserData",
           {},
           {
             headers: {

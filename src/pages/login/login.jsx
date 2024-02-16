@@ -20,19 +20,20 @@ const Login = () => {
     e.preventDefault();
     dispatch(showLoading());
     try {
-      const url = "http://localhost:8080/api/v1/user/login";
+      const url = "/api/v1/user/login";
       const res = await axios.post(url, data);
-
+      dispatch(hideLoading());
       if (res.data.success) {
         message.success("Logged In Successfully");
         localStorage.setItem("token", res.data.token);
-        console.log(res.data)
+        console.log(res.data);
         navigate("/");
         // Reload the page after navigation
         window.location.reload();
+      } else {
+        message.error(res.data.message)
+        setError(res.data.message)
       }
-
-      dispatch(hideLoading());
     } catch (error) {
       dispatch(hideLoading());
       if (
@@ -40,7 +41,7 @@ const Login = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-       message.error(error.message) 
+        message.error(error.message);
       }
     }
   };

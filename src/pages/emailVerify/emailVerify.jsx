@@ -13,7 +13,7 @@ const EmailVerify = () => {
   const verifyEmailUrl = async () => {
     try {
       // dispatch(showLoading())
-      const url = `http://localhost:8080/api/v1/user/${params.id}/verify/${params.token}`;
+      const url = `/api/v1/user/${params.id}/verify/${params.token}`;
       const { data } = await axios.get(url);
       // dispatch(hideLoading())
       console.log("axios part done");

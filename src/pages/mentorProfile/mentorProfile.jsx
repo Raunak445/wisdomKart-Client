@@ -22,7 +22,7 @@ const MentorProfile = () => {
     try {
       dispatch(showLoading()); // Assuming showLoading and hideLoading are action creators
       const res = await axios.post(
-        "http://localhost:8080/api/v1/mentor/updateProfile",
+        "/api/v1/mentor/updateProfile",
         {
           ...values,
           userId: user._id, timings: [
@@ -70,7 +70,7 @@ const MentorProfile = () => {
   const getMentorInfo = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/v1/mentor/getMentorInfo",
+        "/api/v1/mentor/getMentorInfo",
         { userId: params.id },
         {
           headers: {
@@ -211,6 +211,7 @@ const MentorProfile = () => {
             placeholder={["  Start Time  ", "   End Time"]}
           />
         </Form.Item>
+
 
        
 

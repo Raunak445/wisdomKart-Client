@@ -32,7 +32,7 @@ const BookingPage = () => {
       
       await axios
         .post(
-          "http://localhost:8080/api/v1/user/bookAppointment",
+          "/api/v1/user/bookAppointment",
           {
             mentorId: params.mentorId,
             userId: user._id,
@@ -61,7 +61,7 @@ const BookingPage = () => {
   const getData = async () => {
     await axios
       .post(
-        `http://localhost:8080/api/v1/mentor/getMentorById`,
+        `/api/v1/mentor/getMentorById`,
         { 
           mentorId: params.mentorId,
         },
@@ -80,7 +80,7 @@ const BookingPage = () => {
   };
 
   const availableSlots=async()=>{
-    await axios.get('http://localhost:8080/api/v1/user/availableSlots',{
+    await axios.get('/api/v1/user/availableSlots',{
       headers:{
         Authorization:"Bearer "+localStorage.getItem('token')
       }
@@ -101,7 +101,7 @@ const BookingPage = () => {
    
       await axios
         .post(
-          "http://localhost:8080/api/v1/user/bookingAvailability",
+          "/api/v1/user/bookingAvailability",
           {
             mentorId: params.mentorId,
             date,

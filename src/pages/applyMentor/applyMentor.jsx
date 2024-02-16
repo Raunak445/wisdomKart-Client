@@ -22,7 +22,7 @@ const ApplyMentor = () => {
       dispatch(showLoading());
 
       const res = await axios.post(
-        "http://localhost:8080/api/v1/user/applyMentor",
+        "/api/v1/user/applyMentor",
         {
           ...values,
           userId: user._id,

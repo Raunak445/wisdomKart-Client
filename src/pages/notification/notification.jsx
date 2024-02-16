@@ -15,7 +15,7 @@ const Notification = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "http://localhost:8080/api/v1/user/getAllNotification",
+        "/api/v1/user/getAllNotification",
         { userId: user._id },{
           headers:{
             Authorization:"Bearer "+localStorage.getItem('token')
@@ -38,7 +38,7 @@ const Notification = () => {
   const handleDeleteAllRead = async() => {
     try {
       dispatch(showLoading())
-      const res =await axios.post('http://localhost:8080/api/v1/user/deleteAllNotification',{userId:user._id},{
+      const res =await axios.post('/api/v1/user/deleteAllNotification',{userId:user._id},{
         headers:{
           Authorization:"Bearer "+localStorage.getItem('token')
         }
