@@ -115,7 +115,7 @@ function Navbar() {
         })
         .catch(() => {
           localStorage.clear();
-          navigate("/signUp"); // Use navigate to redirect
+          navigate("/"); // Use navigate to redirect
         });
     } catch (error) {
       console.log(error);
