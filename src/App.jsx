@@ -25,8 +25,8 @@ import MentorAppointments from "./pages/mentorAppointments/mentorAppointments.js
 import EmailVerify from "./pages/emailVerify/emailVerify.jsx";
 import MentorDetails from "./pages/mentorDetails/mentorDetails.jsx";
 import AdminAppointments from "./pages/adminAppointments/adminAppointments.jsx";
-import Lobby from "./screens/lobby.jsx";
-import Room from "./screens/room.jsx";
+import Lobby from "./pages/lobby/lobby.jsx";
+import Room from './pages/room/room.jsx';
 
 function App() {
   const { loading } = useSelector((state) => {

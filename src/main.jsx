@@ -8,9 +8,9 @@ import store from "./redux/store.js";
 import { SocketProvider } from './context/socketProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <SocketProvider>
+  // <SocketProvider>
     <Provider store={store}>
       <App />
     </Provider> 
-  </SocketProvider>
+ /*  </SocketProvider> */
 );
