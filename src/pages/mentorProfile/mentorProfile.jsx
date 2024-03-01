@@ -198,10 +198,11 @@ const MentorProfile = () => {
                 ))}
               </Select>
             </Form.Item>
-
+{/* 
             <Form.Item
           label="Work Timings"
           name="timings"
+          edit='disable'
           rules={[{ required: true, message: "Work timings are required" }]}
         >
          <TimePicker.RangePicker
@@ -210,7 +211,7 @@ const MentorProfile = () => {
             style={{ width: "100%" }}
             placeholder={["  Start Time  ", "   End Time"]}
           />
-        </Form.Item>
+        </Form.Item> */}
 
 
        

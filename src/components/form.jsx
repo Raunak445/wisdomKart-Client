@@ -47,7 +47,7 @@ const Form = ({name="Get in Touch",disable=false,placeholder}) => {
   return (
     <div className={FormCss.formContainer}>
       <h2 className={FormCss.formHeading}>{name}</h2>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className={FormCss.form}>
         <label>
           Full Name*:
           <input
@@ -151,8 +151,9 @@ const Form = ({name="Get in Touch",disable=false,placeholder}) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           placeholder={placeholder}
+          className={FormCss.formInput}
         />
-      
+         
 
         <button type="submit" className={FormCss.formSubmit}>
           Submit
