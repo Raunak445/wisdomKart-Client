@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { adminMenu, userMenu } from './sidebarData';
 import "./navbar.css";
@@ -13,9 +13,9 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
+import { useSelector, useDispatch } from "react-redux"; 
 import { setUser } from "../redux/features/userSlice";
 import { MdDashboard } from "react-icons/md";
 import { RiCalendar2Fill } from "react-icons/ri";
@@ -97,7 +97,7 @@ function Navbar() {
 
   const getUserData = async () => {
     try {
-      const res = await axios
+     await axios
         .post(
           "https://wisdomkart-server.onrender.com/api/v1/user/getUserData",
           {},

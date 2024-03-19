@@ -1,5 +1,3 @@
-import React from "react";
-
 
 import { MdDashboard } from "react-icons/md";
 import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBroadcastTower,FaUserGraduate,FaPlayCircle  } from 'react-icons/fa';
@@ -34,7 +32,7 @@ export const userMenu = [
   },
   {
     title: "Courses",
-    path: "/courses",
+    path: "https://courses.wisdomkart.com",
     icons: <FaPlayCircle  />,
     cName: "nav-text",
   },

@@ -16,16 +16,25 @@
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
-.left {
+.left,
+.right {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.left {
   background-color: white;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  color: black;
+}
+
+.right {
+  background-color: #3bb19b;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .form_container {
@@ -61,17 +70,6 @@
   text-align: center;
 }
 
-.right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #3bb19b;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
 .right h1 {
   margin-top: 0;
   color: white;
@@ -99,5 +97,42 @@
   background-color: #3bb19b;
   color: white;
   margin: 10px;
-  margin: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .login_form_container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login_form_container {
+    flex-direction: column;
+    height: auto;
+    align-items: stretch;
+  }
+
+  .left,
+  .right {
+    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .left h1,
+  .right h1 {
+    font-size: 30px;
+  }
+
+  .input,
+  .error_msg {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .green_btn,
+  .white_btn {
+    width: 90%;
+    max-width: 90%;
+  }
 }

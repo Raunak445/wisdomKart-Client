@@ -39,7 +39,7 @@ const ApplyMentor = () => {
 
       if (res.data.success) {
         message.success("Applied for Mentor Successfully");
-         navigate('/')
+        navigate("/");
       } else {
         message.error("Could not apply for Mentor");
       }
@@ -134,6 +134,8 @@ const ApplyMentor = () => {
         <Form.Item
           label="Phone"
           name="phone"
+
+          
           rules={[{ required: true, message: "Phone number is required" }]}
         >
           <Input />

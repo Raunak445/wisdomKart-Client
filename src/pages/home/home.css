@@ -1,0 +1,149 @@
+.wrapper {
+  position: relative; /* Add relative positioning to contain absolute positioned elements */
+  display: flex;
+  flex-direction: column;
+  width: 98.7vw;
+  height: 85vh;
+  background-color: #ebedefa1;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  justify-content: space-between;
+}
+
+.topImg {
+  width: 100%;
+  height: auto;
+  max-height: 50vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  order: 2;
+  border-radius: 20px;
+  box-shadow: 1px 2px 20px grey;
+}
+
+.header-text-home {
+  font-size: 2rem;
+  margin-left: 20px;
+  color: #5d73e2c9;
+}
+
+/* Media queries for responsiveness */
+@media screen and (min-width: 768px) {
+  .wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .header-text-home {
+    margin: 20px;
+  }
+
+  .topImg {
+    width: 50%;
+    max-height: none;
+    border-radius: 10px 0 0 10px;
+    position: static;
+    order: 1;
+  }
+}
+
+.benefits-section {
+  position: relative;
+  top: calc(100vh - 45px); /* Position it in the middle of the viewport */
+  background-color: green;
+  box-sizing: border-box;
+  padding: 0;
+  width: 100vw; /* Take full width of the wrapper */
+  margin: 0;
+}
+
+.headingForSubSection {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.benefit {
+  display: flex;
+}
+
+.personlC {
+  width: 80%;
+  height: 80%;
+  .wrapper {
+    position: relative; /* Add relative positioning to contain absolute positioned elements */
+    display: flex;
+    flex-direction: column;
+    width: 98.5vw;
+    height: 85vh;
+    background-color: #ebedefa1;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+  }
+
+  .topImg {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    order: 2;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px grey;
+  }
+
+  .header-text-home {
+    font-size: 2rem;
+    margin-left: 20px;
+    color: #5d73e2c9;
+  }
+
+  /* Media queries for responsiveness */
+  @media screen and (min-width: 768px) {
+    .wrapper {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .header-text-home {
+      margin: 20px;
+    }
+
+    .topImg {
+      width: 50%;
+      max-height: none;
+      border-radius: 10px 0 0 10px;
+      position: static;
+      order: 1;
+    }
+  }
+
+  .benefits-section {
+    position: absolute;
+    top: calc(50vh - 25px); /* Position it in the middle of the viewport */
+    background-color: green;
+  }
+
+  .headingForSubSection {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .benefit {
+    display: flex;
+  }
+
+  .personlC {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+  }
+
+  border-radius: 10px;
+}

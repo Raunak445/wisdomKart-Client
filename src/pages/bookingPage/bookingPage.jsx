@@ -24,6 +24,9 @@ const BookingPage = () => {
     try {
 
       setIsAvailable(true)
+
+
+      ``
       if(!date && !time){
         return alert("Date and Time required")
       }
