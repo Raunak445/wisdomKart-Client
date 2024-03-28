@@ -35,7 +35,7 @@ const SignUp = () => {
 
       if (res.data.success) {
         message.success("Please verify your email");
-        // navigate("/login");
+         navigate("/login");
       } else {
         message.error("User already exist ");
       }

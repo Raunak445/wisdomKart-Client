@@ -6,8 +6,11 @@
   font-size: 2.4rem;
   font-weight: bold;
   margin: 20px;
+  
 }
-
+.bkgrnd{
+  background-color: #ebedefa1;;
+}
 .wrapper {
   width: 60%;
   margin: auto;
@@ -16,7 +19,9 @@
   border-radius: 10px;
   box-shadow: 0px 0px 3px blue;
   min-height: 500px;
+  background-color: white;
 }
+
 .markWrapper {
   display: flex;
   justify-content: flex-end;

@@ -1,6 +1,6 @@
-
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { adminMenu, userMenu } from './sidebarData';
+import { adminMenu, userMenuLogin,userMenuLogout } from "./sidebarData";
+import favicon from "./1.png";
 import "./navbar.css";
 import {
   FaBell,
@@ -15,7 +15,7 @@ import { IconContext } from "react-icons";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux"; 
+import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/features/userSlice";
 import { MdDashboard } from "react-icons/md";
 import { RiCalendar2Fill } from "react-icons/ri";
@@ -87,23 +87,30 @@ function Navbar() {
 
   console.log(`User is mentor ${user?.isMentor}`);
 
-  const SidebarData = user?.isAdmin
-    ? adminMenu
-    : user?.isMentor
-    ? mentorMenu
-    : userMenu;
+  let SidebarData = [];
+  
+  if (user && user.isAdmin) {
+    SidebarData = adminMenu;
+  } else if (user && user.isMentor) {
+    SidebarData = mentorMenu;
+  } else if(user===undefined) {
+    SidebarData = userMenuLogin;
+  }
+  else{
+    SidebarData=userMenuLogout
+  }
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const getUserData = async () => {
     try {
-     await axios
+      await axios
         .post(
           "https://wisdomkart-server.onrender.com/api/v1/user/getUserData",
           {},
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         )
@@ -126,12 +133,20 @@ function Navbar() {
   }, [location]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
 
+
+  const handleClick=()=>{
+    navigate('/')
+  }
+
   return (
     <>
-      <IconContext.Provider value={{ color: "#fff" }}>
+    {/* navbar color white and make logo redirect to home page */}
+
+      <IconContext.Provider value={{ color: "white" }}>
         <div className="navbar">
+        <img src={favicon} alt="Favicon" className="navbar-icon" onClick={handleClick} />
           <Link to="#" className="menu-bars">
-            <FaBars onClick={showSidebar} />
+            <FaBars onClick={showSidebar} color="black" size="2.5em"/>
           </Link>
 
           {user && (
@@ -144,15 +159,15 @@ function Navbar() {
                 }}
                 style={{ cursor: "pointer" }}
               >
-                <FaBell size={25} className="bell" />
+                <FaBell size={25} className="bell" color="black" />
               </div>
 
-              <Link
-                to={`/profile/:${user.firstName + " " + user.lastName}`}
+              <div
+                onClick={()=>navigate(`/profile/:${user.firstName + " " + user.lastName}`)}
                 className="style-user"
               >
                 {user.firstName + " " + user.lastName}
-              </Link>
+              </div>
             </div>
           )}
         </div>
@@ -164,6 +179,7 @@ function Navbar() {
               </Link>
             </li>
             {SidebarData.map((item, index) => {
+              
               return (
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>

@@ -28,8 +28,8 @@ import AdminAppointments from "./pages/adminAppointments/adminAppointments.jsx";
 import Lobby from "./pages/lobby/lobby.jsx";
 import Room from "./pages/room/room.jsx";
 import Dashboard from "./pages/dashboard/dashboard.jsx";
-import Post from "./pages/post/post.jsx";
 import RatingComponent from "./pages/customerRating/customerRating.jsx";
+
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -195,7 +195,10 @@ function App() {
                 </ProtectedRoutes>
               }
             />
+            {/* <Route path="/test" element={<Test/>}></Route> */}
+
             <Route path="*" />
+
           </Routes>
         )}
       </BrowserRouter>

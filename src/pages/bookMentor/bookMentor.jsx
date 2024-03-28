@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import style from "./bookMentor.module.css";
@@ -24,7 +24,7 @@ const BookMentor = () => {
        dispatch(showLoading());
 
       const res = await axios.post(
-        "https://wisdomkart-server.onrender.com/api/v1/user/bookMentor",
+        "http://localhost:8080/api/v1/user/bookMentor",
         {
           ...values,
           userId: user._id,
@@ -54,6 +54,7 @@ const BookMentor = () => {
     }
   };
 
+ 
   const areas = [
     "Leadtime/TAT reduction",
     " Inventory Management ",
@@ -266,11 +267,15 @@ const BookMentor = () => {
         </Form.Item>
 
        
+
+
         <Form.Item
-          label="Choose Time slot for Mentorship"
+          label="Preferred Timings"
           name="timings"
           rules={[{ required: true, message: "Work timings are required" }]}
-        >
+        > 
+
+
           <TimePicker
             format={format}
             value={moment(time, format)}
@@ -283,6 +288,16 @@ const BookMentor = () => {
             // Set the value to update the TimePicker's selected times
           />
         </Form.Item>
+
+
+       
+
+
+
+
+
+
+
 
         <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
           <Button type="primary" htmlType="submit">

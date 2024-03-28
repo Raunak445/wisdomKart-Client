@@ -5,113 +5,170 @@ import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBr
 import { RiCalendar2Fill } from 'react-icons/ri'
 import { AiOutlineMail,AiFillHome } from 'react-icons/ai';
 
-export const userMenu = [
+export const userMenuLogin = [
   {
     title: "Home",
     path: "/",
-    icons: <AiFillHome />,
+    icons: <AiFillHome color="black"/>,
     cName: "nav-text",
   },
   {
     title: "Book an Appointment",
     path: "/bookMentor",
-    icons: <RiCalendar2Fill/>,
+    icons: <RiCalendar2Fill color="black"/>,
     cName: "nav-text",
   },
   {
     title: "Login/SignUp",
     path: "/login",
-    icons: <FaSignInAlt />,
+    icons: <FaSignInAlt color="black" />,
     cName: "nav-text",
   },
+  
   {
     title: "Dashboard",
     path: "/dashboard",
-    icons: <MdDashboard />,
+    icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
   {
     title: "Courses",
     path: "https://courses.wisdomkart.com",
-    icons: <FaPlayCircle  />,
+    icons: <FaPlayCircle  color="black" />,
     cName: "nav-text",
   },
 
   {
     title: "LiveSesions",
     path: "/liveSessions",
-    icons: <FaBroadcastTower />,
+    icons: <FaBroadcastTower color="black" />,
     cName: "nav-text",
   }, 
    {
     title: "Register as Mentor",
     path: "/applyMentor",
-    icons: <FaUserGraduate />,
+    icons: <FaUserGraduate color="black" />,
     cName: "nav-text",
   },
   {
     title: "Contact Us",
     path: "/contactUs",
-    icons: <AiOutlineMail />,
+    icons: <AiOutlineMail  color="black"/>,
+    cName: "nav-text",
+  }
+];
+
+
+
+export const userMenuLogout = [
+  {
+    title: "Home",
+    path: "/",
+    icons: <AiFillHome  color="black"/>,
+    cName: "nav-text",
+  },
+  {
+    title: "Book an Appointment",
+    path: "/bookMentor",
+    icons: <RiCalendar2Fill color="black"/>,
+    cName: "nav-text",
+  },
+
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icons: <MdDashboard  color="black" />,
+    cName: "nav-text",
+  },
+  {
+    title: "Courses",
+    path: "https://courses.wisdomkart.com",
+    icons: <FaPlayCircle color="black"  />,
+    cName: "nav-text",
+  },
+
+  {
+    title: "LiveSesions",
+    path: "/liveSessions",
+    icons: <FaBroadcastTower color="black" />,
+    cName: "nav-text",
+  }, 
+   {
+    title: "Register as Mentor",
+    path: "/applyMentor",
+    icons: <FaUserGraduate  color="black" />,
+    cName: "nav-text",
+  },
+  {
+    title: "Contact Us",
+    path: "/contactUs",
+    icons: <AiOutlineMail color="black" />,
     cName: "nav-text",
   },{
     title: "Log out",
     path: "/logout",
-    icons: <FaSignOutAlt/>,
+    icons: <FaSignOutAlt color="black" />,
     cName: "nav-text",
   },
 ];
+
+
+
+
+
+
 
 
 export const adminMenu = [
   {
     title: "Home",
     path: "/",
-    icons: <AiFillHome />,
+    icons: <AiFillHome color="black" />,
     cName: "nav-text",
   },
   {
     title: "Mentors",
     path: "/admin/mentors ",
-    icons: <FaChalkboardTeacher/>,
+    icons: <FaChalkboardTeacher color="black"/>,
     cName: "nav-text",
   }, {
     title: "Users",
     path: "/admin/users ",
-    icons: <FaUser />,
+    icons: <FaUser color="black" />,
     cName: "nav-text",
   },
   {
     title: "Appointments",
     path: "/admin/appointments ",
-    icons: <FaCalendarAlt />,
+    icons: <FaCalendarAlt color="black" />,
     cName: "nav-text",
   },
   
   {
     title: "Dashboard",
     path: "/dashboard",
-    icons: <MdDashboard />,
+    icons: <MdDashboard  color="black"/>,
     cName: "nav-text",
   },
   {
     title: "Courses",
     path: "/courses",
-    icons: <FaPlayCircle  />,
+    icons: <FaPlayCircle color="black" />,
     cName: "nav-text",
   },
 
   {
     title: "LiveSesions",
     path: "/liveSessions",
-    icons: <FaBroadcastTower />,
+    icons: <FaBroadcastTower color="black" />,
     cName: "nav-text",
   },
   {
     title: "Log out",
     path: "/logout",
-    icons: <FaSignOutAlt/>,
+    icons: <FaSignOutAlt  color="black"/>,
     cName: "nav-text",
   },
   
 ];
+

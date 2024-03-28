@@ -102,7 +102,7 @@ const Mentors = () => {
                 Approve
               </button>
             ) : (
-              <button className="btn-danger">Reject</button>
+              <button className="btn-danger">Deactivate</button>
             )}
           </div>
         );
