@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Form, Input, Button, Select, message, TimePicker } from "antd";
+import { Form, Input, Button, Select, message, TimePicker, Upload } from "antd";
 import style from "./applyMentor.module.css";
 const { Option } = Select;
 import moment from "moment"; // Import moment library for time format
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { hideLoading, showLoading } from "../../redux/features/alert";
+// import { hideLoading, showLoading } from "../../redux/features/alert";
 
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
-import FormItem from "antd/es/form/FormItem";
-
+import BinaryImage from "../../components/BinaryImage";
+// import FormData from 'form-data'
 
 const ApplyMentor = () => {
   const dispatch = useDispatch();
@@ -27,98 +27,40 @@ const ApplyMentor = () => {
 
   const format = "hh:mm A";
 
-  const onFinish = async (values) => {
-    try {
-      console.log(values);
-      console.log(timeMon);
-      console.log(timeTue);
-      console.log(timeWed);
-      console.log(image)
-
-      // dispatch(showLoading());
-
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/user/applyMentor",
-        {
-          ...values,
-          userId: user._id,
-          timeMon: timeMon,
-          timeTue,
-          timeWed,
-          timeThur,
-          timeFri,
-          timeSat,
-          timeSun,
-          image:image
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          
-          },
-        }
-      );
-
-      // dispatch(hideLoading());
-
-      if (res.data.success) {
-        message.success("Applied for Mentor Successfully");
-        // navigate("/");
-      } else {
-        message.error("Could not apply for Mentor");
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      console.log(error);
-      message.error("Something went wrong");
-      message.error(error.message);
-    }
-  };
-
-
-
-
   // const onFinish = async (values) => {
   //   try {
-  //     const formData = new FormData();
-  //     formData.append('image', image); // Append the image file to the form data
-  
-  //     // Append other form fields
-  //     formData.append('firstName', values.firstName);
-  //     formData.append('lastName', values.lastName);
-  //     formData.append('phone', values.phone);
-  //     formData.append('email', values.email);
-  //     formData.append('address', values.address);
-  //     formData.append('biodata', values.biodata);
-  //     formData.append('experience', values.experience);
-  //     formData.append('feesPerConsultation', values.feesPerConsultation);
-  //     formData.append('area', values.area);
-  //     formData.append('industry', values.industry);
-  //     formData.append('languages', values.languages);
-  //     formData.append('socialMedia', values.socialMedia);
-  //     formData.append('mondayTime', timeMon);
-  //     formData.append('tuesdayTime', timeTue);
-  //     formData.append('wednesdayTime', timeWed);
-  //     formData.append('thursdayTime', timeThur);
-  //     formData.append('fridayTime', timeFri);
-  //     formData.append('saturdayTime', timeSat);
-  //     formData.append('sundayTime', timeSun);
-  
+  //     console.log(values);
+  //     console.log(timeMon);
+  //     console.log(timeTue);
+  //     console.log(timeWed);
+  //     console.log(image)
+
   //     // dispatch(showLoading());
-  
+
   //     const res = await axios.post(
   //       "http://localhost:8080/api/v1/user/applyMentor",
-  //       formData, // Use formData as the request body
+  //       {
+  //         ...values,
+  //         userId: user._id,
+  //         timeMon: timeMon,
+  //         timeTue,
+  //         timeWed,
+  //         timeThur,
+  //         timeFri,
+  //         timeSat,
+  //         timeSun,
+  //         image:image
+  //       },
   //       {
   //         headers: {
   //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           "Content-Type": "multipart/form-data", // Set Content-Type header for file upload
+  //           'Content-Type': 'multipart/form-data',
   //         },
   //       }
   //     );
-  
+
   //     // dispatch(hideLoading());
-  
+
   //     if (res.data.success) {
   //       message.success("Applied for Mentor Successfully");
   //       // navigate("/");
@@ -127,12 +69,131 @@ const ApplyMentor = () => {
   //     }
   //   } catch (error) {
   //     dispatch(hideLoading());
+  //     console.log(error);
+  //     message.error("Something went wrong");
+  //     message.error(error.message);
+  //   }
+  // };
+
+  const onFinish = async (values) => {
+    try {
+      // Convert image to binary format
+      const reader = new FileReader();
+      reader.readAsDataURL(image); // Read the file as a data URL
+      reader.onload = async () => {
+        const imageData = reader.result.split(",")[1]; // Extract the base64-encoded image data
+        // Now you can send the binary image data along with other form data in the POST request
+
+        try {
+          const res = await axios.post(
+            "https://wisdomkart-server.onrender.com/api/v1/user/applyMentor",
+            {
+              ...values,
+              userId: user._id,
+              timeMon,
+              timeTue,
+              timeWed,
+              timeThur,
+              timeFri,
+              timeSat,
+              timeSun,
+              image: imageData, // Send the binary image data
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json", // Set Content-Type header for JSON data
+              },
+            }
+          );
+
+          // console.log(imageData)
+          // console.log(" --------------")
+          // console.log(values)
+
+          if (res.data.success) {
+            message.success("Applied for Mentor Successfully");
+            // navigate("/");
+          } else {
+            message.error("Could not apply for Mentor");
+          }
+        } catch (error) {
+          // dispatch(hideLoading());
+          console.error(error);
+          message.error("Something went wrong");
+          message.error(error.message);
+        }
+      };
+    } catch (error) {
+      // dispatch(hideLoading());
+      console.error(error);
+      message.error("Something went wrong");
+      message.error(error.message);
+    }
+  };
+
+  // const onFinish = async (values) => {
+  //   try {
+  //     const formData = new FormData(values);
+
+  //     // formData.append('image', image);
+  //     // Append the image file to the form data
+  //     console.log(values)
+
+  //     // Append other form fields
+  //     // formData.append('firstName', values.firstName);
+  //     // formData.append('lastName', values.lastName);
+  //     // formData.append('phone', values.phone);
+  //     // formData.append('email', values.email);
+  //     // formData.append('address', values.address);
+  //     // formData.append('biodata', values.biodata);
+  //     // formData.append('experience', values.experience);
+  //     // formData.append('feesPerConsultation', values.feesPerConsultation);
+  //     // formData.append('area', values.area);
+  //     // formData.append('industry', values.industry);
+  //     // formData.append('languages', values.languages);
+  //     // formData.append('socialMedia', values.socialMedia);
+  //     // formData.append('mondayTime', timeMon);
+  //     // formData.append('tuesdayTime', timeTue);
+  //     // formData.append('wednesdayTime', timeWed);
+  //     // formData.append('thursdayTime', timeThur);
+  //     // formData.append('fridayTime', timeFri);
+  //     // formData.append('saturdayTime', timeSat);
+  //     // formData.append('sundayTime', timeSun);
+
+  //     // dispatch(showLoading());
+
+  //     console.log(formData)
+  //     console.log(formData.values.firstName)
+
+  //     const res = await axios.post(
+  //       "http://localhost:8080/api/v1/user/applyMentor",
+  //     {name:"Raunak"}, // Use formData as the request body
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           // "Content-Type": "multipart/form-data", // Set Content-Type header for file upload
+  //         },
+  //       }
+  //     );
+
+  //     // dispatch(hideLoading());
+
+  //     if (res.data.success) {
+  //       message.success("Applied for Mentor Successfully");
+  //       // navigate("/");
+  //     }
+  //     else {
+  //       message.error("Could not apply for Mentor");
+  //     }
+
+  //   } catch (error) {
+  //     // dispatch(hideLoading());
   //     console.error(error);
   //     message.error("Something went wrong");
   //     message.error(error.message);
   //   }
   // };
-  
 
   const areas = [
     "Leadtime/TAT reduction",
@@ -187,35 +248,45 @@ const ApplyMentor = () => {
     "Chemical Manufacturing",
     "Energy/Power",
   ];
- 
 
-  const [image, setImage] = useState(null); 
-  
-  
+  const [image, setImage] = useState(null);
+
   const handleImage = (e) => {
     const file = e.target.files[0];
-    const allowedTypes = ['image/jpeg', 'image/png'];
+    const allowedTypes = ["image/jpeg", "image/png"];
     const maxSize = 2 * 1024 * 1024; // 2 MB
 
     // Check if file format and size are valid
     if (file && allowedTypes.includes(file.type) && file.size <= maxSize) {
+      // console.log(file)
       setImage(file);
 
       message.success(`${file.name} uploaded successfully`);
-    
     } else {
       setImage(null);
       if (!allowedTypes.includes(file.type)) {
-        message.error('Please upload a JPEG or PNG file.');
+        message.error("Please upload a JPEG or PNG file.");
       } else if (file.size > maxSize) {
-        message.error('File size exceeds 2 MB limit.');
+        message.error("File size exceeds 2 MB limit.");
       }
     }
   };
+  const languages = [
+    "Hindi",
+    "English",
+    "Bengali",
+    "Telugu",
+    "Marathi",
+    "Tamil",
+    "Urdu",
+    "Gujarati",
+    "Kannada",
+    "Odia",
+    "Punjabi",
+    "Malayalam",
+    "Assamese",
+  ];
 
-
-
-  const languages = ["Hindi", "English", "Kanada", "Tamil", "Telugu"];
   return (
     // social media profile
     // Biodata
@@ -224,14 +295,14 @@ const ApplyMentor = () => {
       <div className={style.wrapper}>
         <h2 className={style.heading}>Register As Mentor</h2>
         <h3 className={style.text}>Personal Details:</h3>
+
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 12 }}
           onFinish={onFinish}
-          encType="multipart/form-data"
+          // encType="multipart/form-data"
           // autoComplete="off"
         >
-          
           {/* <input type="file" name="image" onChange={handleImage}/> */}
 
           <Form.Item
@@ -242,6 +313,30 @@ const ApplyMentor = () => {
           >
             <Input type="file" name="image" onChange={handleImage} />
           </Form.Item>
+
+          {/* 
+          <Form.Item
+          name='image'
+          rules={[
+            {
+              required: true,
+              message: 'input Image',
+            },
+          ]}
+        >
+          <Upload
+            beforeUpload={(file) => {
+              // console.log(file);
+              return false;
+            }}
+            onChange={handleChange}
+            multiple={false}
+            listType='picture'
+            defaultFileList={state.fileList}
+          >
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </Form.Item> */}
 
           <Form.Item
             label="First Name"
@@ -341,7 +436,7 @@ const ApplyMentor = () => {
           >
             <TextArea
               rows={2}
-              placeholder="Please write other industry if not mentioned in drop down use , to separate and dont use space like Legal,Accounting,Design"
+              placeholder="Please write other industry if not mentioned in drop down use , to separate for example :- Legal,Accounting,Design"
             />
           </Form.Item>
 
@@ -368,7 +463,7 @@ const ApplyMentor = () => {
           >
             <TextArea
               rows={2}
-              placeholder="Please write other industry if not mentioned in drop down use , to separate and dont use space like Energy,Media,Tech"
+              placeholder="Please write other industry if not mentioned in drop down use , to separate for example :-  Energy,Media,Tech"
             />
           </Form.Item>
 
@@ -388,13 +483,13 @@ const ApplyMentor = () => {
               ))}
             </Select>
           </Form.Item>
-
+{/* 
           <Form.Item name="language_others" label="Others(Language)">
             <TextArea
               rows={2}
-              placeholder="Please write other languages if not mentioned in drop down use , to separate and dont use space like Chinese,Japanese,French"
+              placeholder="Please write other languages if not mentioned in drop down use , to separate for example :-  Chinese,Japanese,French"
             />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Social Media Profile Link"

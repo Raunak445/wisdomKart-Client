@@ -30,7 +30,6 @@ import Room from "./pages/room/room.jsx";
 import Dashboard from "./pages/dashboard/dashboard.jsx";
 import RatingComponent from "./pages/customerRating/customerRating.jsx";
 
-
 function App() {
   const { loading } = useSelector((state) => {
     return state.alerts;

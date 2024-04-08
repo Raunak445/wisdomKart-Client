@@ -1,0 +1,603 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+}
+a {
+  color: #fdc134;
+  text-decoration: none;
+}
+a:hover {
+  color: #fdd067;
+  text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway", sans-serif;
+}
+:root {
+  scroll-behavior: smooth
+}
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 99999;
+  background: #213b52;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+.back-to-top i {
+  font-size: 24px;
+  color: #fff;
+  line-height: 0;
+}
+.back-to-top:hover {
+  background: #fdc134;
+  color: #fff;
+}
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  padding: 0 0 0 0;
+  background: /*#213b52*/ #004aab;
+  /*background: linear-gradient(180deg, #213b52 0%, rgb(33, 60, 84) 35%, rgb(32, 69, 100) 100%);*/
+}
+#hero h1 {
+  margin: 0 0 15px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #d2e0ed;
+  font-family: "Poppins", sans-serif;
+}
+#hero h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 22px;
+}
+#hero .btn-get-started {
+  color: #213b52; font-weight: bold;
+  border-radius: 50px;
+  padding: 8px 35px 10px 35px;
+  border: 2px solid #fdc134;
+  transition: all ease-in-out 0.3s;
+  display: inline-block;
+  background: #fdc134;
+}
+#hero .btn-get-started:hover {
+  background: transparent;
+  color: #fff;
+}
+@media (max-width: 991px) {
+  #hero .hero-img {
+    text-align: center;
+  }
+  #hero .hero-img img {
+    width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  #hero {
+    -moz-text-align-last: center;
+    text-align-last: center;
+  }
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+  #hero .hero-img img {
+    width: 70%;
+  }
+}
+@media (max-width: 575px) {
+  #hero .hero-img img {
+    width: 80%;
+  }
+}
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  color: #213b52;
+}
+.section-title h2::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 60px);
+}
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #fdc134;
+  bottom: 0;
+  left: calc(50% - 20px);
+}
+.section-title p {
+  margin-bottom: 0;
+}
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 700;
+  font-size: 34px;
+  color: #213b52;
+}
+.about .content p {
+  margin-bottom: 0;
+}
+.about .content .icon-box h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px 0 10px 60px;
+  color: #213b52;
+}
+.about .content .icon-box h4 a {
+  color: #213b52;
+  transition: 0.3s;
+}
+.about .content .icon-box h4 a:hover {
+  color: #fdc134;
+}
+.about .content .icon-box i {
+  font-size: 48px;
+  float: left;
+  color: #fdc134;
+  margin-top: -15px;
+}
+.about .content .icon-box p {
+  font-size: 15px;
+  color: #848484;
+  margin-left: 60px;
+}
+.about .image {
+  background: url("../img/about.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 400px;
+}
+@media (max-width: 667px) {
+  .about .image img {
+    max-width: 100%;
+  }
+}
+/*--------------------------------------------------------------
+# NeedMentor1
+--------------------------------------------------------------*/
+.NeedMentor1 .content h3 {
+  font-weight: 700;
+  font-size: 34px;
+  color: #213b52;
+}
+.NeedMentor1 .content p {
+  margin-bottom: 0;
+}
+.NeedMentor1 .content .icon-box h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px 0 10px 60px;
+  color: #213b52;
+}
+.NeedMentor1 .content .icon-box h4 a {
+  color: #213b52;
+  transition: 0.3s;
+}
+.NeedMentor1 .content .icon-box h4 a:hover {
+  color: #fdc134;
+}
+.NeedMentor1 .content .icon-box i {
+  font-size: 38px;
+  float: left;
+  color: #fdc134;
+  margin-top: -15px;
+  margin-left: 0px;
+  margin-right: 6px;
+}
+.NeedMentor1 .content .icon-box p {
+  font-size: 15px;
+  color: #848484;
+  margin-left: 60px;
+}
+.NeedMentor1 .image {
+  background: url("../img/mentor.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 400px;
+}
+@media (max-width: 667px) {
+  .NeedMentor1 .image img {
+    max-width: 100%;
+  }
+}
+/*--------------------------------------------------------------
+# HowItWorks
+--------------------------------------------------------------*/
+.HowItWorks {background: #f8f9fa}
+
+.HowItWorks .content h3 {
+  font-weight: 700;
+  font-size: 34px;
+  color: #213b52;
+}
+.HowItWorks .content p {
+  margin-bottom: 0;
+}
+.HowItWorks .content .icon-box h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px 0 10px 60px;
+  color: #213b52;
+}
+.HowItWorks .content .icon-box h4 a {
+  color: #213b52;
+  transition: 0.3s;
+}
+.HowItWorks .content .icon-box h4 a:hover {
+  color: #fdc134;
+}
+.HowItWorks .content .icon-box i {
+  font-size: 48px;
+  float: left;
+  color: #fdc134;
+  margin-top: -16px;
+}
+.HowItWorks .content .icon-box p {
+  font-size: 15px;
+  color: #848484;
+  margin-left: 60px;
+}
+.HowItWorks .image {
+  background: url("../img/how-it-work.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 400px;
+}
+@media (max-width: 667px) {
+  .HowItWorks .image img {
+    max-width: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Service-first
+--------------------------------------------------------------*/
+
+.Service-first    {margin-top: 3rem !important; padding-bottom: 3rem}
+
+.Service-first .card-body {
+  z-index: 10;
+  background:#fff;
+  border-top: 4px solid #fff;
+  padding: 20px;
+  /*box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);*/
+ 
+}
+.Service-first .card-body h3, h4 {font-weight: bold; color:#004aab}
+
+.Service-first .card-body ul {margin:0px; padding: 0}
+
+.Service-first .card-body ul li { list-style-type: none;}
+
+.Service-first .card-body i { margin-right: 10px; color: #004aab; font-size: larger;}
+
+
+/*.Service-first .get-started-btn {
+    color: #213b52;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 8px 35px 10px 35px;
+    border: 2px solid #fdc134;
+    transition: all ease-in-out 0.3s;
+  
+}
+
+.Service-first .get-started-btn:hover {
+    background: transparent;
+    color: color: #213b52;
+}*/
+
+.Service-first .get-started-btn {
+  background: #004aab;
+  display: inline-block;
+	border-radius: 20px;
+  padding: 10px 16px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+  transition: 0.3s; text-align: center
+}
+
+
+
+.Service-first  .get-started-btn:hover {
+  background: #fdc134;
+}
+
+
+.Service-first .get-started-btn a{
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.services {
+  padding-bottom: 40px; background: #f8f9fa;
+}
+.services .card {
+  border: 0;
+  padding: 0 30px;
+  margin-bottom: 60px;
+  position: relative;
+  background: transparent;
+}
+.services .card-img {
+  overflow: hidden;
+  z-index: 9;
+  border-radius: 0;
+}
+.services .card-img img {
+  max-width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.services .card-body {
+  z-index: 10;
+  background: #fff;
+  border-top: 4px solid #fff;
+  padding: 30px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  margin-top: -60px;
+  margin-left: 30px;
+  width: calc(100% - 60px);
+}
+@media (max-width: 640px) {
+  .services .card-body {
+    margin-left: 15px;
+    width: calc(100% - 30px);
+  }
+}
+.services .card-title {
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+.services .card-title a {
+  color: #213b52;
+  transition: 0.3s;
+}
+.services .card-text {
+  color: #5e5e5e;
+}
+.services .read-more a {
+  color: #777777;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  transition: 0.3s;
+}
+.services .read-more a:hover {
+  color: #fdc134;
+}
+.services .card:hover img {
+  transform: scale(1.1);
+}
+.services .card:hover .card-body {
+  border-color: #fdc134;
+}
+.services .card:hover .card-body .card-title a {
+  color: #fdc134;
+}
+/*--------------------------------------------------------------
+# Features
+--------------------------------------------------------------*/
+.features {background: #f8f9fa}
+
+
+.features .content + .content {
+  margin-top: 100px;
+}
+.features .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #004aab;
+}
+.features .content ul {
+  list-style: none;
+  padding: 0;
+}
+.features .content ul li {
+  padding-bottom: 10px;
+}
+.features .content ul i {
+  font-size: 20px;
+  padding-right: 4px;
+  color: #fdc134;
+}
+.features .content p:last-child {
+  margin-bottom: 0;
+}
+/*--------------------------------------------------------------
+# Portfolio
+--------------------------------------------------------------*/
+.portfolio .portfolio-item {
+  margin-bottom: 30px;
+}
+.portfolio #portfolio-flters {
+  padding: 0;
+  margin: 0 0 35px 0;
+  list-style: none;
+  text-align: center;
+}
+.portfolio #portfolio-flters li {
+  cursor: pointer;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #444444;
+  margin-bottom: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+  color: #fdc134;
+}
+.portfolio #portfolio-flters li:last-child {
+  margin-right: 0;
+}
+.portfolio .portfolio-wrap {
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  z-index: 1;
+}
+.portfolio .portfolio-wrap::before {
+  content: "";
+  background: rgba(33, 59, 82, 0.6);
+  position: absolute;
+  left: 100%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: all ease-in-out 0.3s;
+  z-index: 2;
+}
+.portfolio .portfolio-wrap img {
+  transition: 0.3s;
+}
+.portfolio .portfolio-wrap .portfolio-links {
+  opacity: 0;
+  left: 0;
+  right: 0;
+  top: calc(50% - 36px);
+  text-align: center;
+  z-index: 3;
+  position: absolute;
+  transition: all ease-in-out 0.3s;
+}
+.portfolio .portfolio-wrap .portfolio-links a {
+  color: #fdc134;
+  line-height: 0;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  transition: 0.3s;
+}
+.portfolio .portfolio-wrap .portfolio-links a i {
+  font-size: 32px;
+  line-height: 0;
+}
+.portfolio .portfolio-wrap .portfolio-links a:hover {
+  color: #fff;
+}
+.portfolio .portfolio-wrap .portfolio-info {
+  opacity: 0;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 3;
+  transition: all ease-in-out 0.3s;
+}
+.portfolio .portfolio-wrap .portfolio-info h4 {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+.portfolio .portfolio-wrap .portfolio-info p {
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.portfolio .portfolio-wrap:hover::before {
+  left: 0;
+}
+.portfolio .portfolio-wrap:hover .portfolio-links {
+  opacity: 1;
+  top: calc(50% - 18px);
+}
+.portfolio .portfolio-wrap:hover .portfolio-info {
+  opacity: 1;
+  bottom: 0;
+}
+.pricing .get-started-btn {
+  background: #213b52;
+  display: inline-block;
+  padding: 6px 30px;
+  border-radius: 20px;
+  color: #fff;
+  transition: none;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+  transition: 0.3s;
+}
+.pricing .get-started-btn:hover {
+  background: #fdc134;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+   position: relative; text-align: center; background:#12141D; color: white; padding: 10px
+	   
+}
+
+
+.services i {
+  font-size: 32px;
+  color: #fdc134;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px dotted #fff7e5;
+}

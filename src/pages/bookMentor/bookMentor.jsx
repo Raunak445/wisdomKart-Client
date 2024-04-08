@@ -3,33 +3,85 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import style from "./bookMentor.module.css";
-import { Form, TimePicker, Input, Select, Button,DatePicker,message } from "antd";
+import {
+  Form,
+  TimePicker,
+  Input,
+  Select,
+  Button,
+  DatePicker,
+  message,
+} from "antd";
 import moment from "moment";
-import {showLoading,hideLoading} from '../../redux/features/alert'
+import img from './wisdomkart.png'
+
+
+import { showLoading, hideLoading } from "../../redux/features/alert";
 const BookMentor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  
 
   const [time, setTime] = useState("12:08");
-  const format = "HH:mm";
+  const format = "hh:mm A";
   const [date, setDate] = useState();
   const disabledDate = (current) => {
     // Disable all dates before today
     return current && current < moment().startOf("day");
   };
 
+
+
   const onFinish = async (values) => {
+    // const {
+    //   data: { key },
+    // } = await axios.get("http://localhost:8080/api/v1/getkey");
+
+    // const amount = 1000;
+
+    // const {
+    //   data: { order },
+    // } = await axios.post("http://localhost:8080/api/v1/checkout", {
+    //   amount
+    // });
+
+    // var options = {
+    //   key:key, // Enter the Key ID generated from the Dashboard
+    //   amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    //   currency: "INR",
+    //   name: "Wisdomkart",
+    //   description: "Test Transaction",
+    //   image:{img},
+    //   order_id: order.id, 
+    //   callback_url: "http://locahost:8080/api/v1/paymentverification",
+    //   prefill: {
+    //     name: "raunak",
+    //     email: values.email,
+    //     contact: values.phone,
+    //   },
+    //   notes: {
+    //     address: "Razorpay Corporate Office",
+    //   },
+    //   theme: {
+    //     color: "#3399cc",
+    //   },
+    // };
+    // const razor = new window.Razorpay(options);
+    // // document.getElementById('rzp-button1').onclick = function(e){
+    // razor.open();
+    // // e.preventDefault();
+
     try {
-       dispatch(showLoading());
+      //  dispatch(showLoading());
 
       const res = await axios.post(
         "http://localhost:8080/api/v1/user/bookMentor",
         {
           ...values,
-          userId: user._id,
+          userId: user?._id,
           timings: time,
-          date:date
+          date: date,
         },
         {
           headers: {
@@ -38,23 +90,22 @@ const BookMentor = () => {
         }
       );
 
-       dispatch(hideLoading());
+      //  dispatch(hideLoading());
 
       if (res.data.success) {
         message.success("Mentor request form send successfully");
-        navigate("/");
+        // navigate("/");
       } else {
         message.error("Cannot send Mentor request form");
       }
     } catch (error) {
-     dispatch(hideLoading());
+      //  dispatch(hideLoading());
       console.log(error);
       message.error("Something went wrong");
       message.error(error.message);
     }
   };
 
- 
   const areas = [
     "Leadtime/TAT reduction",
     " Inventory Management ",
@@ -103,7 +154,7 @@ const BookMentor = () => {
     "France",
   ];
 
-  const language = ["Hindi", "English"];
+  const language = ["Hindi", "English", "Kannada", "Tamil", "Telugu"];
 
   const industries = [
     " Aerospace/Defence",
@@ -183,7 +234,7 @@ const BookMentor = () => {
           rules={[{ required: true, message: "Address is required" }]}
         >
           <Input />
-        </Form.Item> 
+        </Form.Item>
         <Form.Item
           label="Company"
           name="company"
@@ -252,8 +303,11 @@ const BookMentor = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Date" name="date"
-         rules={[{ required: true, message: "Date is required" }]}>
+        <Form.Item
+          label="Date"
+          name="date"
+          rules={[{ required: true, message: "Date is required" }]}
+        >
           <DatePicker
             format="DD-MM-YYYY"
             className="m-2"
@@ -262,20 +316,14 @@ const BookMentor = () => {
               setDate(moment(value).format("DD-MM-YYYY"));
             }}
             disabledDate={disabledDate}
-            
           />
         </Form.Item>
-
-       
-
 
         <Form.Item
           label="Preferred Timings"
           name="timings"
           rules={[{ required: true, message: "Work timings are required" }]}
-        > 
-
-
+        >
           <TimePicker
             format={format}
             value={moment(time, format)}
@@ -288,16 +336,6 @@ const BookMentor = () => {
             // Set the value to update the TimePicker's selected times
           />
         </Form.Item>
-
-
-       
-
-
-
-
-
-
-
 
         <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
           <Button type="primary" htmlType="submit">

@@ -146,7 +146,7 @@ function Navbar() {
         <div className="navbar">
         <img src={favicon} alt="Favicon" className="navbar-icon" onClick={handleClick} />
           <Link to="#" className="menu-bars">
-            <FaBars onClick={showSidebar} color="black" size="2.5em"/>
+            <FaBars onClick={showSidebar} color="black" size="2.5rem"  style={{marginLeft:"20px"}}/>
           </Link>
 
           {user && (
