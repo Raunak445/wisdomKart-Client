@@ -1,6 +1,39 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+.slide-container {
+  width: 100%;
+  margin: auto;
+}
+
+.each-slide {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-size: cover;
+  padding: 20px;
+  width:100vw;
+}
+
+@media screen and (max-width: 768px) {
+  .each-slide {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+  }
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -13,11 +46,16 @@ a:hover {
   color: #fdd067;
   text-decoration: none;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 :root {
-  scroll-behavior: smooth
+  scroll-behavior: smooth;
 }
 /*--------------------------------------------------------------
 # Back to top button
@@ -71,7 +109,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 22px;
 }
 #hero .btn-get-started {
-  color: #213b52; font-weight: bold;
+  color: #213b52;
+  font-weight: bold;
   border-radius: 50px;
   padding: 8px 35px 10px 35px;
   border: 2px solid #fdc134;
@@ -254,7 +293,9 @@ section {
 /*--------------------------------------------------------------
 # HowItWorks
 --------------------------------------------------------------*/
-.HowItWorks {background: #f8f9fa}
+.HowItWorks {
+  background: #f8f9fa;
+}
 
 .HowItWorks .content h3 {
   font-weight: 700;
@@ -303,24 +344,38 @@ section {
 # Service-first
 --------------------------------------------------------------*/
 
-.Service-first    {margin-top: 3rem !important; padding-bottom: 3rem}
+.Service-first {
+  margin-top: 3rem !important;
+  padding-bottom: 3rem;
+}
 
 .Service-first .card-body {
   z-index: 10;
-  background:#fff;
+  background: #fff;
   border-top: 4px solid #fff;
   padding: 20px;
   /*box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);*/
- 
 }
-.Service-first .card-body h3, h4 {font-weight: bold; color:#004aab}
+.Service-first .card-body h3,
+h4 {
+  font-weight: bold;
+  color: #004aab;
+}
 
-.Service-first .card-body ul {margin:0px; padding: 0}
+.Service-first .card-body ul {
+  margin: 0px;
+  padding: 0;
+}
 
-.Service-first .card-body ul li { list-style-type: none;}
+.Service-first .card-body ul li {
+  list-style-type: none;
+}
 
-.Service-first .card-body i { margin-right: 10px; color: #004aab; font-size: larger;}
-
+.Service-first .card-body i {
+  margin-right: 10px;
+  color: #004aab;
+  font-size: larger;
+}
 
 /*.Service-first .get-started-btn {
     color: #213b52;
@@ -340,24 +395,22 @@ section {
 .Service-first .get-started-btn {
   background: #004aab;
   display: inline-block;
-	border-radius: 20px;
+  border-radius: 20px;
   padding: 10px 16px;
   color: #fff;
   transition: none;
   font-size: 14px;
   font-weight: 400;
   font-family: "Raleway", sans-serif;
-  transition: 0.3s; text-align: center
+  transition: 0.3s;
+  text-align: center;
 }
 
-
-
-.Service-first  .get-started-btn:hover {
+.Service-first .get-started-btn:hover {
   background: #fdc134;
 }
 
-
-.Service-first .get-started-btn a{
+.Service-first .get-started-btn a {
   text-decoration: none;
 }
 
@@ -365,7 +418,8 @@ section {
 # Services
 --------------------------------------------------------------*/
 .services {
-  padding-bottom: 40px; background: #f8f9fa;
+  padding-bottom: 40px;
+  background: #f8f9fa;
 }
 .services .card {
   border: 0;
@@ -435,8 +489,9 @@ section {
 /*--------------------------------------------------------------
 # Features
 --------------------------------------------------------------*/
-.features {background: #f8f9fa}
-
+.features {
+  background: #f8f9fa;
+}
 
 .features .content + .content {
   margin-top: 100px;
@@ -485,7 +540,8 @@ section {
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
 }
-.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+.portfolio #portfolio-flters li:hover,
+.portfolio #portfolio-flters li.filter-active {
   color: #fdc134;
 }
 .portfolio #portfolio-flters li:last-child {
@@ -589,10 +645,12 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-   position: relative; text-align: center; background:#12141D; color: white; padding: 10px
-	   
+  position: relative;
+  text-align: center;
+  background: #12141d;
+  color: white;
+  padding: 10px;
 }
-
 
 .services i {
   font-size: 32px;

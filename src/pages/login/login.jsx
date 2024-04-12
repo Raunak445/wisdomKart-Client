@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(showLoading());
     try {
-      const url = `https://wisdomkart-server.onrender.com/api/v1/user/login`;
+      const url = `http://localhost:8080/api/v1/user/login`;
       const res = await axios.post(url, data);
       dispatch(hideLoading());
       if (res.data.success) {

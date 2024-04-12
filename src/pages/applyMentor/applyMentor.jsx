@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Input, Button, Select, message, TimePicker, Upload } from "antd";
+import { Form, Input, Button, Select, message, TimePicker } from "antd";
 import style from "./applyMentor.module.css";
 const { Option } = Select;
 import moment from "moment"; // Import moment library for time format
@@ -9,10 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
-import BinaryImage from "../../components/BinaryImage";
+// import BinaryImage from "../../components/BinaryImage";
 // import FormData from 'form-data'
 
 const ApplyMentor = () => {
+
+ 
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -73,30 +77,35 @@ const ApplyMentor = () => {
   //     message.error("Something went wrong");
   //     message.error(error.message);
   //   }
-  // };
+  // }
+  
+
+
 
   const onFinish = async (values) => {
     try {
       // Convert image to binary format
-      const reader = new FileReader();
+      const reader = new FileReader()
+
+   
+     
+      
+      
       reader.readAsDataURL(image); // Read the file as a data URL
+
+      // console.log(image)
+
       reader.onload = async () => {
         const imageData = reader.result.split(",")[1]; // Extract the base64-encoded image data
-        // Now you can send the binary image data along with other form data in the POST request
+
+        
 
         try {
           const res = await axios.post(
-            "https://wisdomkart-server.onrender.com/api/v1/user/applyMentor",
+            "http://localhost:8080/api/v1/user/applyMentor",
             {
               ...values,
               userId: user._id,
-              timeMon,
-              timeTue,
-              timeWed,
-              timeThur,
-              timeFri,
-              timeSat,
-              timeSun,
               image: imageData, // Send the binary image data
             },
             {
@@ -107,16 +116,17 @@ const ApplyMentor = () => {
             }
           );
 
-          // console.log(imageData)
-          // console.log(" --------------")
-          // console.log(values)
-
           if (res.data.success) {
             message.success("Applied for Mentor Successfully");
-            // navigate("/");
+            navigate("/");
           } else {
             message.error("Could not apply for Mentor");
           }
+
+          if(res.statusCode>200){
+            message.error("Something went wrong")
+          }
+
         } catch (error) {
           // dispatch(hideLoading());
           console.error(error);
@@ -197,47 +207,47 @@ const ApplyMentor = () => {
 
   const areas = [
     "Leadtime/TAT reduction",
-    " Inventory Management ",
-    " Quality Improvement",
-    " Productivity Improvement",
-    " Cost Reduction",
+    "Inventory Management ",
+    "Quality Improvement",
+    "Productivity Improvement",
+    "Cost Reduction",
     "Work Culture Improvement",
-    " Employee Engagement",
-    " People development",
-    " Delivery Management",
+    "Employee Engagement",
+    "People development",
+    "Delivery Management",
     "Asset/Equipment Management",
     "Machine Breakdown reduction",
-    "  Safety, Health & Environment",
-    " Professional /Career Growth",
+    "Safety, Health & Environment",
+    "Professional /Career Growth",
     "Visual Management",
     "Process Management",
     "Goal setting",
-    "  Business Strategies",
-    " Value Stream Management",
+    "Business Strategies",
+    "Value Stream Management",
     "Startup Coaching",
-    " Business Turnaround",
-    " Business Plan",
-    " Mid Career Growth",
+    "Business Turnaround",
+    "Business Plan",
+    "Mid Career Growth",
   ];
 
   const industries = [
-    " Aerospace/Defence",
-    " Automotive",
+    "Aerospace/Defence",
+    "Automotive",
     "Food",
     "Pharma",
     "Retail",
     "Education",
     "Healthcare",
-    " Restaurants/Hotels/Hospitality",
-    " Healthcare/Hospitals",
-    " Supply Chain & Logistics",
+    "Restaurants/Hotels/Hospitality",
+    "Healthcare/Hospitals",
+    "Supply Chain & Logistics",
     "Real estate/Construction",
     "Heavy Machineries",
     "Foundry",
     "Forging",
     "Banking & Finance",
     "Agriculture",
-    " IT/ITES/Software",
+    "IT/ITES/Software",
     "Service Industry",
     "General Engineering",
     "NGO",
@@ -292,9 +302,13 @@ const ApplyMentor = () => {
     // Biodata
 
     <div className={style.bg}>
+
+
       <div className={style.wrapper}>
         <h2 className={style.heading}>Register As Mentor</h2>
         <h3 className={style.text}>Personal Details:</h3>
+
+    
 
         <Form
           labelCol={{ span: 6 }}

@@ -146,7 +146,7 @@ function App() {
             <Route path="/mentorDetails/:userId" element={<MentorDetails />} />
             <Route path="/login" element={<Login />} />
             <Route
-              path="/findMentor/:mentor"
+              path="/findMentor/:id"
               element={
                 <ProtectedRoutes>
                   <Price />

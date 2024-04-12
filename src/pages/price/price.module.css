@@ -4,17 +4,18 @@
 }
 
 .wrapperLeft {
-  flex: 2;
-  background-color: #fff;
   display: flex;
-  flex-direction: row;
-  border: 1px dotted black;
-  margin: 2px;
+  flex-direction: column;
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
   padding: 10px;
   box-shadow: 1px 1px 10px grey;
   border-radius: 10px;
-}
+  border: 2px solid grey;
 
+}
 .wrapperRight {
   display: flex;
   flex-direction: column;
@@ -23,18 +24,21 @@
   padding: 2px;
   box-shadow: 1px 1px 10px grey;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .boxSection {
   display: flex;
-  margin-top: 10px;
-  align-items: center;
-  justify-content: space-between;
-  border: 4px solid #ccc;
+  margin-top:50px;
+  align-items: center;  
   padding: 20px;
   width: 800px;
   height: 200px;
   border-radius: 14px;
+  
 }
 
 .leftSide img {
@@ -60,18 +64,20 @@
 
 .bookingSection {
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   text-align: center;
   right: 10px;
   width: 200px;
   height: auto;
-  border-radius: 14px;
   margin-top: 10px;
   margin-right: 50px;
   margin-top: 40px;
   border-radius: 10px;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border:2px solid rgba(0, 0, 0, 0.347)
 }
 
 h2 {
@@ -113,4 +119,76 @@ h2 {
   font-style: italic;
 }
 
+.warningText {
+  font-family: Arial, sans-serif; /* Fallback fonts */
+  font-size: 18px; /* Adjust size as needed */
+  font-weight: bold; /* Make the text bold */
+  color: #ff0000; /* Red color for warning */
+  text-transform: uppercase; /* Convert text to uppercase */
+  letter-spacing: 1px; /* Add some letter spacing for emphasis */
+  justify-content: center;
+}
 
+/* price.module.css */
+/* price.module.css */
+/* price.module.css */
+
+.timeSlots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 8px; /* Adjust the gap between items */
+}
+
+.button {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  color: #333333;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+
+.blueButton {
+  background-color: #3399ff;
+  color: #ffffff;
+  border-color: #3399ff;
+}
+
+.blueButton:hover {
+  background-color: #2672c2;
+}
+
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .wrapperLeft {
+    flex: none;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .boxSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rightSide {
+    margin-left: 0;
+  }
+
+  .bookingSection {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

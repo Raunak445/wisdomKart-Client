@@ -1,30 +1,42 @@
-
-.buttonWrapper{
-display: flex;
-margin: 10px;
-
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+  justify-content: center;
 }
-
 
 .helpButton {
   display: inline-block;
   border-radius: 15px;
   font-weight: bold;
-  font-weight: bold;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  border: 2px solid #3498db; /* Border color */
-  color: #3498db; /* Text color */
-  background-color: #fff; /* Background color */
-
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition effect */
-  margin-left:600px
+  border: 2px solid #3498db;
+  color: #3498db;
+  background-color: #fff;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-left: 10px;
 }
 
 .helpButton:hover {
-  background-color: #3498db; /* Hover background color */
-  color: #fff; /* Hover text color */
-  border-color: #3498db; /* Hover border color */
-  
+  background-color: #3498db;
+  color: #fff;
+  border-color: #3498db;
+}
+
+@media screen and (max-width: 600px) {
+  .buttonWrapper {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0;
+  }
+
+  .helpButton {
+    margin: 10px 0;
+    margin-left: 0;
+    width: 100%;
+  }
 }

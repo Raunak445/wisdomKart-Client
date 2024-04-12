@@ -13,15 +13,13 @@ import {
   message,
 } from "antd";
 import moment from "moment";
-import img from './wisdomkart.png'
-
+import img from "./wisdomkart.png";
 
 import { showLoading, hideLoading } from "../../redux/features/alert";
 const BookMentor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  
 
   const [time, setTime] = useState("12:08");
   const format = "hh:mm A";
@@ -30,8 +28,6 @@ const BookMentor = () => {
     // Disable all dates before today
     return current && current < moment().startOf("day");
   };
-
-
 
   const onFinish = async (values) => {
     // const {
@@ -53,7 +49,7 @@ const BookMentor = () => {
     //   name: "Wisdomkart",
     //   description: "Test Transaction",
     //   image:{img},
-    //   order_id: order.id, 
+    //   order_id: order.id,
     //   callback_url: "http://locahost:8080/api/v1/paymentverification",
     //   prefill: {
     //     name: "raunak",
@@ -339,6 +335,8 @@ const BookMentor = () => {
 
         <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
           <Button type="primary" htmlType="submit">
+
+          
             Submit
           </Button>
         </Form.Item>

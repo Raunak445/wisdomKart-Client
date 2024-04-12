@@ -18,6 +18,15 @@ import thinking from './old/img/thinking.jpg'
 import solution from './old/img/solution.jpg'
 import design from './old/img/design.jpg'
 
+import img1 from './Wisdomkart Banner/1.png'
+import img2 from './Wisdomkart Banner/2.png'
+import img3 from './Wisdomkart Banner/3.png'
+import img4 from './Wisdomkart Banner/4.png'
+import img5 from './Wisdomkart Banner/5.png'
+import img6 from './Wisdomkart Banner/6.png'
+import img7 from './Wisdomkart Banner/7.png'
+import img8 from './Wisdomkart Banner/8.png'
+
 
 import services from "./img/services-1.jpg";
 import services_2 from "./img/services-2.jpg";
@@ -113,96 +122,101 @@ const Home = () => {
     };
   }, [card1Controls, card2Controls]);
 
-  const slides = [
-    {
-      url: "https://i.postimg.cc/CKQpxG59/1.png",
-    },
+    const slides = [
+      {
+        url:img1,
+      },
 
-    {
-      url: "https://i.postimg.cc/Jz0T49X4/2.png",
-    },
-    {
-      url: "https://i.postimg.cc/dt4HFqLx/3.png",
-    },
-    {
-      url: "https://i.postimg.cc/RF7dDmkG/4.png",
-    },
-    {
-      url: "https://i.postimg.cc/hv4LZdbP/5.png",
-    },
-    {
-      url: "https://i.postimg.cc/k4mF8Z2S/6.png",
-    },
-    {
-      url: "https://i.postimg.cc/7ZS57L0B/7.png",
-    },
-    {
-      url: "https://i.postimg.cc/sx8MPQTL/8.png",
-    },
-  ];
+      {
+        url: img2,
+      },
+      {
+        url: img3,
+      },
+      {
+        url: img4,
+      },
+      {
+        url: img5,
+      },
+      {
+        url: img6,
+      },
+      {
+        url:  img7,
+      },
+      {
+        url: img8,
+      },
+    ];
 
-  const divStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "550px",
-    backgroundSize: "cover",
-    top: "-50%",
-    padding:"20px",
-    width: "100%",
+    const divStyle = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      backgroundSize: "cover",
+      padding: "20px",
+      width: "100%",
+      // Media queries for responsiveness
+      '@media (max-width: 768px)': {
+        padding: '10px',
     
-  };
+      },
+    };
 
-  return (
-    <div>
-      {/* <!-- ======= Hero Section ======= --> */}
 
-      <section id="hero">
-        {/* <div className="container">
-          <div className="row d-flex align-items-center">
-            <div className=" col-lg-6 py-5 py-lg-0 order-2 order-lg-1">
-              <h1>Unlock Your Potential with Our Online Mentoring Services</h1>
-              <h2>
-                Experience the Power of Wise Counsel for Personal and
-                Professional Growth
-              </h2>
-              <Link to={'./bookMentor'} className="btn-get-started scrollto">
-                BOOK AN APPOINTMENT
-              </Link>{" "}
-            </div>
-            <div className="col-lg-6 order-1 order-lg-2 hero-img">
-              {" "}
-              <img
-                src={heroImg}
-                className="img-fluid"
-                alt=""
-              />{" "}
-            </div>
-          </div>
-        </div> */}
+    return (
+      <div>
+        {/* <!-- ======= Hero Section ======= --> */}
 
-        <Slide>
-          {slides.map((image, index) => (
-            <div key={index}>
-              <div
-                style={{ ...divStyle, backgroundImage: `url(${image.url})` }}
-              ></div>
-              <div
-                id="caption"
-                style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  color: "white",
-                  padding: "10px",
-                  textAlign: "center",
-                 
-                }}
-              >
-                Navigate Challenges , Achieve Excellence
+        <section id="hero">
+          {/* <div className="container">
+            <div className="row d-flex align-items-center">
+              <div className=" col-lg-6 py-5 py-lg-0 order-2 order-lg-1">
+                <h1>Unlock Your Potential with Our Online Mentoring Services</h1>
+                <h2>
+                  Experience the Power of Wise Counsel for Personal and
+                  Professional Growth
+                </h2>
+                <Link to={'./bookMentor'} className="btn-get-started scrollto">
+                  BOOK AN APPOINTMENT
+                </Link>{" "}
+              </div>
+              <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                {" "}
+                <img
+                  src={heroImg}
+                  className="img-fluid"
+                  alt=""
+                />{" "}
               </div>
             </div>
-          ))}
-        </Slide>
-      </section>
+          </div> */}
+
+          <Slide>
+            {slides.map((image, index) => (
+              <div key={index} className="slide-container">
+                <div
+                  style={{ backgroundImage: `url(${image.url})` }}
+                  className="each-slide"
+                ></div>
+                <div
+                  id="caption"
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    color: "white",
+                    padding: "10px",
+                    textAlign: "center",
+                  
+                  }}
+                >
+                  Navigate Challenges , Achieve Excellence
+                </div>
+              </div>
+            ))}
+          </Slide>
+        </section>
 
       {/* <!-- End Hero -->  */}
 
