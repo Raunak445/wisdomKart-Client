@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react";
 import PriceCss from "./price.module.css"; // Import the CSS file for styling
-import profile1 from "../findMentor/PRRameshProfile.png";
+import { hideLoading, showLoading } from "../../redux/features/alert";
+// import profile1 from "../findMentor/PRRameshProfile.png";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment";
-import { message } from "antd";
-import { useSelector } from "react-redux";
+import { Select, Spin, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileCard from "../../components/profileCard";
 
+import logo from "../../components/1.png";
+
+import { Modal } from "antd";
+
 import { useNavigate } from "react-router-dom";
+const { Option } = Select;
+
+const today = new Date(); // Get today's date
+today.setHours(0, 0, 0, 0); // Set the time to 00:00:00:000
+
 const Price = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(today);
   const [bookedTimings, setBookedTimings] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
   const [mentor, setMentor] = useState(undefined);
+  const [selectedArea, setSelectedArea] = useState([]);
+  const [selectedIndustry, setSelectedIndustry] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
 
@@ -37,8 +51,10 @@ const Price = () => {
   }
 
   const dateChangeHandler = (date) => {
+    // console.log("date",date)
     setSelectedButtonIndex(undefined);
     // console.log(selectedButtonIndex)
+
     setSelectedDate(date);
   };
 
@@ -59,9 +75,9 @@ const Price = () => {
     const minutes = timeObject.getUTCMinutes();
     const seconds = timeObject.getUTCSeconds();
 
-    if (hours > 12) {
-      day -= 1;
-    }
+    // if (hours > 12) {
+    //   day -= 1;
+    // }
 
     // Create a new Date object with combined date and time components
     const combinedDate = new Date(
@@ -89,6 +105,8 @@ const Price = () => {
     setSelectedButtonIndex(index);
   };
 
+  // console.log("mentor",mentor)
+
   const { id } = useParams();
 
   const tileDisabled = ({ activeStartDate, date, view }) => {
@@ -107,22 +125,22 @@ const Price = () => {
   };
 
   const maxDate = new Date(
-    selectedDate.getFullYear(),
-    selectedDate.getMonth() + 2,
+    new Date().getFullYear(),
+    new Date().getMonth() + 2,
     0
   );
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .post("http://localhost:8080/api/v1/mentor/getMentor", {
+      .post("https://wisdomkart-server.onrender.com/api/v1/mentor/getMentor", {
         mentorId: id,
       })
       .then((res) => {
         if (res.data.success) {
           setMentor(res.data.mentor);
-          console.log(mentor);
+          // console.log(mentor);
         } else {
           message.error("Mentor not found");
         }
@@ -131,13 +149,17 @@ const Price = () => {
 
   const fetchTimeSlots = async () => {
     try {
+      setLoading(true);
+      // dispatch(showLoading());
+      // console.log("called again")
       const response = await axios.post(
-        `http://localhost:8080/api/v1/mentor/getSlots?date=${selectedDate.toISOString()}`,
+        `https://wisdomkart-server.onrender.com/api/v1/mentor/getSlots?date=${selectedDate.toISOString()}`,
         {
           id,
         }
       );
 
+      setLoading(false);
       if (response.data.success) {
         setTimeSlots(response.data.timeSlots);
         setBookedTimings(response.data.bookings);
@@ -158,30 +180,122 @@ const Price = () => {
   };
 
   useEffect(() => {
+    // console.log("Use Effect Called",selectedDate)
     fetchTimeSlots();
   }, [selectedDate]);
 
   const handleBookSession = () => {
-    if (selectedButtonIndex === undefined || selectedButtonIndex === null) {
-      message.error("Please Select Time Slots");
-    } else if (selectedDate === undefined || selectedDate === undefined) {
-      message.error("Please select Date");
-    } else {
-      console.log("Send axios request here");
-      axios
-        .post("http://localhost:8080/api/v1/mentor/booking", {
-          id,
-          appointmentTime,
-          selectedDate,
-          user,
-        })
-        .then((res) => {
-          if (res.data.success) {
-            // navigate('/')
-            message.success(res.data.message);
-          }
-        });
+    if (!selectedDate || !appointmentTime) {
+      message.error("Please select Date and Time");
+      return;
     }
+
+    if (selectedArea.length === 0 || selectedIndustry.length === 0) {
+      message.error("Please select Area and Industry of mentorship");
+      return;
+    }
+
+    Modal.confirm({
+      title: "Confirm Booking",
+      content: (
+        <div>
+          <p>Selected Date: {selectedDate.toDateString()}</p>
+          <p>Selected Time: {convert12(formatTime(appointmentTime))}</p>
+          <p>Selected Area: {selectedArea.join(", ")}</p>
+          <p>Selected Industry: {selectedIndustry.join(", ")}</p>
+        </div>
+      ),
+      onOk() {
+        // console.log("Send axios request here");
+        // console.log("Date", selectedDate);
+        // console.log("Time", appointmentTime);
+        // console.log("Selected Area", selectedArea);
+        // console.log("Selected Industry", selectedIndustry);
+
+        const checkoutHandler = async () => {
+          const {
+            data: { key },
+          } = await axios.get("http://localhost:8080/api/v1/getKey");
+
+          const { data: {order} } = await axios.post(
+            "http://localhost:8080/api/v1/checkout",
+            {
+              amount: mentor.feesPerConsultation,
+            }
+          );
+
+          console.log(order.amount);
+
+          var options = {
+            key: key, // Enter the Key ID received from backend
+            amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            currency: "INR",
+            name: "Wisdomkart",
+            description: "Test Transaction",
+            image:'https://i.postimg.cc/Zn2MGNsp/1.png',
+            order_id: order.id,
+            callback_url: "http://localhost:8080/api/v1/paymentverification",
+            prefill: {
+              name: `${user.firstName} ${user.lastName}`,
+              email: user.email,
+            
+            },
+            notes: {
+              address: "Razorpay Corporate Office",
+            },
+            theme: {
+              color: "#3399cc",
+            },
+           
+          };
+        
+        try {
+            const razor = new window.Razorpay(options);
+            razor.open();
+        } catch (error) {
+          window.location.reload()
+          message.error("Error while loading the payment gateway")
+          
+        }
+
+
+          // e.preventDefault();
+        };
+
+        // if(user.orders!=0)
+        //  checkoutHandler();
+
+
+       
+       navigate('/')
+
+        axios
+          .post("https://wisdomkart-server.onrender.com/api/v1/mentor/booking", {
+            id,
+            appointmentTime,
+            selectedDate,
+            selectedArea,
+            selectedIndustry,
+            user,
+
+          })
+          .then((res) => {
+            if (res.data.success) {
+
+              message.success(res.data.message);
+            }
+
+          }
+
+        )
+          .catch((error) => {
+            // dispatch(hideLoading());
+            message.error(error.message)
+          });
+
+        Modal.destroyAll();
+      },
+    });
   };
 
   function formatTime(timeString) {
@@ -239,6 +353,10 @@ const Price = () => {
       });
 
       if (!isBooked) {
+        // if(slotStartTime<currentTime){
+        //   continue;
+        // }
+
         slots.push({
           startTime: slotStartTime,
           endTime: slotEndTime,
@@ -253,6 +371,24 @@ const Price = () => {
 
     return slots;
   };
+  const getTime = () => {
+    const currentDate = new Date();
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+
+    // Pad single digit numbers with a leading zero
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+
+    const currentTime = `${formattedHours}:${formattedMinutes}`;
+    return currentTime;
+  };
+
+  function getTimeAsNumberOfMinutes(time) {
+    const [hours1, minutes1] = time.split(":").map(Number);
+    var timeInMinutes = hours1 * 60 + minutes1;
+    return timeInMinutes;
+  }
 
   // Generate one-hour time slots
   var oneHourSlots = generateTimeSlots(
@@ -266,26 +402,111 @@ const Price = () => {
       <div className={PriceCss.wrapperLeft}>
         <div className={PriceCss.boxSection}>
           {mentor && (
-            <ProfileCard
-              key={mentor._id} // Ensure each component has a unique key
-              image={mentor.image}
-              name={`${mentor.firstName} ${mentor.lastName}`}
-              designation="NA"
-              intro={mentor.biodata}
-              achievement="NA"
-              experience={`${mentor.experience} years`}
-              id={mentor._id} // Pass mentor's ID as the id prop
-              industry={mentor.industry}
-              area={mentor.area}
-            />
+            <div className={PriceCss.card}>
+              <ProfileCard
+                key={mentor._id} // Ensure each component has a unique key
+                image={mentor.image}
+                name={`${mentor.firstName} ${mentor.lastName}`}
+                designation="NA"
+                intro={mentor.biodata}
+                achievement="NA"
+                experience={`${mentor.experience} years`}
+                id={mentor._id} // Pass mentor's ID as the id prop
+                industry={mentor.industry}
+                area={mentor.area}
+                button={false}
+              />
+            </div>
           )}
-         
         </div>
 
         <div className={PriceCss.reviews}></div>
       </div>
 
       <div className={PriceCss.wrapperRight}>
+        <div className={PriceCss.calendar}>
+          <h1>Select a Date</h1>
+          <Calendar
+            // onChange={(date) => dateChangeHandler(date)}
+            value={selectedDate}
+            tileDisabled={tileDisabled}
+            minDate={new Date()} // Disable dates before today
+            maxDate={maxDate}
+            onClickDay={(date) => dateChangeHandler(date)}
+          />
+        </div>
+
+        <Select
+          mode="multiple"
+          placeholder="Please select Area of mentorship"
+          value={selectedArea}
+          onChange={(values) => setSelectedArea(values)}
+          style={{ width: "100%", color: "black", margin: "10px" }}
+        >
+          {mentor?.area?.map((area) => (
+            <Option key={area} value={area}>
+              {area}
+            </Option>
+          ))}
+        </Select>
+        <Select
+          mode="multiple"
+          placeholder="Please select Industry of mentorship"
+          value={selectedIndustry}
+          onChange={(values) => setSelectedIndustry(values)}
+          style={{ width: "100%", color: "black", margin: "10px" }}
+        >
+          {mentor?.industry?.map((industry) => (
+            <Option key={industry} value={industry}>
+              {industry}
+            </Option>
+          ))}
+        </Select>
+
+        {loading ? (
+          <div className={PriceCss.loading}>
+            <Spin size="large" />
+          </div>
+        ) : oneHourSlots.length === 0 ? (
+          <div className={PriceCss.warningText}>
+            Sorry no slots are available!
+          </div>
+        ) : (
+          <div className={PriceCss.timeSlots}>
+            {oneHourSlots.map((slot, index) => {
+              {
+                /* console.log("slot", getTimeAsNumberOfMinutes(slot.startTime));
+              console.log("time", getTimeAsNumberOfMinutes(getTime()));
+              console.log("Starttime",slot.startTime) */
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={PriceCss.buttonWrapper}
+                  style={
+                    new Date().getDate() === selectedDate.getDate() &&
+                    getTimeAsNumberOfMinutes(slot.startTime) <
+                      getTimeAsNumberOfMinutes(getTime())
+                      ? { display: "none" }
+                      : {}
+                  }
+                >
+                  <button
+                    key={index}
+                    className={`${PriceCss.button} ${
+                      selectedButtonIndex === index ? PriceCss.blueButton : ""
+                    }`}
+                    onClick={() => handleButtonClick(index)}
+                  >
+                    {convert12(slot.startTime)}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         <div className={PriceCss.bookingSection}>
           <h2>Book a Session</h2>
 
@@ -293,37 +514,6 @@ const Price = () => {
             Book Session
           </button>
         </div>
-
-        <div className={PriceCss.calendar}>
-          <h1>Select a Date</h1>
-          <Calendar
-            onChange={(date) => dateChangeHandler(date)}
-            value={selectedDate}
-            tileDisabled={tileDisabled}
-            minDate={new Date()} // Disable dates before today
-            maxDate={maxDate}
-          />
-        </div>
-        {oneHourSlots.length == 0 ? (
-          <div className={PriceCss.warningText}>
-            {" "}
-            Sorry no slots are available !
-          </div>
-        ) : (
-          <div className={PriceCss.timeSlots}>
-            {oneHourSlots.map((slot, index) => (
-              <button
-                key={index}
-                className={`${PriceCss.button} ${
-                  selectedButtonIndex === index ? PriceCss.blueButton : ""
-                }`}
-                onClick={() => handleButtonClick(index)}
-              >
-                {convert12(slot.startTime)}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

@@ -1,21 +1,36 @@
-
 import { MdDashboard } from "react-icons/md";
-import { FaUser,FaChalkboardTeacher ,FaSignInAlt,FaCalendarAlt,FaSignOutAlt,FaBroadcastTower,FaUserGraduate,FaPlayCircle  } from 'react-icons/fa';
+import {
+  FaUser,
+  FaChalkboardTeacher,
+  FaSignInAlt,
+  FaCalendarAlt,
+  FaSignOutAlt,
+  FaBroadcastTower,
+  FaUserGraduate,
+  FaPlayCircle,
+  FaSearch,
+} from "react-icons/fa";
 
-import { RiCalendar2Fill } from 'react-icons/ri'
-import { AiOutlineMail,AiFillHome } from 'react-icons/ai';
+import { RiCalendar2Fill } from "react-icons/ri";
+import { AiOutlineMail, AiFillHome } from "react-icons/ai";
 
 export const userMenuLogin = [
   {
     title: "Home",
     path: "/",
-    icons: <AiFillHome color="black"/>,
+    icons: <AiFillHome color="black" />,
+    cName: "nav-text",
+  },
+  {
+    title: "Find a Mentor",
+    path: "/findMentor",
+    icons: <FaSearch color="black" />,
     cName: "nav-text",
   },
   {
     title: "Book an Appointment",
     path: "/bookMentor",
-    icons: <RiCalendar2Fill color="black"/>,
+    icons: <RiCalendar2Fill color="black" />,
     cName: "nav-text",
   },
   {
@@ -24,7 +39,7 @@ export const userMenuLogin = [
     icons: <FaSignInAlt color="black" />,
     cName: "nav-text",
   },
-  
+
   {
     title: "Dashboard",
     path: "/dashboard",
@@ -34,7 +49,7 @@ export const userMenuLogin = [
   {
     title: "Courses",
     path: "https://courses.wisdomkart.com",
-    icons: <FaPlayCircle  color="black" />,
+    icons: <FaPlayCircle color="black" />,
     cName: "nav-text",
   },
 
@@ -43,8 +58,8 @@ export const userMenuLogin = [
     path: "/liveSessions",
     icons: <FaBroadcastTower color="black" />,
     cName: "nav-text",
-  }, 
-   {
+  },
+  {
     title: "Register as Mentor",
     path: "/applyMentor",
     icons: <FaUserGraduate color="black" />,
@@ -53,37 +68,41 @@ export const userMenuLogin = [
   {
     title: "Contact Us",
     path: "/contactUs",
-    icons: <AiOutlineMail  color="black"/>,
+    icons: <AiOutlineMail color="black" />,
     cName: "nav-text",
-  }
+  },
 ];
-
-
 
 export const userMenuLogout = [
   {
     title: "Home",
     path: "/",
-    icons: <AiFillHome  color="black"/>,
+    icons: <AiFillHome color="black" />,
+    cName: "nav-text",
+  },
+  {
+    title: "Find a Mentor",
+    path: "/findMentor",
+    icons: <FaSearch color="black" />,
     cName: "nav-text",
   },
   {
     title: "Book an Appointment",
     path: "/bookMentor",
-    icons: <RiCalendar2Fill color="black"/>,
+    icons: <RiCalendar2Fill color="black" />,
     cName: "nav-text",
   },
 
   {
     title: "Dashboard",
     path: "/dashboard",
-    icons: <MdDashboard  color="black" />,
+    icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
   {
     title: "Courses",
     path: "https://courses.wisdomkart.com",
-    icons: <FaPlayCircle color="black"  />,
+    icons: <FaPlayCircle color="black" />,
     cName: "nav-text",
   },
 
@@ -92,11 +111,11 @@ export const userMenuLogout = [
     path: "/liveSessions",
     icons: <FaBroadcastTower color="black" />,
     cName: "nav-text",
-  }, 
-   {
+  },
+  {
     title: "Register as Mentor",
     path: "/applyMentor",
-    icons: <FaUserGraduate  color="black" />,
+    icons: <FaUserGraduate color="black" />,
     cName: "nav-text",
   },
   {
@@ -104,20 +123,14 @@ export const userMenuLogout = [
     path: "/contactUs",
     icons: <AiOutlineMail color="black" />,
     cName: "nav-text",
-  },{
+  },
+  {
     title: "Log out",
     path: "/logout",
     icons: <FaSignOutAlt color="black" />,
     cName: "nav-text",
   },
 ];
-
-
-
-
-
-
-
 
 export const adminMenu = [
   {
@@ -129,12 +142,19 @@ export const adminMenu = [
   {
     title: "Mentors",
     path: "/admin/mentors ",
-    icons: <FaChalkboardTeacher color="black"/>,
+    icons: <FaChalkboardTeacher color="black" />,
     cName: "nav-text",
-  }, {
-    title: "Users",
-    path: "/admin/users ",
-    icons: <FaUser color="black" />,
+  },
+  // {
+  //   title: "Users",
+  //   path: "/admin/users ",
+  //   icons: <FaUser color="black" />,
+  //   cName: "nav-text",
+  // },
+  {
+    title: "Find a Mentor",
+    path: "/findMentor",
+    icons: <FaSearch color="black" />,
     cName: "nav-text",
   },
   {
@@ -143,11 +163,11 @@ export const adminMenu = [
     icons: <FaCalendarAlt color="black" />,
     cName: "nav-text",
   },
-  
+
   {
     title: "Dashboard",
     path: "/dashboard",
-    icons: <MdDashboard  color="black"/>,
+    icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
   {
@@ -166,9 +186,7 @@ export const adminMenu = [
   {
     title: "Log out",
     path: "/logout",
-    icons: <FaSignOutAlt  color="black"/>,
+    icons: <FaSignOutAlt color="black" />,
     cName: "nav-text",
   },
-  
 ];
-

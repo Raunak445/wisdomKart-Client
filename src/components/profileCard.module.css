@@ -8,6 +8,8 @@
   width: 800px;
   margin-left: 200px;
   margin-top: 20px;
+  margin-bottom: 30px;
+  background-color:  #e4f1fe;
 }
 
 .personImage {
@@ -30,33 +32,13 @@
 .personName {
   font-size: 1.5rem;
   margin-bottom: 8px;
-}
-
-.personDesignation {
+  font-style: italic;
   font-weight: bold;
-  color: black;
-}
-
-.personIntro {
-  color: rgb(71, 69, 69);
-  font-family: "Arial, sans-serif";
 }
 
 .wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.personAchievement {
-  font-weight: bold; /* Make the text bold for emphasis */
-  letter-spacing: 1px; /* Increase letter spacing for a subtle effect */
-}
-
-.personExperience {
-  font-weight: bold; /* Make the text bold for emphasis */
-
-  letter-spacing: 1px; /* Increase letter spacing for a subtle effect */
 }
 
 .buttonsWrapper {
@@ -68,7 +50,7 @@
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -90,7 +72,7 @@
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -106,16 +88,32 @@
   color: #fff; /* Hover text color */
   border-color: #3498db; /* Hover border color */
 }
-.text {
-  font-weight: bold;
-  margin: 10px;
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  font-display: row;
+  justify-content: center;
 }
 
-textWrapper {
-  display: flex;
-  font-display: row;
-  align-items: center;
-  justify-content: center;
+.experience {
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.industry {
+  margin-bottom: 10px;
+}
+.area {
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.bio {
+  border: 2px solid #668ba4;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
 }
 
 /* Media query for smaller screens */
@@ -157,7 +155,7 @@ textWrapper {
   }
 
   .personDesignation {
-    font-weight: bold;
+    /* font-weight: bold; */
     color: black;
   }
 
@@ -172,31 +170,17 @@ textWrapper {
     justify-content: space-evenly;
   }
 
-  .personAchievement {
-    font-weight: bold;
-    /* Make the text bold for emphasis */
-    letter-spacing: 1px;
-    /* Increase letter spacing for a subtle effect */
-  }
-
-  .personExperience {
-    font-weight: bold;
-    /* Make the text bold for emphasis */
-
-    letter-spacing: 1px;
-    /* Increase letter spacing for a subtle effect */
-  }
-
   .buttonsWrapper {
     display: flex;
     justify-content: space-evenly;
+    
   }
 
   .profileButton {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -221,7 +205,7 @@ textWrapper {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -240,11 +224,6 @@ textWrapper {
     /* Hover text color */
     border-color: #3498db;
     /* Hover border color */
-  }
-
-  .text {
-    font-weight: bold;
-    margin: 10px;
   }
 
   .textWrapper {

@@ -6,12 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
+import LazyLoad from "react-lazyload";
+import { css } from "@emotion/react";
+import { CircleLoader, DotLoader } from "react-spinners";
+
 
 const FindMentor = () => {
   const [mentors, setMentors] = useState([]);
   const [display, setDisplay] = useState([]);
   const [selectedOptionArea, setSelectedOptionArea] = useState(null);
   const [selectedOptionIndustry, setSelectedOptionIndustry] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+
   const selectInputRefArea = useRef();
   const selectInputRefIndustry = useRef();
 
@@ -33,7 +40,7 @@ const FindMentor = () => {
   };
 
   useEffect(() => {
-    console.log("selected", selectedOptionIndustry);
+    // console.log("selected", selectedOptionIndustry);
 
     const filteredMentors = mentors.filter((mentor) =>
       mentor.industry.includes(selectedOptionIndustry)
@@ -51,11 +58,11 @@ const FindMentor = () => {
   };
 
   useEffect(() => {
-    console.log("selected", selectedOptionArea);
+    // console.log("selected", selectedOptionArea);
 
     const filteredMentors = mentors.filter((mentor) => {
       console.log(mentor.area);
-      return mentor.area.includes("Productivity Improvement");
+      return mentor.area.includes(selectedOptionArea);
     });
 
     // console.log("Mentor",mentors[0].industry)
@@ -141,104 +148,94 @@ const FindMentor = () => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
-    navigate("/help");
+    navigate("/bookMentor");
   };
 
   const fetchMentors = async () => {
-    axios
-      .get("http://localhost:8080/api/v1/mentor/getAllMentors")
-      .then((res) => {
-        if (res.data.success) {
-          setMentors(res.data.mentors);
-          setDisplay(res.data.mentors);
-          console.log("mentors",mentors)
-        }
-      });
+    setLoading(true);
+    try {
+      const res = await axios.get("https://wisdomkart-server.onrender.com/api/v1/mentor/getAllMentors");
+      if (res.data.success) {
+        setMentors(res.data.mentors);
+        setDisplay(res.data.mentors);
+      }
+    } catch (error) {
+      console.error("Error fetching mentors:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   useEffect(() => {
     fetchMentors();
   }, []);
 
+  const override = css`
+  display: block;
+  margin: 0 auto;
+`;
+
+  
   return (
     <div className={findMentorCss.topLevelWrapper}>
-      <div className={findMentorCss.buttonWrapper}>
-        {/* <FilterDropDown name="Area" options={areaOptions} /> */}
-
-        <Select
-          // defaultValue={selectedOptionArea}
-          ref={selectInputRefArea}
-          onChange={(a) => onAreaChange(a)}
-          options={areaOptions}
-          styles={{ width: "100px" }}
-          placeholder="Area Of Specialization"
-        />
-
-        {/* <FilterDropDown name="Industry" options={industryOptions} /> */}
-
-        <Select
-          // defaultValue={selectedOptionIndustry}
-          ref={selectInputRefIndustry}
-          onChange={(i) => onIndstryChange(i)}
-          options={industryOptions}
-          styles={{ width: "100px", margin: "10px" }}
-          placeholder="Industry Of Specialization"
-        />
-
-        <button
-          style={{
-            padding: "5px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            cursor: "pointer",
-            marginTop: "10px",
-            borderRadius: "5px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-            boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.2)",
-            transition: "background-color 0.3s ease",
-            margin: "10px",
-          }}
-          onClick={clearFilter}
-        >
-          Clear filter
-        </button>
-
-        <button className={findMentorCss.helpButton} onClick={onClickHandler}>
-          Help me find a Mentor
-        </button>
-      </div>
-
-      <div>
-        {display.map((mentor) => (
-          <ProfileCard
-            key={mentor._id} // Ensure each component has a unique key
-            image={mentor.image}
-            name={`${mentor.firstName} ${mentor.lastName}`}
-            intro={mentor.biodata}
-            experience={`${mentor.experience} years`}
-            id={mentor._id} // Pass mentor's ID as the id prop
-            industry={mentor.industry}
-            area={mentor.area}
-          />
-        ))}
-      </div>
-
-      {/* 
-      <ProfileCard
-        image={profile1}
-        name="PR Ramesh"
-        designation="VP & Principal Consultant - Seven Steps Business Transformation Systems"
-        intro="Mr. P R Ramesh- A Seasoned Consultant and Engineer with MBA in operation management- has							
-        25+ years of experience working in Multinational  organizations heading							
-        Operations, Quality and Business Excellence	"
-        achievement="Consulting for 100 + companies"
-        experience="5000 + Hrs Mentoring"
-        id={"6617b17399a4fad15e5d35bc"}
-      /> */}
+    <div className={findMentorCss.buttonWrapper}>
+      <Select
+        ref={selectInputRefArea}
+        onChange={(a) => onAreaChange(a)}
+        options={areaOptions}
+        styles={{ width: "100px" }}
+        placeholder="Area Of Specialization"
+      />
+      <Select
+        ref={selectInputRefIndustry}
+        onChange={(i) => onIndstryChange(i)}
+        options={industryOptions}
+        styles={{ width: "100px", margin: "10px" }}
+        placeholder="Industry Of Specialization"
+      />
+      <button
+        style={{ /* Button styles */ }}
+        onClick={clearFilter}
+      >
+        Clear filter
+      </button>
+      <button className={findMentorCss.helpButton} onClick={onClickHandler}>
+        Help me find a Mentor
+      </button>
     </div>
+
+    <div >
+
+    <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+    <DotLoader
+      color={"#123abc"}
+      loading={loading}
+      size={100}
+      css={`
+        transform: translate(-50%, -50%);
+        animation-duration: 2s;
+      `}
+    />
+    </div>
+      {!loading &&
+        display
+          .filter((mentor) => mentor.status === "approved")
+          .map((mentor) => (
+            <LazyLoad key={mentor._id} height={200} offset={100}>
+              <ProfileCard
+                image={mentor.image}
+                name={`${mentor.firstName} ${mentor.lastName}`}
+                intro={mentor.biodata}
+                experience={`${mentor.experience} years`}
+                id={mentor._id}
+                industry={mentor.industry}
+                area={mentor.area}
+              />
+            </LazyLoad>
+          ))}
+    </div>
+  </div>
   );
 };
 

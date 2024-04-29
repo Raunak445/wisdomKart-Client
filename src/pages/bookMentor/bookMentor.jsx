@@ -16,12 +16,14 @@ import moment from "moment";
 import img from "./wisdomkart.png";
 
 import { showLoading, hideLoading } from "../../redux/features/alert";
+import { useCookies } from "react-cookie";
 const BookMentor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
   const [time, setTime] = useState("12:08");
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const format = "hh:mm A";
   const [date, setDate] = useState();
   const disabledDate = (current) => {
@@ -72,7 +74,7 @@ const BookMentor = () => {
       //  dispatch(showLoading());
 
       const res = await axios.post(
-        "http://localhost:8080/api/v1/user/bookMentor",
+        "https://wisdomkart-server.onrender.com/api/v1/user/bookMentor",
         {
           ...values,
           userId: user?._id,
@@ -81,7 +83,7 @@ const BookMentor = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         }
       );
@@ -90,7 +92,7 @@ const BookMentor = () => {
 
       if (res.data.success) {
         message.success("Mentor request form send successfully");
-        // navigate("/");
+        navigate("/");
       } else {
         message.error("Cannot send Mentor request form");
       }

@@ -6,6 +6,7 @@ import { Form, Input, Button, Select, TimePicker, message } from "antd";
 import style from "./mentorProfile.module.css";
 import moment from "moment";
 import { hideLoading, showLoading } from "../../redux/features/alert";
+import { useCookies } from "react-cookie";
 
 // Make sure you import Option from Select component
 const { Option } = Select;
@@ -14,13 +15,12 @@ const MentorProfile = () => {
   const { user } = useSelector((state) => state.user);
   const [mentor, setMentor] = useState(null);
   const params = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   // Define onFinish function for form submission
   const onFinish = async (values) => {
     try {
-      dispatch(showLoading()); // Assuming showLoading and hideLoading are action creators
+      // dispatch(showLoading()); // Assuming showLoading and hideLoading are action creators
       const res = await axios.post(
         "https://wisdomkart-server.onrender.com/api/v1/mentor/updateProfile",
         {
@@ -32,12 +32,12 @@ const MentorProfile = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         }
       );
 
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
 
       if (res.data.success) {
         message.success("Profile Updated Successfully");
@@ -46,7 +46,7 @@ const MentorProfile = () => {
         message.error("Couldnt Update Profile");
       }
     } catch (error) {
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       console.log(error);
       message.error("Something went wrong");
       message.error(error.message);
@@ -66,20 +66,24 @@ const MentorProfile = () => {
     // Add other industries here...
   ];
 
+  const dispatch=useDispatch()
   // Define function to fetch mentor info
   const getMentorInfo = async () => {
     try {
+      // dispatch(showLoading())
       const res = await axios.post(
         "https://wisdomkart-server.onrender.com/api/v1/mentor/getMentorInfo",
         { userId: params.id },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         }
       );
+      dispatch(hideLoading())
       setMentor(res.data.data);
     } catch (error) {
+      dispatch(hideLoading())
       console.log(error);
     }
   };
@@ -103,10 +107,7 @@ const MentorProfile = () => {
             autoComplete="off"
             initialValues={{
               ...mentor,
-              timings: [
-                moment(mentor.timings[0],"HH:mm"),
-                moment(mentor.timings[1],"HH:mm"),
-              ],
+              
             }}
           >
             <Form.Item

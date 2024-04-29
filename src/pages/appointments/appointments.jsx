@@ -2,16 +2,18 @@ import { Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import { useCookies } from "react-cookie";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   
   const getAppointments = async () => {
     try {
       await axios
-        .get("/api/v1/user/userAppointments", {
+        .get("https://wisdomkart-server.onrender.com/api/v1/user/userAppointments", {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " +cookies.token,
           },
         })
         .then((res) => {

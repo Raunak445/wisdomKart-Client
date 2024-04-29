@@ -1,9 +1,18 @@
 .image {
-  width: 200px;
-  height: 200px;
+  width: 25vw;
+  height: 60vh;
   object-fit: cover;
-  border-radius: 55%;
+  border-radius: 40px;
   margin-left: 0px;
   margin-top: 30px;
   margin-right: 10px;
+  border: 10px solid #8dc6ff;
+}
+
+
+@media screen and (max-width: 768px) {
+  .image{
+    width: 60vw;
+    height:60vh;
+  }
 }

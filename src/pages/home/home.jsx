@@ -3,30 +3,40 @@ import "./css/bootstrap.min.css";
 import "./css/bootstrap-icons/bootstrap-icons.css";
 // image imports
 // import howitworks from "./img/how-it-work.jpg";
-import under from './old/img/underutilization.jpg'
-import retention from './old/img/customerRetention.jpg'
-import loss from './old/img/loss.jpg'
-import inventory from './old/img/inventory.jpg'
-import delay from './old/img/delay.jpg'
-import work from './old/img/work.jpg'
-import school from './old/img/school.jpg'
-import marketing from './old/img/marketing.jpg'
-import problem from './old/img/problem.jpg'
-import logistic from './old/img/logistic.jpg'
-import employee from './old/img/employee.jpg'
-import thinking from './old/img/thinking.jpg'
-import solution from './old/img/solution.jpg'
-import design from './old/img/design.jpg'
 
-import img1 from './Wisdomkart Banner/1.png'
-import img2 from './Wisdomkart Banner/2.png'
-import img3 from './Wisdomkart Banner/3.png'
-import img4 from './Wisdomkart Banner/4.png'
-import img5 from './Wisdomkart Banner/5.png'
-import img6 from './Wisdomkart Banner/6.png'
-import img7 from './Wisdomkart Banner/7.png'
-import img8 from './Wisdomkart Banner/8.png'
+import under from "./pictures for website/pictures for website/Under utilization of Equipment.png";
 
+import retention from "./pictures for website/pictures for website/Customer Retention.png";
+import loss from "./pictures for website/pictures for website/Opportunity Loss.png";
+import inventory from "./pictures for website/pictures for website/Un controlled inventory in a Restaurant chain business.png";
+import delay from "./pictures for website/pictures for website/Patients Waiting and becoming Impatient.png";
+import work from "./pictures for website/pictures for website/Too much Fire-fighting in Construction Business.png";
+import school from "./pictures for website/pictures for website/Competition in Education.png";
+
+import problem from "./pictures for website/pictures for website/Finance for Non Finance COO.png";
+import logistic from "./pictures for website/pictures for website/Technical Problem Blow Holes in Casting.png";
+import employee from "./pictures for website/pictures for website/Career Growth for Professionals.png";
+import thinking from "./pictures for website/pictures for website/Loyalty Vs Competency.png";
+import solution from "./pictures for website/pictures for website/Solutions for Logistics.png";
+import design from "./pictures for website/pictures for website/Can I use Design thinking approach for my Startup.png";
+
+import img1 from "./Homepage banner/1.jpg";
+import img2 from "./Homepage banner/2.jpg";
+import img3 from "./Homepage banner/3.jpg";
+import img4 from "./Homepage banner/4.jpg";
+import img5 from "./Homepage banner/5.jpg";
+import img6 from "./Homepage banner/6.jpg";
+import img7 from "./Homepage banner/7.jpg";
+import img8 from "./Homepage banner/8.jpg";
+
+import img1m from "./Mobile banner/1.jpg";
+import img2m from "./Mobile banner/2.jpg";
+import img3m from "./Mobile banner/3.jpg";
+import img4m from "./Mobile banner/4.jpg";
+import img5m from "./Mobile banner/5.jpg";
+import img6m from "./Mobile banner/6.jpg";
+import img7m from "./Mobile banner/7.jpg";
+import img8m from "./Mobile banner/8.jpg";
 
 import services from "./img/services-1.jpg";
 import services_2 from "./img/services-2.jpg";
@@ -34,7 +44,8 @@ import services_2 from "./img/services-2.jpg";
 import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
 import { motion, useAnimation } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const listControls = useAnimation();
@@ -63,9 +74,6 @@ const Home = () => {
   const controls = useAnimation();
   const sectionRefTick = useRef(null);
 
-
-
-  
   useEffect(() => {
     const sectionElementTick = sectionRefTick.current;
 
@@ -122,56 +130,121 @@ const Home = () => {
     };
   }, [card1Controls, card2Controls]);
 
-    const slides = [
-      {
-        url:img1,
-      },
+  const slides = [
+    {
+      url: img1,
+    },
 
-      {
-        url: img2,
-      },
-      {
-        url: img3,
-      },
-      {
-        url: img4,
-      },
-      {
-        url: img5,
-      },
-      {
-        url: img6,
-      },
-      {
-        url:  img7,
-      },
-      {
-        url: img8,
-      },
-    ];
+    {
+      url: img2,
+    },
+    {
+      url: img3,
+    },
+    {
+      url: img4,
+    },
+    {
+      url: img5,
+    },
+    {
+      url: img6,
+    },
+    {
+      url: img7,
+    },
+    {
+      url: img8,
+    },
+  ];
 
-    const divStyle = {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      backgroundSize: "cover",
-      padding: "20px",
-      width: "100%",
-      // Media queries for responsiveness
-      '@media (max-width: 768px)': {
-        padding: '10px',
-    
-      },
+  const slidesm = [
+    {
+      url: img1m,
+    },
+
+    {
+      url: img2m,
+    },
+    {
+      url: img3m,
+    },
+    {
+      url: img4m,
+    },
+    {
+      url: img5m,
+    },
+    {
+      url: img6m,
+    },
+    {
+      url: img7m,
+    },
+    {
+      url: img8m,
+    },
+  ];
+
+  // const divStyle = {
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   height: "100vh",
+  //   backgroundSize: "cover",
+  //   padding: "20px",
+  //   width: "100%",
+  //   // Media queries for responsiveness
+  //   '@media (max-width: 768px)': {
+  //     padding: '10px',
+
+  //   },
+  // };
+
+  // const properties = {
+  //   duration: 2000,
+  //   // transitionDuration: 500,
+  //   infinite: true,
+  //   indicators: true,
+  //   arrows: true,
+  // };
+
+  const slideRef = useRef(null);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (slideRef.current) {
+        slideRef.current.goNext();
+      }
+    }, 4000); // Change the duration as needed
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Empty dependency array ensures the effect runs only once after the initial render
+
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll =
+        window.scrollY || document.documentElement.scrollTop;
+      const threshold = window.innerWidth <= 768 ? 40 : 200; // Adjust threshold based on device width
+      setIsScrolledDown(currentScroll > threshold);
     };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    return (
-      <div>
-        {/* <!-- ======= Hero Section ======= --> */}
+  const navigate = useNavigate();
 
-        <section id="hero">
-          {/* <div className="container">
+  const slidesToShow = window.innerWidth <= 576 ? slidesm : slides;
+  // const slidesToShow = slidesm;
+  return (
+    <div>
+      {/* <!-- ======= Hero Section ======= --> */}
+
+      <section id="hero">
+        {/* <div className="container">
             <div className="row d-flex align-items-center">
               <div className=" col-lg-6 py-5 py-lg-0 order-2 order-lg-1">
                 <h1>Unlock Your Potential with Our Online Mentoring Services</h1>
@@ -194,29 +267,41 @@ const Home = () => {
             </div>
           </div> */}
 
-          <Slide>
-            {slides.map((image, index) => (
-              <div key={index} className="slide-container">
-                <div
-                  style={{ backgroundImage: `url(${image.url})` }}
-                  className="each-slide"
-                ></div>
-                <div
-                  id="caption"
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    color: "white",
-                    padding: "10px",
-                    textAlign: "center",
-                  
-                  }}
-                >
-                  Navigate Challenges , Achieve Excellence
-                </div>
+        <Slide ref={slideRef} transitionDuration={1500}>
+          {slidesToShow.map((image, index) => (
+            <div key={index}>
+              <div
+              // style={{ backgroundImage: `url(${image.url})` }}
+              >
+                <img src={image.url} alt="" className="mobile-display" />
+                <img src={image.url} alt="" className="desktop-display" />
               </div>
-            ))}
-          </Slide>
-        </section>
+
+              {/* <div
+                id="caption"
+                style={{
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                  padding: "10px",
+                  textAlign: "center",
+                }}
+              >
+                Navigate Challenges , Achieve Excellence
+              </div> */}
+            </div>
+          ))}
+        </Slide>
+      </section>
+
+      <footer className={`footer ${isScrolledDown ? "visible" : "hidden"}`}>
+        <p className="footerText">Navigate Challenges, Achieve Excellence</p>
+        <button
+          className="footerButton"
+          onClick={() => navigate("/findMentor")}
+        >
+          Find a Mentor
+        </button>
+      </footer>
 
       {/* <!-- End Hero -->  */}
 
@@ -634,15 +719,15 @@ const Home = () => {
             <h2>Some of the real world scenarios</h2>
           </div>
 
-
-
-
-
-          
           <div className="row content">
             <div className="col-md-5">
               {" "}
-              <img src={under} className="img-fluid" alt=""  style={{height:"400px", width:"400px"}} />{" "}
+              <img
+                src={under}
+                className="img-fluid"
+                alt=""
+                style={{ height: "400px", width: "400px" }}
+              />{" "}
             </div>
             <div className="col-md-7 pt-4">
               <motion.div
@@ -650,7 +735,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Under utilization of Equipment</h3>
-                <p>
+                <div className="text1">
                   {" "}
                   A plastic manufacturing company located in Gujarat – India is
                   looking for solutions to improve utilization of Injection
@@ -658,9 +743,9 @@ const Home = () => {
                   to meet the demand which costs 85 lakh INR. It is a Family
                   owned business and the founder’s view is that they are not
                   utilizing the machines in an effective way because{" "}
-                </p>
+                </div>
 
-                <ul>
+                <ul className="text1">
                   <li>
                     <i className="bi bi-check"></i>Frequent breakdowns
                   </li>
@@ -675,16 +760,10 @@ const Home = () => {
             </div>
           </div>
 
-
-
-
-
-
-
           <div className="row content">
             <div className="col-md-5 order-1 order-md-2">
               {" "}
-              <img src={retention} className="img-fluid" alt=""  />{" "}
+              <img src={retention} className="img-fluid" alt="" />{" "}
             </div>
             <div className="col-md-7 pt-5 order-2 order-md-1">
               <motion.div
@@ -692,7 +771,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Customer Retention</h3>
-                <p>
+                <div className="text1">
                   {" "}
                   A Tier 2 Supplier of an Automotive ancillary unit is in the
                   verge of losing its key customer as they are consistently
@@ -700,9 +779,9 @@ const Home = () => {
                   expected score is greater than 80 % and the actual score is
                   fluctuating under 60 %. Below are the issues as expressed by
                   COO.{" "}
-                </p>
+                </div>
 
-                <ul>
+                <ul className="text1">
                   <li>
                     <i className="bi bi-check"></i>Inconsistency in compliance
                     to quality standards as there is huge attrition of front
@@ -723,7 +802,12 @@ const Home = () => {
           <div className="row content">
             <div className="col-md-5">
               {" "}
-              <img src={loss} className="img-fluid" alt="" style={{height:"400px", width:"400px"}}/>{" "}
+              <img
+                src={loss}
+                className="img-fluid"
+                alt=""
+                style={{ height: "400px", width: "400px" }}
+              />{" "}
             </div>
             <div className="col-md-7 pt-5">
               <motion.div
@@ -731,25 +815,22 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Opportunity Loss</h3>
-                <p>
+
+                <div className="text1">
                   This organization in Indore is supplier of welding consumables
                   to one of the largest fabrication company. Off late customer
                   is looking for a second source as the deliveries are poor and
                   he feels the price is high. The organization built additional
                   capacity thinking the about the long term business with the
                   customer. Below are the concerns{" "}
-                </p>
-                <ul>
-                  <li
-                   
-                  >
+                </div>
+                <ul className="text1">
+                  <li>
                     <i className="bi bi-check"></i> Customer is planning to take
                     away 40 % of the business immediately and possibility of
                     losing more business in the next 12 months
                   </li>
-                  <li
-                  
-                  >
+                  <li>
                     <i className="bi bi-check"></i> 90 % of the revenue is
                     coming from this single customer
                   </li>
@@ -760,7 +841,12 @@ const Home = () => {
           <div className="row content">
             <div className="col-md-5 order-1 order-md-2">
               {" "}
-              <img src={inventory} className="img-fluid" alt="" style={{height:"400px", width:"400px"}}/>{" "}
+              <img
+                src={inventory}
+                className="img-fluid"
+                alt=""
+                style={{ height: "400px", width: "400px" }}
+              />{" "}
             </div>
             <div className="col-md-7 pt-5 order-2 order-md-1">
               <motion.div
@@ -768,30 +854,24 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Un controlled inventory in a Restaurant chain business</h3>
-                <p>
+                <div className="text1">
                   {" "}
                   This entrepreneur runs chain of fast-food and Fine dining
                   restaurants in Chennai. Business is very good. But unable to
                   leverage on the top-line as the huge inventory eating away his
                   working capital.
-                </p>
+                </div>
 
-                <ul>
-                  <li
-                   
-                  >
+                <ul className="text1">
+                  <li>
                     <i className="bi bi-check"></i> His chefs and Operations
                     Managers are not able to predict correct demand resulting in
                     either stock-out or excess inventory
                   </li>
-                  <li
-                    
-                  >
+                  <li>
                     <i className="bi bi-check"></i> Suppliers are inconsistent
                   </li>
-                  <li
-                   
-                  >
+                  <li>
                     <i className="bi bi-check"></i> A significant portion is
                     perishable products like vegetables and shelf life items.
                   </li>
@@ -813,7 +893,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Patients Waiting and becoming Impatient</h3>
-                <p>
+                <p className="text1">
                   {" "}
                   A leading and professionally run hospital in Mumbai
                   experiencing poor customer satisfaction ratings. Though
@@ -839,7 +919,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Too much Fire-fighting in Construction Business</h3>
-                <p>
+                <p className="text1">
                   {" "}
                   Owner of a leading construction company In Bangalore is
                   suffering from stress and depression. The company grown 10
@@ -865,7 +945,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Competition in Education </h3>
-                <p>
+                <p className="text1">
                   An Education Institution in Gurugram off-late finding it
                   difficult to get required number of students. Many schools
                   started in the surrounding area and luring the parents with
@@ -879,11 +959,11 @@ const Home = () => {
             </div>
           </div>
           <div className="row content">
-            <div className="col-md-5 order-1 order-md-2">
+            {/* <div className="col-md-5 order-1 order-md-2">
               {" "}
               <img src={marketing} className="img-fluid" alt="" />{" "}
-            </div>
-            <div className="col-md-7 pt-5 order-2 order-md-1">
+            </div> */}
+            {/* <div className="col-md-7 pt-5 order-2 order-md-1">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
@@ -901,23 +981,19 @@ const Home = () => {
                   and performance of students.
                 </p>
               </motion.div>
-            </div>
+            </div> */}
           </div>
 
           {/* <!--=========================================================================================================--> */}
 
           <div className="row content">
-            <div className="col-md-5">
-              {" "}
-              <img src={problem} className="img-fluid" alt="" />{" "}
-            </div>
             <div className="col-md-7 pt-4">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
               >
                 <h3>Finance for Non Finance COO</h3>
-                <p>
+                <p className="text1"> 
                   {" "}
                   The COO of a Manufacturing organization wanted to understand
                   Finance from the Operations point of View. He is interested to
@@ -927,19 +1003,24 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
+            <div className="col-md-5">
+              {" "}
+              <img src={problem} className="img-fluid" alt="" />{" "}
+            </div>
           </div>
           <div className="row content">
-            <div className="col-md-5 order-1 order-md-2">
+          <div className="col-md-5">
               {" "}
               <img src={logistic} className="img-fluid" alt="" />{" "}
             </div>
             <div className="col-md-7 pt-5 order-2 order-md-1">
+            
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
               >
                 <h3>Technical Problem – Blow Holes in Casting</h3>
-                <p>
+                <p className="text1">
                   {" "}
                   This Coimbatore company supplying Castings to a leading MNC,
                   facing customer complaints due to blow holes. Process is
@@ -950,19 +1031,18 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
+
+            
           </div>
           <div className="row content">
-            <div className="col-md-5">
-              {" "}
-              <img src={solution} className="img-fluid" alt="" />{" "}
-            </div>
+           
             <div className="col-md-7 pt-5">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
               >
                 <h3>Solutions for Logistics</h3>
-                <p>
+                <p className="text1">
                   This Chennai based small scale company bagged an export order
                   from UK. The proprietor has no experience of export shipment
                   requirements like regulatory, tax, cost of shipping, shipping
@@ -970,9 +1050,13 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
+            <div className="col-md-5">
+              {" "}
+              <img src={solution} className="img-fluid" alt="" />{" "}
+            </div>
           </div>
           <div className="row content">
-            <div className="col-md-5 order-1 order-md-2">
+          <div className="col-md-5">
               {" "}
               <img src={employee} className="img-fluid" alt="" />{" "}
             </div>
@@ -982,7 +1066,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Career Growth for Professionals</h3>
-                <p>
+                <p className="text1">
                   She is a Post Graduate in Engineering and MBA in Marketing
                   Management. Carries 15 years of diversified experience. Feels
                   that career growth not happening as expected. Wanted to
@@ -990,31 +1074,32 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
+            
           </div>
           {/* <!--========================================================================================================================--> */}
 
           <div className="row content">
-            <div className="col-md-5">
-              {" "}
-              <img src={thinking} className="img-fluid" alt="" />{" "}
-            </div>
+            
             <div className="col-md-7 pt-4">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
               >
                 <h3>Loyalty Vs Competency</h3>
-                <p>
+                <p className="text1">
                   {" "}
                   The CEO is confused in choosing between Loyal people and
                   Competent people. Difficult to find both in a single person.{" "}
                 </p>
-                
               </motion.div>
+            </div>
+            <div className="col-md-5">
+              {" "}
+              <img src={thinking} className="img-fluid" alt="" />{" "}
             </div>
           </div>
           <div className="row content">
-            <div className="col-md-5 order-1 order-md-2">
+            <div className="col-md-5 ">
               {" "}
               <img src={design} className="img-fluid" alt="" />{" "}
             </div>
@@ -1024,13 +1109,12 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Can I use Design thinking approach for my Startup?</h3>
-                <p>
+                <p className="text1">
                   An Enthusiastic and Energetic youngster from Hyderabad
                   planning to start a educational startup and heard about Design
                   thinking approach. He wanted to explore it for his start up to
                   ensure flawless execution from concept to commercialization.
                 </p>
-                
               </motion.div>
             </div>
           </div>

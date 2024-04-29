@@ -5,12 +5,14 @@ import moment from "moment";
 import { DatePicker, TimePicker, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/features/alert";
+import { useCookies } from "react-cookie";
 
 const BookingPage = () => {
   const [mentor, setMentor] = useState();
   const params = useParams();
   const [date, setDate] = useState();
   const [time, setTime] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [isAvailable, setIsAvailable] = useState(<true></true>);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -46,7 +48,7 @@ const BookingPage = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + cookies.token,
             },
           }
         )
@@ -70,7 +72,7 @@ const BookingPage = () => {
         },
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + cookies.token,
           },
         }
       )
@@ -85,7 +87,7 @@ const BookingPage = () => {
   const availableSlots=async()=>{
     await axios.get('https://wisdomkart-server.onrender.com/api/v1/user/availableSlots',{
       headers:{
-        Authorization:"Bearer "+localStorage.getItem('token')
+        Authorization:"Bearer "+cookies.token
       }
     }).then((res)=>{
       console.log(res)
@@ -112,7 +114,7 @@ const BookingPage = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " +cookies.token,
             },
           }
         )

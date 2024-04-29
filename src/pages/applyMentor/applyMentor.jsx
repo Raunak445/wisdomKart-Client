@@ -9,14 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
+import { useCookies } from "react-cookie";
 // import BinaryImage from "../../components/BinaryImage";
 // import FormData from 'form-data'
 
 const ApplyMentor = () => {
-
- 
-
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -28,89 +25,69 @@ const ApplyMentor = () => {
   const [timeFri, setTimeFri] = useState("12:08");
   const [timeSat, setTimeSat] = useState("12:08");
   const [timeSun, setTimeSun] = useState("12:08");
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   const format = "hh:mm A";
-
-  // const onFinish = async (values) => {
-  //   try {
-  //     console.log(values);
-  //     console.log(timeMon);
-  //     console.log(timeTue);
-  //     console.log(timeWed);
-  //     console.log(image)
-
-  //     // dispatch(showLoading());
-
-  //     const res = await axios.post(
-  //       "http://localhost:8080/api/v1/user/applyMentor",
-  //       {
-  //         ...values,
-  //         userId: user._id,
-  //         timeMon: timeMon,
-  //         timeTue,
-  //         timeWed,
-  //         timeThur,
-  //         timeFri,
-  //         timeSat,
-  //         timeSun,
-  //         image:image
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           'Content-Type': 'multipart/form-data',
-  //         },
-  //       }
-  //     );
-
-  //     // dispatch(hideLoading());
-
-  //     if (res.data.success) {
-  //       message.success("Applied for Mentor Successfully");
-  //       // navigate("/");
-  //     } else {
-  //       message.error("Could not apply for Mentor");
-  //     }
-  //   } catch (error) {
-  //     dispatch(hideLoading());
-  //     console.log(error);
-  //     message.error("Something went wrong");
-  //     message.error(error.message);
-  //   }
-  // }
-  
-
-
-
   const onFinish = async (values) => {
     try {
       // Convert image to binary format
-      const reader = new FileReader()
+      const reader = new FileReader();
 
-   
-     
-      
-      
       reader.readAsDataURL(image); // Read the file as a data URL
 
-      // console.log(image)
+      //  console.log(reader)
+      let imageD;
 
-      reader.onload = async () => {
-        const imageData = reader.result.split(",")[1]; // Extract the base64-encoded image data
 
+      const read=new  FileReader();
+      read.readAsDataURL(image);
+
+      read.onload = async (event) => {
+          // const imageData1 = reader.result.split(",")[1]; 
+          // console.log("original",imageData1)
+
+        const img = new Image();
+        img.src = event.target.result;
+      
+        img.onload = async() => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+      
+          // Calculate the new dimensions while maintaining aspect ratio
+          let width = 850;
+          let height = (img.height / img.width) * width;
+          if (height > 350) {
+            height = 650;
+            width = (img.width / img.height) * height;
+          }
+      
+          // Set canvas dimensions
+          canvas.width = width;
+          canvas.height = height;
+      
+          // Draw image on canvas
+          ctx.drawImage(img, 0, 0, width, height);
+      
+          // Convert canvas to base64 string with compression
+          const imageData = canvas.toDataURL("image/jpeg", .80); // Quality set to 90%
+         
+          imageD = imageData.split(",")[1];
+          console.log(imageD)
+         
         
 
-        try {
+           try {
           const res = await axios.post(
-            "http://localhost:8080/api/v1/user/applyMentor",
+            "https://wisdomkart-server.onrender.com/api/v1/user/applyMentor",
             {
               ...values,
               userId: user._id,
-              image: imageData, // Send the binary image data
+              image: imageD, // Send the binary image data
+              email:user.email
             },
             {
               headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${cookies.token}`,
                 "Content-Type": "application/json", // Set Content-Type header for JSON data
               },
             }
@@ -119,21 +96,64 @@ const ApplyMentor = () => {
           if (res.data.success) {
             message.success("Applied for Mentor Successfully");
             navigate("/");
+            window.location.reload();
           } else {
             message.error("Could not apply for Mentor");
           }
 
-          if(res.statusCode>200){
-            message.error("Something went wrong")
-          }
-
+          if (res.statusCode > 200) {
+            message.error("Something went wrong");
+          } 
         } catch (error) {
           // dispatch(hideLoading());
           console.error(error);
           message.error("Something went wrong");
           message.error(error.message);
         }
+          
+
+        };
       };
+
+      
+
+      // reader.onload = async () => {
+      //   // const imageData = reader.result.split(",")[1]; // Extract the base64-encoded image data
+      //     console.log(imageD)
+      //   // try {
+      //   //   const res = await axios.post(
+      //   //     "https://wisdomkart-server.onrender.com/api/v1/user/applyMentor",
+      //   //     {
+      //   //       ...values,
+      //   //       userId: user._id,
+      //   //       image: imageData, // Send the binary image data
+      //   //       email:user.email
+      //   //     },
+      //   //     {
+      //   //       headers: {
+      //   //         Authorization: `Bearer ${cookies.token}`,
+      //   //         "Content-Type": "application/json", // Set Content-Type header for JSON data
+      //   //       },
+      //   //     }
+      //   //   );
+
+      //   //   if (res.data.success) {
+      //   //     message.success("Applied for Mentor Successfully");
+      //   //     navigate("/");
+      //   //   } else {
+      //   //     message.error("Could not apply for Mentor");
+      //   //   }
+
+      //   //   if (res.statusCode > 200) {
+      //   //     message.error("Something went wrong");
+      //   //   } 
+      //   // } catch (error) {
+      //   //   // dispatch(hideLoading());
+      //   //   console.error(error);
+      //   //   message.error("Something went wrong");
+      //   //   message.error(error.message);
+      //   // }
+      // };
     } catch (error) {
       // dispatch(hideLoading());
       console.error(error);
@@ -142,68 +162,6 @@ const ApplyMentor = () => {
     }
   };
 
-  // const onFinish = async (values) => {
-  //   try {
-  //     const formData = new FormData(values);
-
-  //     // formData.append('image', image);
-  //     // Append the image file to the form data
-  //     console.log(values)
-
-  //     // Append other form fields
-  //     // formData.append('firstName', values.firstName);
-  //     // formData.append('lastName', values.lastName);
-  //     // formData.append('phone', values.phone);
-  //     // formData.append('email', values.email);
-  //     // formData.append('address', values.address);
-  //     // formData.append('biodata', values.biodata);
-  //     // formData.append('experience', values.experience);
-  //     // formData.append('feesPerConsultation', values.feesPerConsultation);
-  //     // formData.append('area', values.area);
-  //     // formData.append('industry', values.industry);
-  //     // formData.append('languages', values.languages);
-  //     // formData.append('socialMedia', values.socialMedia);
-  //     // formData.append('mondayTime', timeMon);
-  //     // formData.append('tuesdayTime', timeTue);
-  //     // formData.append('wednesdayTime', timeWed);
-  //     // formData.append('thursdayTime', timeThur);
-  //     // formData.append('fridayTime', timeFri);
-  //     // formData.append('saturdayTime', timeSat);
-  //     // formData.append('sundayTime', timeSun);
-
-  //     // dispatch(showLoading());
-
-  //     console.log(formData)
-  //     console.log(formData.values.firstName)
-
-  //     const res = await axios.post(
-  //       "http://localhost:8080/api/v1/user/applyMentor",
-  //     {name:"Raunak"}, // Use formData as the request body
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           // "Content-Type": "multipart/form-data", // Set Content-Type header for file upload
-  //         },
-  //       }
-  //     );
-
-  //     // dispatch(hideLoading());
-
-  //     if (res.data.success) {
-  //       message.success("Applied for Mentor Successfully");
-  //       // navigate("/");
-  //     }
-  //     else {
-  //       message.error("Could not apply for Mentor");
-  //     }
-
-  //   } catch (error) {
-  //     // dispatch(hideLoading());
-  //     console.error(error);
-  //     message.error("Something went wrong");
-  //     message.error(error.message);
-  //   }
-  // };
 
   const areas = [
     "Leadtime/TAT reduction",
@@ -264,7 +222,7 @@ const ApplyMentor = () => {
   const handleImage = (e) => {
     const file = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png"];
-    const maxSize = 2 * 1024 * 1024; // 2 MB
+    const maxSize = 6 * 1024 * 1024; // 2 MB
 
     // Check if file format and size are valid
     if (file && allowedTypes.includes(file.type) && file.size <= maxSize) {
@@ -277,7 +235,7 @@ const ApplyMentor = () => {
       if (!allowedTypes.includes(file.type)) {
         message.error("Please upload a JPEG or PNG file.");
       } else if (file.size > maxSize) {
-        message.error("File size exceeds 2 MB limit.");
+        message.error("File size exceeds 6 MB limit.");
       }
     }
   };
@@ -302,13 +260,9 @@ const ApplyMentor = () => {
     // Biodata
 
     <div className={style.bg}>
-
-
       <div className={style.wrapper}>
         <h2 className={style.heading}>Register As Mentor</h2>
         <h3 className={style.text}>Personal Details:</h3>
-
-    
 
         <Form
           labelCol={{ span: 6 }}
@@ -375,15 +329,16 @@ const ApplyMentor = () => {
             rules={[{ required: true, message: "Phone number is required" }]}
           >
             <Input />
+
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             label="Email"
             name="email"
             rules={[{ required: true, message: "Email is required" }]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Address"
@@ -417,7 +372,7 @@ const ApplyMentor = () => {
             name="experience"
             rules={[{ required: true, message: "Experience is required" }]}
           >
-            <Input />
+            <Input type="number" min="0" />
           </Form.Item>
 
           {/* Check if usd is possible */}
@@ -497,7 +452,7 @@ const ApplyMentor = () => {
               ))}
             </Select>
           </Form.Item>
-{/* 
+          {/* 
           <Form.Item name="language_others" label="Others(Language)">
             <TextArea
               rows={2}

@@ -29,6 +29,7 @@ import Lobby from "./pages/lobby/lobby.jsx";
 import Room from "./pages/room/room.jsx";
 import Dashboard from "./pages/dashboard/dashboard.jsx";
 import RatingComponent from "./pages/customerRating/customerRating.jsx";
+import PaymentSuccess from "./pages/paymentSuccess/paymentSuccess.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -195,7 +196,9 @@ function App() {
               }
             />
             {/* <Route path="/test" element={<Test/>}></Route> */}
+            
 
+            <Route path="/paymentsuccess" element={<PaymentSuccess/>} />
             <Route path="*" />
 
           </Routes>

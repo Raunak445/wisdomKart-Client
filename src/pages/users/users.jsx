@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table } from "antd";
 import './users.css'
+import { useCookies } from "react-cookie";
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   const getUsers = async () => {
     try {
        await axios
         .get("https://wisdomkart-server.onrender.com/api/v1/admin/getAllUsers", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         })
         .then((res) => {

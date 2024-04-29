@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.wrapperLeft {
+/* .wrapperLeft {
   display: flex;
   flex-direction: column;
   flex: 2;
@@ -15,7 +15,8 @@
   border-radius: 10px;
   border: 2px solid grey;
 
-}
+} */
+
 .wrapperRight {
   display: flex;
   flex-direction: column;
@@ -24,21 +25,21 @@
   padding: 2px;
   box-shadow: 1px 1px 10px grey;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
+  align-self: flex-end; /* Align to the right side */
+  margin-left: auto; /* Push to the right side */
   align-items: center;
   justify-content: center;
 }
 
 .boxSection {
   display: flex;
-  margin-top:50px;
-  align-items: center;  
-  padding: 20px;
+  flex: 2;
+  align-items: flex-start; /* Align items to the left */
+  justify-content: center;
+  margin-top: 50px;
   width: 800px;
   height: 200px;
   border-radius: 14px;
-  
 }
 
 .leftSide img {
@@ -77,7 +78,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border:2px solid rgba(0, 0, 0, 0.347)
+  border: 2px solid rgba(0, 0, 0, 0.347);
 }
 
 h2 {
@@ -137,6 +138,10 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 8px; /* Adjust the gap between items */
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  
 }
 
 .button {
@@ -163,32 +168,64 @@ h2 {
   background-color: #2672c2;
 }
 
+.warningText {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff0000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  justify-content: center;
+}
 
 @media screen and (max-width: 768px) {
   .wrapper {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .wrapperLeft {
     flex: none;
     margin-bottom: 20px;
   }
 }
 
-@media screen and (max-width: 576px) {
-  .boxSection {
+@media screen and (max-width: 700px) {
+  .wrapper {
     flex-direction: column;
     align-items: center;
-    text-align: center;
   }
 
-  .rightSide {
-    margin-left: 0;
+  .wrapperLeft {
+    flex: none;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    margin: auto;
+  }
+
+  .boxSection {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: auto;
   }
 
   .bookingSection {
-    margin-right: 0;
-    margin-left: 0;
+    margin: 0;
+  }
+
+  .button {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  .timeSlots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .label {
+    font-size: 1.2rem;
   }
 }

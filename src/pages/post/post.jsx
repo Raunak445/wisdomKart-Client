@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { message } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Post = () => {
   const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
-
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Post = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${cookies.token}`,
             },
           }
         );
@@ -49,7 +50,7 @@ const Post = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${cookies.token}`,
             },
           }
         );

@@ -2,36 +2,45 @@ import React, { useEffect, useState } from "react";
 import { Table, message } from "antd";
 import axios from "axios";
 import moment from "moment";
+import { useCookies } from "react-cookie";
 
 const MentorAppointments = () => {
   const [appointments, setAppointments] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
-  const handleStatus=async(record,status)=>{
+  const handleStatus = async (record, status) => {
     try {
-      await axios.post('/api/v1/mentor/updateAppointmentStatus',{
-        appointmentsId:record._id,status
-      },{
-        headers:{
-          Authorization:'Bearer '+localStorage.getItem('token')
+      await axios.post(
+        "https://wisdomkart-server.onrender.com/api/v1/mentor/updateAppointmentStatus",
+        {
+          appointmentsId: record._id,
+          status,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.token,
+          },
         }
-      })
+      );
 
-      message.success("Status changed Successfully")
-      
+      message.success("Status changed Successfully");
     } catch (error) {
-      console.log(error)
-      message.error("Something went wrong-mentorAppointments")
+      console.log(error);
+      message.error("Something went wrong-mentorAppointments");
     }
-  }
+  };
 
   const getAppointments = async () => {
     try {
       await axios
-        .get("/api/v1/mentor/mentorAppointments", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(
+          "https://wisdomkart-server.onrender.com/api/v1/mentor/mentorAppointments",
+          {
+            headers: {
+              Authorization: "Bearer " + cookies.token,
+            },
+          }
+        )
         .then((res) => {
           if (res.data.success) {
             setAppointments(res.data.data);
@@ -48,33 +57,25 @@ const MentorAppointments = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "_id",
+      title: "S.No.",
+      dataIndex: "serialNumber",
+      render: (text, record, index) => index + 1,
     },
-    // {
-    //   title: "Name",
-    //   dataIndex: "name",
-    //   render: (text, record) => (
-    //     <span>
-    //       {record.mentorInfo.firstName} {record.mentorInfo.lastName}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: "Phone",
-    //   dataIndex: "phone",
-    //   render: (text, record) => <span>{record.mentorId.phone}</span>,
-    // },
     {
-      title: "Date & Time",
+      title: "Name",
+      dataIndex: "menteeName",
+    },
+    {
+      title: "Appointment Date & Time",
       dataIndex: "date",
       render: (text, record) => (
         <>
           <span>Date:{moment(record.date).format("DD-MM-YYYY")}</span>
-          <br></br>
-          <span>Time: {moment(record.time).format("HH:mm")}</span>
+          <br />
+          <span>Time: {moment(record.time).format("hh:mm A")}</span>
         </>
       ),
+      sorter: (a, b) => moment(b.date).valueOf() - moment(a.date).valueOf(),
     },
     {
       title: "Status",
@@ -89,7 +90,6 @@ const MentorAppointments = () => {
             <div className="d-flex">
               <button
                 className="btn btn-success w-100"
-                
                 onClick={() => handleStatus(record, "approved")}
               >
                 Approved
@@ -107,6 +107,7 @@ const MentorAppointments = () => {
     },
   ];
 
+  console.log(appointments);
   return (
     <>
       <div className="text-blue">Appointments List</div>

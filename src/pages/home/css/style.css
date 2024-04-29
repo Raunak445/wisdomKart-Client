@@ -4,6 +4,8 @@
 
 .slide-container {
   width: 100%;
+  height: 100vh;
+  display: cover;
   margin: auto;
 }
 
@@ -20,10 +22,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-size: cover;
   padding: 20px;
-  width:100vw;
+  width: 100%;
+  height: 100vh;
 }
 
 @media screen and (max-width: 768px) {
@@ -31,6 +33,107 @@
     height: 100vh;
     width: 100vw;
     background-size: cover;
+  }
+}
+
+.text1{
+font-size: 1.4rem;
+color:#0066b2;
+margin-top: 10px;
+}
+
+.text2{
+  font-size: 1.3rem;
+  color:#5072A7
+  }
+  
+
+.desktop-display {
+  
+  display: block;
+  
+}
+.mobile-display {
+  width: 100%;
+  display: none;
+  width: 100%;
+}
+@media (max-width: 667px) {
+  .desktop-display {
+    width: 100%;
+    display: none !important;
+    width: 100%;
+  }
+  .mobile-display {
+    width: 100%;
+    display: block !important;
+    width: 100%;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%; /* Adjusted height for mobile */
+  background-color: #000;
+  padding: 20px; /* Initial padding */
+  transition: transform 0.3s ease;
+  z-index: 3000;
+  padding: 10px;
+}
+
+.footer.visible {
+  transform: translateY(0);
+}
+
+.footer.hidden {
+  transform: translateY(100%);
+}
+
+.footerText {
+  color: #fff;
+  font-size: 1.5rem; /* Initial font size */
+  margin: 0;
+}
+
+.footerButton {
+  background-color: #fff;
+  color: #000;
+  padding: 20px 30px; /* Initial padding */
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem; /* Initial font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 576px) {
+  .footer {
+    height: 8%; /* Adjusted height for mobile */
+    padding: 11px; /* Adjusted padding for mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+  }
+
+  .footerText {
+    font-size: 0.7em; /* Adjusted font size for mobile */
+  }
+
+  .footerButton {
+    padding: 15px; /* Adjusted padding for mobile */
+    font-size: 0.8em; /* Adjusted font size for mobile */
+    height: 100%;
+    
   }
 }
 

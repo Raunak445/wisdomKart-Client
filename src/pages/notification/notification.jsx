@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/features/alert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Notification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const handleMarkAllRead = async () => {
     try {
       dispatch(showLoading());
@@ -18,7 +19,7 @@ const Notification = () => {
         { userId: user._id },
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + cookies.token,
           },
         }
       );
@@ -44,7 +45,7 @@ const Notification = () => {
         { userId: user._id },
         {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + cookies.token,
           },
         }
       );
