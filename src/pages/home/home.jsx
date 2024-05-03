@@ -46,6 +46,7 @@ import { Slide } from "react-slideshow-image";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Home = () => {
   const listControls = useAnimation();
@@ -998,7 +999,7 @@ const Home = () => {
                   The COO of a Manufacturing organization wanted to understand
                   Finance from the Operations point of View. He is interested to
                   learn about the metrics used by his corporate finance team to
-                  measure his performance. Some of them are EBITDA, ROCA, ITR,
+                  measure his performance. Some of them are EBITDA, ROCI, ITR,
                   Gross Margin, Value addition per employee .{" "}
                 </p>
               </motion.div>
@@ -1124,7 +1125,9 @@ const Home = () => {
       </section>
       {/* <!-- End Features Section -->  */}
       {/* <!-- ======= Footer ======= --> */}
-      <footer id="footer" className="footer">
+      <footer id="footer" className="footer1">
+        
+        <div className="contact-info">
         <div className="copyright">
           {" "}
           &copy; Copyright{" "}
@@ -1133,6 +1136,12 @@ const Home = () => {
           </strong>
           . All Rights Reserved{" "}
         </div>
+        <ul>
+          <li><FaPhone /> +91 98863 18437</li>
+          <li><FaEnvelope /> saptha@ssbts.in</li>
+          <li><FaMapMarkerAlt /> #19, 10th Cross, Vijaya Bank Colony, Off Basavanapura main road, Devasandra post, K R Puram, Bangalore 560036, India</li>
+        </ul>
+      </div>
       </footer>
       {/* <!-- End Footer -->  */}
 

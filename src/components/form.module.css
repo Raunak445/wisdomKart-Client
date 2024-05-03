@@ -1,20 +1,32 @@
 /* Form container */
-
-.form{
+.formContainer {
   display: flex;
   flex-direction: column;
-}
-.formContainer {
-
   max-width: 650px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f3f3f3;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  margin-top: 20px;
-  /* font-size: 1.2rem; */
+}
+
+.text{
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom:10px
+}
+
+.error {
+  color: red;
+
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Form styles */
+.form {
+  display: flex;
+  flex-direction: column; /* Change flex direction to column */
 }
 
 /* Form input styles */
@@ -48,4 +60,3 @@
   color: #333;
   text-align: center;
 }
-

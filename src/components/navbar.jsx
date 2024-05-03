@@ -68,19 +68,19 @@ function Navbar() {
       icons: <MdDashboard color="black" />,
       cName: "nav-text",
     },
-    {
-      title: "Courses",
-      path: "/courses",
-      icons: <FaPlayCircle  color="black"/>,
-      cName: "nav-text",
-    },
+    // {
+    //   title: "Courses",
+    //   path: "/courses",
+    //   icons: <FaPlayCircle  color="black"/>,
+    //   cName: "nav-text",
+    // },
 
-    {
-      title: "LiveSesions",
-      path: "/liveSessions",
-      icons: <FaBroadcastTower color="black" />,
-      cName: "nav-text",
-    },
+    // {
+    //   title: "LiveSesions",
+    //   path: "/liveSessions",
+    //   icons: <FaBroadcastTower color="black" />,
+    //   cName: "nav-text",
+    // },
     {
       title: "Contact Us",
       path: "/contactUs",
@@ -182,10 +182,10 @@ function Navbar() {
               </div>
 
               <div
-                onClick={() =>
-                  navigate(`/profile/:${user.firstName + " " + user.lastName}`)
-                }
-                className="style-user"
+                // onClick={() =>
+                //   navigate(`/profile/:${user.firstName + " " + user.lastName}`)
+                // }
+                // className="style-user"
               >
                 {user.firstName + " " + user.lastName}
               </div>

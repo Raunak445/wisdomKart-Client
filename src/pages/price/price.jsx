@@ -182,7 +182,7 @@ const Price = () => {
   useEffect(() => {
     // console.log("Use Effect Called",selectedDate)
     fetchTimeSlots();
-  }, [selectedDate]);
+  }, [selectedDate]); 
 
   const handleBookSession = () => {
     if (!selectedDate || !appointmentTime) {
@@ -217,12 +217,11 @@ const Price = () => {
             data: { key },
           } = await axios.get("http://localhost:8080/api/v1/getKey");
 
-          const { data: {order} } = await axios.post(
-            "http://localhost:8080/api/v1/checkout",
-            {
-              amount: mentor.feesPerConsultation,
-            }
-          );
+          const {
+            data: { order },
+          } = await axios.post("http://localhost:8080/api/v1/checkout", {
+            amount: mentor.feesPerConsultation,
+          });
 
           console.log(order.amount);
 
@@ -232,13 +231,55 @@ const Price = () => {
             currency: "INR",
             name: "Wisdomkart",
             description: "Test Transaction",
-            image:'https://i.postimg.cc/Zn2MGNsp/1.png',
+            image: "https://i.postimg.cc/Zn2MGNsp/1.png",
             order_id: order.id,
-            callback_url: "http://localhost:8080/api/v1/paymentverification",
+            handler: async (response) => {
+              try {
+                const verifyUrl =
+                  "http://localhost:8080/api/v1/paymentverification";
+                const { data } = await axios.post(verifyUrl, response);
+                // console.log(data);
+
+                if (data.success) {
+                  navigate('/')
+                  axios
+                    .post(
+                      "https://wisdomkart-server.onrender.com/api/v1/mentor/booking",
+                      {
+                        id,
+                        appointmentTime,
+                        selectedDate,
+                        selectedArea,
+                        selectedIndustry,
+                        user,
+                      }
+                    )
+                    .then((res) => {
+                      if (res.data.success) {
+                        message.success(res.data.message);
+                      }
+                    })
+                    .catch((error) => {
+                      // dispatch(hideLoading());
+                      message.error(error.message);
+                    });
+
+                    // window.location.reload()
+                } else {
+                  message.error("Payment not received , please try again");
+                }
+
+
+
+              } catch (error) {
+                console.log(error);
+              }
+            },
+            // callback_url: "http://localhost:8080/api/v1/xpaymentverification",
             prefill: {
               name: `${user.firstName} ${user.lastName}`,
               email: user.email,
-            
+              phone: user.phone,
             },
             notes: {
               address: "Razorpay Corporate Office",
@@ -246,52 +287,86 @@ const Price = () => {
             theme: {
               color: "#3399cc",
             },
-           
           };
-        
-        try {
-            const razor = new window.Razorpay(options);
-            razor.open();
-        } catch (error) {
-          window.location.reload()
-          message.error("Error while loading the payment gateway")
-          
-        }
 
+          try {
+            const razor = new window.Razorpay(options);
+
+            razor.open();
+
+            //   razor.on("payment.success", function (response) {
+            //     console.log("Payment successful!", response);
+
+            //     axios
+            //       .post(
+            //         "https://wisdomkart-server.onrender.com/api/v1/mentor/booking",
+            //         {
+            //           id,
+            //           appointmentTime,
+            //           selectedDate,
+            //           selectedArea,
+            //           selectedIndustry,
+            //           user,
+            //         }
+            //       )
+            //       .then((res) => {
+            //         if (res.data.success) {
+            //           message.success(res.data.message);
+            //         }
+            //       })
+            //       .catch((error) => {
+            //         // dispatch(hideLoading());
+            //         message.error(error.message);
+            //       });
+            //   }
+
+            // );
+
+            //   razor.on('payment.error', function (error) {
+            //     // Handle payment error here
+            //     console.error('Payment error:', error);
+            //     // Optionally, reload the page or show an error message to the user
+            //     window.location.reload();
+            //     message.error("Error while processing payment");
+            // });
+            
+          } catch (error) {
+            window.location.reload();
+            message.error("Error while loading the payment gateway");
+          }
 
           // e.preventDefault();
         };
 
-        // if(user.orders!=0)
-        //  checkoutHandler();
+        // if (user.orders != 0) {
+         
+        //   checkoutHandler();}
+        // else {
+          navigate("/");
 
+          axios
+            .post(
+              "https://wisdomkart-server.onrender.com/api/v1/mentor/booking",
+              {
+                id,
+                appointmentTime,
+                selectedDate,
+                selectedArea,
+                selectedIndustry,
+                user,
+              }
+            )
+            .then((res) => {
+              if (res.data.success) {
+                message.success(res.data.message);
+              }
+            })
+            .catch((error) => {
+              // dispatch(hideLoading());
+              message.error(error.message);
+            });
 
-       
-       navigate('/')
-
-        axios
-          .post("https://wisdomkart-server.onrender.com/api/v1/mentor/booking", {
-            id,
-            appointmentTime,
-            selectedDate,
-            selectedArea,
-            selectedIndustry,
-            user,
-
-          })
-          .then((res) => {
-            if (res.data.success) {
-
-              message.success(res.data.message);
-            }
-
-          }
-
-        )
-          .catch((error) => {
-            // dispatch(hideLoading());
-            message.error(error.message)
-          });
+        // }
 
         Modal.destroyAll();
       },

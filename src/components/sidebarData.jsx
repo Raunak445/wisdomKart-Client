@@ -46,19 +46,19 @@ export const userMenuLogin = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  {
-    title: "Courses",
-    path: "https://courses.wisdomkart.com",
-    icons: <FaPlayCircle color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Courses",
+  //   path: "https://courses.wisdomkart.com",
+  //   icons: <FaPlayCircle color="black" />,
+  //   cName: "nav-text",
+  // },
 
-  {
-    title: "LiveSesions",
-    path: "/liveSessions",
-    icons: <FaBroadcastTower color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "LiveSesions",
+  //   path: "/liveSessions",
+  //   icons: <FaBroadcastTower color="black" />,
+  //   cName: "nav-text",
+  // },
   {
     title: "Register as Mentor",
     path: "/applyMentor",
@@ -99,19 +99,19 @@ export const userMenuLogout = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  {
-    title: "Courses",
-    path: "https://courses.wisdomkart.com",
-    icons: <FaPlayCircle color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Courses",
+  //   path: "https://courses.wisdomkart.com",
+  //   icons: <FaPlayCircle color="black" />,
+  //   cName: "nav-text",
+  // },
 
-  {
-    title: "LiveSesions",
-    path: "/liveSessions",
-    icons: <FaBroadcastTower color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "LiveSesions",
+  //   path: "/liveSessions",
+  //   icons: <FaBroadcastTower color="black" />,
+  //   cName: "nav-text",
+  // },
   {
     title: "Register as Mentor",
     path: "/applyMentor",
@@ -170,19 +170,19 @@ export const adminMenu = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  {
-    title: "Courses",
-    path: "/courses",
-    icons: <FaPlayCircle color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Courses",
+  //   path: "/courses",
+  //   icons: <FaPlayCircle color="black" />,
+  //   cName: "nav-text",
+  // },
 
-  {
-    title: "LiveSesions",
-    path: "/liveSessions",
-    icons: <FaBroadcastTower color="black" />,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "LiveSesions",
+  //   path: "/liveSessions",
+  //   icons: <FaBroadcastTower color="black" />,
+  //   cName: "nav-text",
+  // },
   {
     title: "Log out",
     path: "/logout",

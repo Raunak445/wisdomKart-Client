@@ -1,166 +1,151 @@
-import React from "react";
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Input, Button, message } from "antd";
+import {useNavigate} from 'react-router-dom'
 import FormCss from './form.module.css'
-
 import MessageBox from "./messageBox";
-const Form = ({name="Get in Touch",disable=false,placeholder}) => {
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      email: "",
-      contactNumber: "",
-      location: "",
-      companyName: "",
-      designation: "",
-    },
-    onSubmit: (values) => {
-     axios.post('ur;')
-      console.log(values);
-    },
+import axios from 'axios'
 
-    validate:values=>{
-      let errors={
-      }
-      
-      if(!values.fullName){
-        errors.name="Required"
-      }
-      
-      if(!values.email){
-        errors.email="Required"
-      }
-      else if(!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-        errors.email="Invalid email format"
-      }
-
-      if(!values.contactNumber){
-        errors.contactNumber="Required"
-      }
-
-
-      return errors
-    }
-  });
-
-  console.log("form values ", formik.values);
-
+const CustomForm = ({ name = "Get in Touch", disable = false, placeholder }) => {
+  const navigate=useNavigate()
+  
   return (
     <div className={FormCss.formContainer}>
       <h2 className={FormCss.formHeading}>{name}</h2>
-      <form onSubmit={formik.handleSubmit} className={FormCss.form}>
-        <label>
-          Full Name*:
-          <input
-            type="text"
-            name="fullName"
-            value={formik.values.fullName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your full name"
-            required
-          />
-        </label>
+      <Formik
+        initialValues={{
+          fullName: "",
+          email: "",
+          contactNumber: "",
+          location: "",
+          companyName: "",
+          designation: "",
+          message: "",
+        }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.fullName) {
+            errors.fullName = "Required";
+          }
+          if (!values.email) {
+            errors.email = "Required";
+          } else if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            errors.email = "Invalid email format";
+          }
+          if (!values.contactNumber) {
+            errors.contactNumber = "Required";
+          }
+          
+          if (!values.message) {
+            errors.message = "Required";
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log("submit", values);
+          navigate('/')
+          axios
+            .post("https://wisdomkart-server.onrender.com/api/v1/user/contactUs", { values })
+            .then((response) => {
+              console.log("Form submitted successfully:", response);
+              message.success(response.data.message)
+            })
+            .catch((error) => {
+              console.error("Error submitting form:", error);
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className={FormCss.form}>
+            <label htmlFor="fullName" className={FormCss.text}>Full Name*</label>
+            <Field
+              as={Input}
+              type="text"
+              name="fullName"
+              placeholder="Enter your full name"
+            />
+            <ErrorMessage name="fullName" component="div" className={FormCss.error}/>
 
-        <label>
-          Email*:
-          <input
-            type="email"
-            name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your email address"
-            required
-          />
-        </label>
+            <label htmlFor="email" className={FormCss.text}>Email*</label>
+            <Field
+              as={Input}
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+            />
+            <ErrorMessage name="email" component="div" className={FormCss.error} />
 
-        <label>
-          Contact Number*:
-          <input
-            type="tel"
-            name="contactNumber"
-            value={formik.values.contactNumber}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your contact number"
-            required
-          />
-        </label>
+            <label htmlFor="contactNumber" className={FormCss.text}>Contact Number*</label>
+            <Field
+              as={Input}
+              type="tel"
+              name="contactNumber"
+              placeholder="Enter your contact number"
+            />
+            <ErrorMessage name="contactNumber" component="div" className={FormCss.error} />
 
-        <label>
-          City*:
-          <input
-            type="text"
-            name="location"
-            value={formik.values.location}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your location"
-            required
-          />
-        </label>
+            <label htmlFor="location" className={FormCss.text}>City*</label>
+            <Field
+              as={Input}
+              type="text"
+              name="location"
+              placeholder="Enter your location"
+            />
+            <ErrorMessage name="location" component="div"  className={FormCss.error}/>
 
-       
-{
-  !disable && (
-    <label>
-          Company Name:
-          <input
-            type="text"
-            name="companyName"
-            value={formik.values.companyName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your company name"
-          />
-        </label>
+            {!disable && (
+              <>
+                <label htmlFor="companyName" className={FormCss.text}>Company Name</label>
+                <Field
+                  as={Input}
+                  type="text"
+                  name="companyName"
+                  placeholder="Enter your company name"
+                />
+                <ErrorMessage name="companyName" component="div"
+               className={FormCss.error}  />
 
-  )
+                <label htmlFor="designation"className={FormCss.text}>Designation</label>
+                <Field
+                  as={Input}
+                  type="text"
+                  name="designation"
+                  placeholder="Enter your designation"
+                />
+                <ErrorMessage name="designation" component="div" className={FormCss.error}/>
+              </>
+            )}
 
-}
+            
+            <label htmlFor="message" className={FormCss.text}>
+      Message*:
+      <Field
+        as={Input}
+        type='text'
+        name="message"
+        style={{ height: '100px', width: '600px',fontSize: '14px' }}
+        placeholder='Type you message here'
+    
+      />
+      <ErrorMessage name="message" component="div" className={FormCss.error} />
+    </label>
 
-    {!disable && (
-
-      <label>
-          Designation:
-          <input
-            type="text"
-            name="designation"
-            value={formik.values.designation}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className={FormCss.formInput}
-            placeholder="Enter your designation"
-          />
-        </label>
-
-
-    )}      
-      
-      
-      
-      
-      
-        <MessageBox
-          value={formik.values.message}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          placeholder={placeholder}
-          className={FormCss.formInput}
-        />
-         
-
-        <button type="submit" className={FormCss.formSubmit}>
-          Submit
-        </button>
-      </form>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className={FormCss.formSubmit}
+              style={{ width: "100%", padding: "10px", textAlign: "center" }}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
 
-export default Form;
+export default CustomForm;

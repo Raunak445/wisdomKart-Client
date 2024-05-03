@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, message } from "antd";
+import { Spin, Table, message } from "antd";
 import axios from "axios";
 import moment from "moment";
 import { useCookies } from "react-cookie";
@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 const MentorAppointments = () => {
   const [appointments, setAppointments] = useState();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [loading, setLoading] = useState(true);
 
   const handleStatus = async (record, status) => {
     try {
@@ -44,6 +45,7 @@ const MentorAppointments = () => {
         .then((res) => {
           if (res.data.success) {
             setAppointments(res.data.data);
+            setLoading(false); 
           }
         });
     } catch (error) {
@@ -88,12 +90,12 @@ const MentorAppointments = () => {
         <div className="d-flex">
           {record.status === "pending" && (
             <div className="d-flex">
-              <button
+              {/* <button
                 className="btn btn-success w-100"
                 onClick={() => handleStatus(record, "approved")}
               >
                 Approved
-              </button>
+              </button> */}
               <button
                 className="btn btn-danger w-100 ms-2"
                 onClick={() => handleStatus(record, "rejected")}
@@ -111,7 +113,14 @@ const MentorAppointments = () => {
   return (
     <>
       <div className="text-blue">Appointments List</div>
-      <Table columns={columns} dataSource={appointments} />
+
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '300px' }}>
+        <Spin spinning={loading} size="large"></Spin>
+        </div>
+      ) : (
+        <Table columns={columns} dataSource={appointments} />
+      )}
     </>
   );
 };

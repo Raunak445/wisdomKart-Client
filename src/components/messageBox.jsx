@@ -9,7 +9,7 @@ const MessageBox = ({ value, onChange, onBlur ,placeholder="Type your message he
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        style={{ height: '100px', width: '600px'}}
+        style={{ height: '100px', width: '600px',fontSize: '14px' }}
         className="form-input"
         placeholder={placeholder}
     
