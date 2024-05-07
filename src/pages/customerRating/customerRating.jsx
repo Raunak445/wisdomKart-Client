@@ -43,7 +43,7 @@ const RatingComponent = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/user/rating",
+        "https://wisdomkart-server.onrender.com/api/v1/user/rating",
         feedbackData
       );
       //console.log(response.data);
@@ -103,7 +103,7 @@ const RatingComponent = () => {
         placeholder="Please write your feedback"
         className="rtfed"
       ></textarea>
-      <button type="submit" className="rtbtn" onClick={handleSubmit}>
+      <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
         Submit
       </button>
     </div>

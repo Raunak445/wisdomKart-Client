@@ -1,4 +1,13 @@
-import { Button, DatePicker, Form, Input, TimePicker, message } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Rate,
+  Spin,
+  TimePicker,
+  message,
+} from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import style from "./dashboard.module.css";
@@ -25,6 +34,8 @@ const Dashboard = () => {
       return dateB - dateA;
       // Compare dates in descending order
     });
+
+  const [loading, setLoading] = useState(false);
 
   const onRatingClick = (postId) => {
     navigate(`/rating/${postId}`);
@@ -71,10 +82,10 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
         if (!user.isAdmin) {
-         
           const res = await axios.get(
-            "http://localhost:8080/api/v1/user/getPosts",
+            "https://wisdomkart-server.onrender.com/api/v1/user/getPosts",
             {
               headers: {
                 Authorization: `Bearer ${cookies.token}`,
@@ -88,18 +99,18 @@ const Dashboard = () => {
             setPosts(res.data.data);
           } else {
             // message.error(res.data.message);
-            console.log(error)
+            console.log(res.data.message);
           }
         } else {
-
           const res = await axios.get(
-            "http://localhost:8080/api/v1/user/getAllPosts",
+            "https://wisdomkart-server.onrender.com/api/v1/user/getAllPosts",
             {
               headers: {
                 Authorization: `Bearer ${cookies.token}`,
               },
             }
           );
+          setLoading(false);
           if (res.data.success) {
             //    message.success(res.data.message)
             // console.log(res.data.data)
@@ -107,7 +118,7 @@ const Dashboard = () => {
             setPosts(res.data.data);
           } else {
             // message.error(res.data.message);
-            console.log(error.message)
+            console.log(res.data.message);
           }
         }
       } catch (error) {
@@ -117,7 +128,7 @@ const Dashboard = () => {
     };
 
     fetchPosts(); // Call the inner function to initiate data fetching
-  }, [createNewPost,user]);
+  }, [createNewPost, user]);
 
   function formatTime(timeString) {
     // Parse the time string using moment
@@ -144,171 +155,218 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={style.wrapper}>
-      <div className="text-blue">Dashboard</div>
-      {
-        <div className="text-blue">
-          Number of sessions: {posts === null ? 0 : posts.length}
+    <div>
+      {/* {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "300px",
+          }}
+        >
+          <Spin spinning={loading} size="large"></Spin>
         </div>
-      }
-      {mentor && (
-        <button
-          onClick={handleCreateNewPost}
-          className={style.createNewPost}
-          style={{ marginBottom: "10px" }}
-        >
-          Create a new Update
-        </button>
-      )}
+      ) : ( */}
+      <div className={style.wrapper}>
+        <div className="text-blue">Dashboard</div>
+        {
+          <div className="text-blue">
+            Number of sessions: {posts === null ? 0 : posts.length}
+          </div>
+        }
 
-      {createNewPost && (
-        <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 12 }}
-          onFinish={handleCreatePost}
-          // autoComplete="off"
-        >
-          <Form.Item
-            label="Title"
-            name="title"
-            rules={[{ required: true, message: "Title is required" }]}
-            className={style.item}
+        {mentor && (
+          <button
+            onClick={handleCreateNewPost}
+            className={style.createNewPost}
+            style={{ marginBottom: "10px" }}
           >
-            <Input />
-          </Form.Item>
+            Create a new Update
+          </button>
+        )}
 
-          <Form.Item
-            label="Mentee Email"
-            name="mentee"
-            rules={[{ required: true, message: "Mentee email is required" }]}
-            className={style.item}
+        {createNewPost && (
+          <Form
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 12 }}
+            onFinish={handleCreatePost}
+            // autoComplete="off"
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Select Meeting Date"
-            name="meetingDate"
-            rules={[{ required: true, message: "Please select meeting date" }]}
-          >
-            <DatePicker style={{ width: "100%" }} />
-          </Form.Item>
-
-          <Form.Item
-            label="Select Metting Time"
-            name="meetingTime"
-            rules={[{ required: true, message: "Please select a time" }]}
-          >
-            <TimePicker format="hh:mm A" style={{ width: "100%" }} />
-          </Form.Item>
-
-          <Form.Item
-            label="Points Discussed"
-            name="points"
-            rules={[
-              { required: true, message: "Points Disscussed is required" },
-            ]}
-          >
-            <TextArea rows={5} />
-          </Form.Item>
-          <Form.Item
-            label="Conclusion"
-            name="conclusion"
-            rules={[{ required: true, message: "Conclusion is required" }]}
-          >
-            <TextArea rows={5} />
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
-            <Button type="primary" htmlType="submit">
-              Create Update
-            </Button>
-          </Form.Item>
-        </Form>
-      )}
-
-      {Array.isArray(posts) &&
-        posts.map((post) => {
-          return (
-            <div
-              className={style.wrapper}
-              key={post._id}
-              style={{
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                marginBottom: "20px",
-                cursor: "pointer", // Added cursor pointer for hover effect
-                transition: "background-color 0.3s", // Smooth background color transition on hover
-              }}
-              // onClick={()=>onPostClick(post._id)}
+            <Form.Item
+              label="Title"
+              name="title"
+              rules={[{ required: true, message: "Title is required" }]}
+              className={style.item}
             >
-              <div
-                className="postTitle"
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                  color: "#333", // Updated font color
-                }}
-              >
-                Update Title: {post.title}
-              </div>
+              <Input />
+            </Form.Item>
 
+            <Form.Item
+              label="Mentee Email"
+              name="mentee"
+              rules={[{ required: true, message: "Mentee email is required" }]}
+              className={style.item}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Select Meeting Date"
+              name="meetingDate"
+              rules={[
+                { required: true, message: "Please select meeting date" },
+              ]}
+            >
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+
+            <Form.Item
+              label="Select Metting Time"
+              name="meetingTime"
+              rules={[{ required: true, message: "Please select a time" }]}
+            >
+              <TimePicker format="hh:mm A" style={{ width: "100%" }} />
+            </Form.Item>
+
+            <Form.Item
+              label="Points Discussed"
+              name="points"
+              rules={[
+                { required: true, message: "Points Disscussed is required" },
+              ]}
+            >
+              <TextArea rows={5} />
+            </Form.Item>
+
+            <Form.Item
+              label="Conclusion"
+              name="conclusion"
+              rules={[{ required: true, message: "Conclusion is required" }]}
+            >
+              <TextArea rows={5} />
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
+              <Button type="primary" htmlType="submit">
+                Create Update
+              </Button>
+            </Form.Item>
+          </Form>
+        )}
+
+        {Array.isArray(posts) &&
+          posts.map((post) => {
+            return (
               <div
-                className="points"
+                className={style.wrapper}
+                key={post._id}
                 style={{
-                  fontSize: "16px",
-                  marginBottom: "10px",
-                  color: "#555",
-                }} // Updated font color
-              >
-                Update Points: {post.points}
-              </div>
-              <div
-                className="session"
-                style={{
-                  fontSize: "16px",
-                  marginBottom: "10px",
-                  color: "#555",
-                }} // Updated font color
-              >
-                Update Conclusion: {post.conclusion}
-              </div>
-              <div
-                style={{
-                  fontSize: "14px",
-                  arginTop: "10px",
-                  marginBottom: "5px",
-                  color: "#777",
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  marginBottom: "20px",
+                  cursor: "pointer", // Added cursor pointer for hover effect
+                  transition: "background-color 0.3s", // Smooth background color transition on hover
                 }}
+                // onClick={()=>onPostClick(post._id)}
               >
-                {" "}
-                {/* Updated font color */}
-                Mentor: {post.mentorName}
+                <div
+                  className="postTitle"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    marginBottom: "5px",
+                    color: "#333", // Updated font color
+                  }}
+                >
+                  Update Title: {post.title}
+                </div>
+
+                <div
+                  className="points"
+                  style={{
+                    fontSize: "16px",
+                    marginBottom: "10px",
+                    color: "#555",
+                  }} // Updated font color
+                >
+                  Update Points: {post.points}
+                </div>
+                <div
+                  className="session"
+                  style={{
+                    fontSize: "16px",
+                    marginBottom: "10px",
+                    color: "#555",
+                    display: "flex",
+                    flexDirection: "column",
+                  }} // Updated font color
+                >
+                  Update Conclusion: {post.conclusion}
+
+
+                  {(!post.isRated && !user.isMentor) && (
+                    <button
+                      onClick={() => onRatingClick(post._id)}
+                      className="btn btn-primary w-25"
+                    >
+                      Rate Session
+                    </button>
+                  )
+                  }
+
+                </div>
+                {post.isRated && (
+                  <div>
+                    <Rate
+                      disabled
+                      defaultValue={post.rating}
+                      allowHalf
+                      style={{ fontSize: 24 }}
+                      character={<span style={{ marginRight: "2px" }}>★</span>}
+                    />
+                  </div>
+                )}
+
+                <div
+                  style={{
+                    fontSize: "14px",
+                    arginTop: "10px",
+                    marginBottom: "5px",
+                    color: "#777",
+                  }}
+                >
+                  {" "}
+                  {/* Updated font color */}
+                  Mentor: {post.mentorName}
+                </div>
+                <div style={{ fontSize: "14px", color: "#777" }}>
+                  {" "}
+                  {/* Updated font color */}
+                  Mentee: {post.menteeName}
+                </div>
+
+                <div
+                  style={{
+                    fontSize: "14px",
+                    marginBottom: "5px",
+                    marginTop: "10px",
+                    color: "#777",
+                  }}
+                >
+                  {" "}
+                  {/* Updated font color */}
+                  Meeting Time: {convert12(formatTime(post?.meetingTime))}
+                  <br />
+                  Meeting Date: {new Date(post.createdAt).toLocaleDateString()}
+                </div>
               </div>
-              <div style={{ fontSize: "14px", color: "#777" }}>
-                {" "}
-                {/* Updated font color */}
-                Mentee: {post.menteeName}
-              </div>
-              <div
-                style={{
-                  fontSize: "14px",
-                  marginBottom: "5px",
-                  marginTop: "10px",
-                  color: "#777",
-                }}
-              >
-                {" "}
-                {/* Updated font color */}
-                Meeting Time: {convert12(formatTime(post?.meetingTime))}
-                <br />
-                Meeting Date: {new Date(post.createdAt).toLocaleDateString()}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
+
+      {/* )} */}
     </div>
   );
 };

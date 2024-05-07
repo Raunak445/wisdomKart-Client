@@ -156,11 +156,13 @@ const MentorProfile = () => {
                 message.error("Couldnt Update Profile");
               }
             } catch (error) {
-              console.log(error);
+              message.error(error.message)
             }
           };
         };
       } else {
+
+
         try {
           if (timeMon != null) {
             values.mondayTime = timeMon;
@@ -212,7 +214,7 @@ const MentorProfile = () => {
       }
     } catch (error) {
       // dispatch(hideLoading());
-      console.log(error);
+     
       message.error("Something went wrong");
       message.error(error.message);
     }
@@ -355,6 +357,23 @@ const MentorProfile = () => {
               label="Experience"
               name="experience"
               rules={[{ required: true, message: "Experience is required" }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Biodata"
+              name="biodata"
+              rules={[{ required: true, message: "Biodata is required" }]}
+            >
+              <Input />
+            </Form.Item>
+
+
+            <Form.Item
+              label="Profile"
+              name="displaydata"
+              // rules={[{ required: true, message: "Experience is required" }]}
             >
               <Input />
             </Form.Item>

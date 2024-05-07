@@ -2,6 +2,8 @@ import ProfileCss from "./profileCard.module.css";
 import { useNavigate } from "react-router-dom";
 import BinaryImage from "./BinaryImage";
 import LazyLoad from "react-lazyload";
+import { Button, Modal } from 'antd';
+import { useState } from "react";
 const ProfileCard = ({
   image,
   name,
@@ -10,7 +12,9 @@ const ProfileCard = ({
   id,
   industry,
   area,
+  displaydata,
   button = true,
+  rate
 }) => {
   const navigate = useNavigate();
 
@@ -23,6 +27,14 @@ const ProfileCard = ({
   };
 
   // console.log(experience);
+  const [visible, setVisible] = useState(false);
+  const handleShowModal = () => {
+    setVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setVisible(false);
+  };
 
   return (
     <LazyLoad height={200} offset={100}>
@@ -32,7 +44,21 @@ const ProfileCard = ({
         <div className={ProfileCss.personDetails}>
           <h2 className={ProfileCss.personName}>{name}</h2>
           {/* <p className={ProfileCss.personDesignation}>{designation}</p> */}
-          <p className={ProfileCss.bio}>{intro}</p>
+          <div className={ProfileCss.bio}>{displaydata}</div>
+        
+          <div>
+            <Button type="primary" onClick={handleShowModal}>
+              Detailed BioData
+            </Button>
+            <Modal
+              title="Biodata"
+              visible={visible}
+              onCancel={handleCloseModal}
+              footer={null}
+            >
+              <div>{intro}</div>
+            </Modal>
+          </div>
 
           <div className={ProfileCss.wrapper}>
             {/* <p className={ProfileCss.personAchievement}>{achievement}</p> */}
@@ -40,6 +66,7 @@ const ProfileCard = ({
               <b>Experience</b>:{" "}
               <span className={ProfileCss.text}>{experience}</span>{" "}
             </div>
+           
           </div>
 
           <div className={ProfileCss.textWrapper}>

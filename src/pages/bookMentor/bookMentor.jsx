@@ -13,12 +13,10 @@ import {
   message,
 } from "antd";
 import moment from "moment";
-import img from "./wisdomkart.png";
 
-import { showLoading, hideLoading } from "../../redux/features/alert";
 import { useCookies } from "react-cookie";
 const BookMentor = () => {
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
@@ -91,8 +89,16 @@ const BookMentor = () => {
       //  dispatch(hideLoading());
 
       if (res.data.success) {
-        message.success("Mentor request form send successfully");
-        navigate("/");
+        message.success({
+          content: "Mentor request form send successfully",
+          duration: 5, // Duration in seconds
+          style: {
+            fontSize: "18px", // Adjust the font size as needed
+          },
+        });
+        
+         navigate("/");
+         
       } else {
         message.error("Cannot send Mentor request form");
       }

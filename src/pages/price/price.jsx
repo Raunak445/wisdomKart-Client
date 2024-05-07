@@ -215,11 +215,11 @@ const Price = () => {
         const checkoutHandler = async () => {
           const {
             data: { key },
-          } = await axios.get("http://localhost:8080/api/v1/getKey");
+          } = await axios.get("https://wisdomkart-server.onrender.com/api/v1/getKey");
 
           const {
             data: { order },
-          } = await axios.post("http://localhost:8080/api/v1/checkout", {
+          } = await axios.post("https://wisdomkart-server.onrender.com/api/v1/checkout", {
             amount: mentor.feesPerConsultation,
           });
 
@@ -236,12 +236,14 @@ const Price = () => {
             handler: async (response) => {
               try {
                 const verifyUrl =
-                  "http://localhost:8080/api/v1/paymentverification";
+                  "https://wisdomkart-server.onrender.com/api/v1/paymentverification";
                 const { data } = await axios.post(verifyUrl, response);
                 // console.log(data);
 
                 if (data.success) {
+                 
                   navigate('/')
+                  alert('Your appointment is confirmed, Please refer your registered email for more details')
                   axios
                     .post(
                       "https://wisdomkart-server.onrender.com/api/v1/mentor/booking",
@@ -266,7 +268,15 @@ const Price = () => {
 
                     // window.location.reload()
                 } else {
-                  message.error("Payment not received , please try again");
+                  message.error({
+                    content: "Payment not received , please try again",
+                    duration: 5, // Duration in seconds
+                    style: {
+                      fontSize: "18px", // Adjust the font size as needed
+                    },
+                  });
+                
+                  
                 }
 
 
@@ -338,11 +348,14 @@ const Price = () => {
           // e.preventDefault();
         };
 
-        // if (user.orders != 0) {
+        if (user.orders != 0) {
          
-        //   checkoutHandler();}
-        // else {
+          checkoutHandler();}
+        else {
+
           navigate("/");
+
+          alert('Your appointment is confirmed, Please refer your registered email for more details ')
 
           axios
             .post(
@@ -366,7 +379,7 @@ const Price = () => {
               message.error(error.message);
             });
 
-        // }
+        }
 
         Modal.destroyAll();
       },
@@ -482,14 +495,15 @@ const Price = () => {
                 key={mentor._id} // Ensure each component has a unique key
                 image={mentor.image}
                 name={`${mentor.firstName} ${mentor.lastName}`}
-                designation="NA"
+               
                 intro={mentor.biodata}
-                achievement="NA"
+              
                 experience={`${mentor.experience} years`}
                 id={mentor._id} // Pass mentor's ID as the id prop
                 industry={mentor.industry}
                 area={mentor.area}
                 button={false}
+                displaydata={mentor.displaydata}
               />
             </div>
           )}
@@ -500,6 +514,12 @@ const Price = () => {
 
       <div className={PriceCss.wrapperRight}>
         <div className={PriceCss.calendar}>
+
+              <div style={{backgroundColor:'lightblue',borderRadius:'10px',padding:'10px'}}>
+              <b style={{fontSize:'20px',margin:'30px'}}>Hourly Charges</b>:{" "}
+              <span className={PriceCss.h}>INR {mentor?.feesPerConsultation}</span>
+              </div>
+         
           <h1>Select a Date</h1>
           <Calendar
             // onChange={(date) => dateChangeHandler(date)}

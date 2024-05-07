@@ -27,14 +27,21 @@ const Login = () => {
       const res = await axios.post(url, data);
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success("Logged In Successfully");
+        message.success({
+          content: "Logged In Successfully",
+          duration: 5, // Duration in seconds
+          style: {
+            fontSize: "18px", // Adjust the font size as needed
+          },
+        });
+       
         // localStorage.setItem("token", res.data.token);
 
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 5); // Expires in 5 days
         setCookie('token', res.data.token, { expires: expirationDate });
 
-        console.log(res.data);
+        // console.log(res.data);
         navigate("/");
         // Reload the page after navigation
         // window.location.reload();
@@ -84,6 +91,11 @@ const Login = () => {
               Sign In
             </button>
           </form>
+          <Link to="/forgotPassword">
+            <button type="button" className={loginCss.green_btn}>
+              Forgot Password
+            </button>
+            </Link>
         </div>
         <div className={loginCss.right}>
           <h1>New Here ?</h1>
@@ -92,6 +104,9 @@ const Login = () => {
               Sign Up
             </button>
           </Link>
+
+          
+
         </div>
       </div>
     </div>

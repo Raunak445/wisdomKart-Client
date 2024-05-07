@@ -140,7 +140,7 @@ function Navbar() {
 
   useEffect(() => {
     getUserData();
-  }, [cookies]); // Include navigate in the dependencies array
+  }, [cookies,user]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
 
   const handleClick = () => {

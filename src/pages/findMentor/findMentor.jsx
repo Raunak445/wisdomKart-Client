@@ -227,10 +227,12 @@ const FindMentor = () => {
                 image={mentor.image}
                 name={`${mentor.firstName} ${mentor.lastName}`}
                 intro={mentor.biodata}
-                experience={`${mentor.experience} years`}
+                experience={`${mentor.experience} ${mentor.experience==1?'year':'years'}`}
                 id={mentor._id}
                 industry={mentor.industry}
                 area={mentor.area}
+                displaydata={mentor.displaydata}
+                rate={mentor.feesPerConsultation}
               />
             </LazyLoad>
           ))}

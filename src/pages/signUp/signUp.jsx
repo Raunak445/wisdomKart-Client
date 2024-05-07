@@ -24,25 +24,42 @@ const SignUp = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-     dispatch(showLoading());
+
+    if (data.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      // dispatch(hideLoading());
+      return; // Exit the function if password length is invalid
+    }
+    dispatch(showLoading());
+  
+    // Check if the password meets the minimum length requirement
+   
+  
     try {
       const url = "https://wisdomkart-server.onrender.com/api/v1/user/signUp";
       const res = await axios.post(url, data);
-      
-      setMsg(res.data.message)
-
+  
+      setMsg(res.data.message);
+  
       if (res.data.success) {
-        message.success("Please verify your email");
-         navigate("/login");
+        message.success({
+          content: "Please verify your email",
+          duration: 5,
+          style: {
+            fontSize: "18px",
+          },
+        });
+        navigate("/login");
       } else {
-        message.error("User already exist ");
+        message.error("User already exists");
       }
-
-       dispatch(hideLoading());
+  
+      dispatch(hideLoading());
     } catch (error) {
-       dispatch(hideLoading());
+      dispatch(hideLoading());
       if (
         error.response &&
         error.response.status >= 400 &&
@@ -53,6 +70,48 @@ const SignUp = () => {
       }
     }
   };
+  
+
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //    dispatch(showLoading());
+  //   try {
+  //     const url = "https://wisdomkart-server.onrender.com/api/v1/user/signUp";
+  //     const res = await axios.post(url, data);
+      
+  //     setMsg(res.data.message)
+
+  //     if (res.data.success) {
+  //        // message.success("Please verify your email");
+
+  //       message.success({
+  //         content: "Please verify your email",
+  //         duration: 5, // Duration in seconds
+  //         style: {
+  //           fontSize: "18px", // Adjust the font size as needed
+  //         },
+  //       });
+
+  //        navigate("/login");
+  //     } else {
+  //       message.error("User already exist ");
+  //     }
+
+  //      dispatch(hideLoading());
+  //   } catch (error) {
+  //      dispatch(hideLoading());
+  //     if (
+  //       error.response &&
+  //       error.response.status >= 400 &&
+  //       error.response.status <= 500
+  //     ) {
+  //       setError(error.response.data.message);
+  //       message.error(error.response.data.message);
+  //     }
+  //   }
+  // };
 
   return (
     <div className={signUpCss.signup_container}>

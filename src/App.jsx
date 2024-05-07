@@ -3,7 +3,7 @@ import Navbar from "./components/navbar.jsx";
 import FindMentor from "./pages/findMentor/findMentor.jsx";
 import About from "./pages/about/about.jsx";
 import Form from "./components/form.jsx";
-import ContactUs from './pages/contactUs/contactUs.jsx'
+import ContactUs from "./pages/contactUs/contactUs.jsx";
 import Price from "./pages/price/price.jsx";
 import SignUp from "./pages/signUp/signUp.jsx";
 import Login from "./pages/login/login.jsx";
@@ -30,6 +30,8 @@ import Room from "./pages/room/room.jsx";
 import Dashboard from "./pages/dashboard/dashboard.jsx";
 import RatingComponent from "./pages/customerRating/customerRating.jsx";
 import PaymentSuccess from "./pages/paymentSuccess/paymentSuccess.jsx";
+import ForgotPasswordPage from "./pages/forgotPassword/forgotPassword.jsx";
+import ResetPassword from "./pages/resetPassword/resetPassword.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -67,7 +69,7 @@ function App() {
             <Route path="/courses" />
             <Route path="/liveSessions" />
             <Route path="/caseStudies" />
-            <Route path="/contactUs" element={<ContactUs/>} />
+            <Route path="/contactUs" element={<ContactUs />} />
             <Route
               path="/dashboard"
               element={
@@ -76,11 +78,9 @@ function App() {
                 </ProtectedRoutes>
               }
             />
-
-            <Route path="/rating/:postId" element={<RatingComponent/>}/>
-              
-            <Route path="/resources" /> 
-            {/* <Route path="/post/:postId"  element={<Post/>}/>  No disccussion hence scrapped  */}  
+            <Route path="/rating/:postId" element={<RatingComponent />} />
+            <Route path="/resources" />
+            {/* <Route path="/post/:postId"  element={<Post/>}/>  No disccussion hence scrapped  */}
             <Route path="/price" element={<Price />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/user/:id/verify/:token" element={<EmailVerify />} />
@@ -110,7 +110,8 @@ function App() {
                 </ProtectedRoutes>
               }
             />
-            
+            <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
+            <Route path="/resetPassword/:userId" element={<ResetPassword />} />
             <Route
               path="/admin/users"
               element={
@@ -196,11 +197,8 @@ function App() {
               }
             />
             {/* <Route path="/test" element={<Test/>}></Route> */}
-            
-
-            <Route path="/paymentsuccess" element={<PaymentSuccess/>} />
+            <Route path="/paymentsuccess" element={<PaymentSuccess />} />
             <Route path="*" />
-
           </Routes>
         )}
       </BrowserRouter>

@@ -9,7 +9,7 @@
   margin-left: 200px;
   margin-top: 20px;
   margin-bottom: 30px;
-  background-color:  #e4f1fe;
+  background-color: #e4f1fe;
 }
 
 .personImage {
@@ -99,6 +99,7 @@
 .experience {
   margin: auto;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .industry {
@@ -113,11 +114,15 @@
   border: 2px solid #668ba4;
   border-radius: 10px;
   margin-bottom: 10px;
-
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px) {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
   .personCard {
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -127,20 +132,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
-    margin-left: 200px;
-    margin-top: 20px;
+    justify-content: center; /* Center vertically */
+    width: calc(100% - 40px); /* Subtracting padding from the width */
+    max-width: 400px; /* Maximum width */
+    height: auto; /* Allow the height to adjust based on content */
+    margin: auto; /* Center the card horizontally */
+
+    
   }
 
-  .personImage {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+  /* .personImage {
+    width: 100vw;
+    height: 60vh;
+    border: 1px solid black;
     border-radius: 50%;
     margin-left: 0px;
     margin-top: 30px;
     margin-right: 10px;
-  }
+  } */
 
   .personDetails {
     margin-top: 2px;
@@ -159,21 +168,21 @@
     color: black;
   }
 
-  .personIntro {
+
+  .bio {
     color: rgb(71, 69, 69);
     font-family: Arial, sans-serif;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+    
   }
 
-  .wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
+ 
 
   .buttonsWrapper {
     display: flex;
     justify-content: space-evenly;
-    
   }
 
   .profileButton {

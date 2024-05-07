@@ -23,6 +23,7 @@ const EmailVerify = () => {
       // dispatch(hideLoading())
       console.log(error);
       setValidUrl(false);
+    
     }
   };
 
@@ -43,7 +44,7 @@ const EmailVerify = () => {
           </Link>
         </div>
       ) : (
-        <h1>404 Not found</h1>
+        <h1>Please wait !</h1>
       )}
     </>
   );

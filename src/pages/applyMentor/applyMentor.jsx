@@ -94,9 +94,12 @@ const ApplyMentor = () => {
           );
 
           if (res.data.success) {
+
+           
+            alert("Applied for Mentor Successfully")
             message.success("Applied for Mentor Successfully");
             navigate("/");
-            window.location.reload();
+            // window.location.reload();
           } else {
             message.error("Could not apply for Mentor");
           }
@@ -364,8 +367,24 @@ const ApplyMentor = () => {
               },
             ]}
           >
-            <TextArea rows={4} />
+            <TextArea rows={4} placeholder="This will be used by admin to approve you mentor profile" />
           </Form.Item>
+
+            <div  style={{textAlign:"center", fontSize:'16px',color:'red'}}>Under 50 words only</div>
+          <Form.Item
+            name="displaydata"
+            label="Profile"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your brief about yourself ,this will we used to display to mentee",
+              },
+            ]}
+          >
+            <TextArea rows={4} 
+            placeholder="Please enter your brief about yourself ,this will be displayed to mentee" />
+          </Form.Item>
+
 
           <Form.Item
             label="Experience (In years)"
@@ -400,7 +419,7 @@ const ApplyMentor = () => {
           </Form.Item>
 
           <Form.Item
-            name="industry_others"
+            name="area_others"
             label="Others(Area of Specialization)"
           >
             <TextArea

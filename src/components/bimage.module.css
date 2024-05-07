@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 768px) {
   .image{
-    width: 60vw;
+    width: 100vw;
     height:60vh;
   }
 }

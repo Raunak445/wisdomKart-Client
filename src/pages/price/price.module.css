@@ -1,7 +1,21 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+
 }
+
+.h{
+  display: inline-block;
+  padding: 5px 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 5px; /* Border radius */
+  background-color: #f0f0f0; /* Background color */
+  color: white; /* Text color */
+  background-color:#0E46A3;
+  font-weight: bold; /* Bold font */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
 
 /* .wrapperLeft {
   display: flex;
@@ -178,17 +192,21 @@ h2 {
   justify-content: center;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .wrapper {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
   }
 
   .wrapperLeft {
     flex: none;
     margin-bottom: 20px;
   }
-}
+} */
+
+
 
 @media screen and (max-width: 700px) {
   .wrapper {
@@ -201,6 +219,10 @@ h2 {
     margin-bottom: 20px;
   }
 
+  .wrapperRight{
+    margin:auto
+  }
+
   .card {
     margin: auto;
   }
@@ -210,10 +232,16 @@ h2 {
     align-content: center;
     justify-content: center;
     height: auto;
+    width: 100%;
   }
 
   .bookingSection {
-    margin: 0;
+    margin: auto;
+    display: flex;
+    font-display: column;
+    align-items: center;
+    justify-content: center;
+
   }
 
   .button {
@@ -223,6 +251,7 @@ h2 {
 
   .timeSlots {
     grid-template-columns: repeat(2, 1fr);
+    margin:10px;
   }
 
   .label {
