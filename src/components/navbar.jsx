@@ -68,12 +68,12 @@ function Navbar() {
       icons: <MdDashboard color="black" />,
       cName: "nav-text",
     },
-    // {
-    //   title: "Courses",
-    //   path: "/courses",
-    //   icons: <FaPlayCircle  color="black"/>,
-    //   cName: "nav-text",
-    // },
+    {
+      title: "Courses",
+      path: "https://courses.wisdomkart.com",
+      icons: <FaPlayCircle  color="black"/>,
+      cName: "nav-text",
+    },
 
     // {
     //   title: "LiveSesions",
@@ -140,7 +140,10 @@ function Navbar() {
 
   useEffect(() => {
     getUserData();
-  }, [cookies,user]); // Include navigate in the dependencies array
+    // if(user?.isMentor){
+    //   window.location.reload()
+    // }
+  }, [cookies,location]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
 
   const handleClick = () => {

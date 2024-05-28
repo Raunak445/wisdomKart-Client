@@ -63,6 +63,18 @@ const MentorDetails = ({ mentor }) => {
           <Text className={styles.label}>Fees per Consultation:</Text>{" "}
           {mentor.feesPerConsultation}
         </p>
+
+        <p>
+          <Text className={styles.label}>BioData:</Text> {mentor.biodata}
+        </p>
+
+        <p>
+          <Text className={styles.label}>
+            Brief Profile:
+          </Text>{" "}
+          {mentor.displaydata}
+        </p>
+
         <p>
           <Text className={styles.label}>Status:</Text> {mentor.status}
         </p>
@@ -82,7 +94,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.mondayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Monday Timings:</Text> : Not
             available
           </div>
@@ -95,7 +107,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.tuesdayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Tuesday Timings:</Text> : Not
             available
           </div>
@@ -108,7 +120,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.wednesdayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Wednesday Timings:</Text> : Not
             available
           </div>
@@ -121,8 +133,8 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.thursdayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}} >
-            <Text className={styles.label}  >Thursday Timings:</Text> : Not
+          <div style={{ marginTop: "10px" }}>
+            <Text className={styles.label}>Thursday Timings:</Text> : Not
             available
           </div>
         )}
@@ -134,7 +146,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.fridayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Friday Timings:</Text> : Not
             available
           </div>
@@ -147,7 +159,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.saturdayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Saturday Timings:</Text> : Not
             available
           </div>
@@ -160,7 +172,7 @@ const MentorDetails = ({ mentor }) => {
             {convert12(formatTime(mentor.sundayTime[1]))}{" "}
           </p>
         ) : (
-          <div style={{marginTop:'10px'}}>
+          <div style={{ marginTop: "10px" }}>
             <Text className={styles.label}>Sunday Timings:</Text> : Not
             available
           </div>

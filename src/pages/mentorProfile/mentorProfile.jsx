@@ -223,14 +223,56 @@ const MentorProfile = () => {
   // Define arrays for areas and industries
   const areas = [
     "Leadtime/TAT reduction",
-    "Inventory Management",
-    // Add other areas here...
+    "Inventory Management ",
+    "Quality Improvement",
+    "Productivity Improvement",
+    "Cost Reduction",
+    "Work Culture Improvement",
+    "Employee Engagement",
+    "People development",
+    "Delivery Management",
+    "Asset/Equipment Management",
+    "Machine Breakdown reduction",
+    "Safety, Health & Environment",
+    "Professional /Career Growth",
+    "Visual Management",
+    "Process Management",
+    "Goal setting",
+    "Business Strategies",
+    "Value Stream Management",
+    "Startup Coaching",
+    "Business Turnaround",
+    "Business Plan",
+    "Mid Career Growth",
   ];
 
   const industries = [
     "Aerospace/Defence",
     "Automotive",
-    // Add other industries here...
+    "Food",
+    "Pharma",
+    "Retail",
+    "Education",
+    "Healthcare",
+    "Restaurants/Hotels/Hospitality",
+    "Healthcare/Hospitals",
+    "Supply Chain & Logistics",
+    "Real estate/Construction",
+    "Heavy Machineries",
+    "Foundry",
+    "Forging",
+    "Banking & Finance",
+    "Agriculture",
+    "IT/ITES/Software",
+    "Service Industry",
+    "General Engineering",
+    "NGO",
+    "Government",
+    "Packaging",
+    "Apparel/Garment Manufacturing",
+    "Textile",
+    "Chemical Manufacturing",
+    "Energy/Power",
   ];
 
   const dispatch = useDispatch();
@@ -354,7 +396,7 @@ const MentorProfile = () => {
             <h3 className={style.text}>Professional Details:</h3>
 
             <Form.Item
-              label="Experience"
+              label="Experience (in years)"
               name="experience"
               rules={[{ required: true, message: "Experience is required" }]}
             >
@@ -374,6 +416,7 @@ const MentorProfile = () => {
               label="Profile"
               name="displaydata"
               // rules={[{ required: true, message: "Experience is required" }]}
+              placeholder="This is will displyed to mentees"
             >
               <Input />
             </Form.Item>

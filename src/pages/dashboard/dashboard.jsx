@@ -222,7 +222,7 @@ const Dashboard = () => {
             </Form.Item>
 
             <Form.Item
-              label="Select Metting Time"
+              label="Select Meeting Time"
               name="meetingTime"
               rules={[{ required: true, message: "Please select a time" }]}
             >

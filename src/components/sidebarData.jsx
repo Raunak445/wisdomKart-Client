@@ -46,12 +46,12 @@ export const userMenuLogin = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  // {
-  //   title: "Courses",
-  //   path: "https://courses.wisdomkart.com",
-  //   icons: <FaPlayCircle color="black" />,
-  //   cName: "nav-text",
-  // },
+  {
+    title: "Courses",
+    path: "https://courses.wisdomkart.com",
+    icons: <FaPlayCircle color="black" />,
+    cName: "nav-text",
+  },
 
   // {
   //   title: "LiveSesions",
@@ -99,12 +99,12 @@ export const userMenuLogout = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  // {
-  //   title: "Courses",
-  //   path: "https://courses.wisdomkart.com",
-  //   icons: <FaPlayCircle color="black" />,
-  //   cName: "nav-text",
-  // },
+  {
+    title: "Courses",
+    path: "https://courses.wisdomkart.com",
+    icons: <FaPlayCircle color="black" />,
+    cName: "nav-text",
+  },
 
   // {
   //   title: "LiveSesions",
@@ -170,12 +170,12 @@ export const adminMenu = [
     icons: <MdDashboard color="black" />,
     cName: "nav-text",
   },
-  // {
-  //   title: "Courses",
-  //   path: "/courses",
-  //   icons: <FaPlayCircle color="black" />,
-  //   cName: "nav-text",
-  // },
+  {
+    title: "Courses",
+    path: "https://courses.wisdomkart.com",
+    icons: <FaPlayCircle color="black" />,
+    cName: "nav-text",
+  },
 
   // {
   //   title: "LiveSesions",

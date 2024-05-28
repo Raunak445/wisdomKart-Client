@@ -46,7 +46,7 @@ import { Slide } from "react-slideshow-image";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {  FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Home = () => {
   const listControls = useAnimation();
@@ -211,15 +211,21 @@ const Home = () => {
   // };
 
   const slideRef = useRef(null);
+  const [moveSlides, setMoveSlides] = useState(true);
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (slideRef.current) {
-        slideRef.current.goNext();
-      }
-    }, 4000); // Change the duration as needed
+    let intervalId;
+
+    if (moveSlides) {
+      intervalId = setInterval(() => {
+        if (slideRef.current) {
+          slideRef.current.goNext();
+        }
+      }, 4000); // Change the duration as needed
+    }
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [moveSlides]);
 
   // Empty dependency array ensures the effect runs only once after the initial render
 
@@ -268,14 +274,29 @@ const Home = () => {
             </div>
           </div> */}
 
-        <Slide ref={slideRef} transitionDuration={1500}>
+        <Slide ref={slideRef} transitionDuration={2000}>
           {slidesToShow.map((image, index) => (
             <div key={index}>
               <div
               // style={{ backgroundImage: `url(${image.url})` }}
+               onClick={() => setMoveSlides(!moveSlides)}
               >
-                <img src={image.url} alt="" className="mobile-display" />
-                <img src={image.url} alt="" className="desktop-display" />
+                <img
+                  src={image.url}
+                  alt=""
+                  className="mobile-display"
+                  onClick={() => setMoveSlides(!moveSlides)}
+                  // onMouseEnter={() => setMoveSlides(false)}
+                  // onMouseLeave={() => setMoveSlides(true)}
+                />
+                <img
+                  src={image.url}
+                  alt=""
+                  className="desktop-display"
+                 
+                  // onMouseEnter={() => setMoveSlides(false)}
+                  // onMouseLeave={() => setMoveSlides(true)}
+                />
               </div>
 
               {/* <div
@@ -994,7 +1015,7 @@ const Home = () => {
                 transition={{ duration: 0.3 }}
               >
                 <h3>Finance for Non Finance COO</h3>
-                <p className="text1"> 
+                <p className="text1">
                   {" "}
                   The COO of a Manufacturing organization wanted to understand
                   Finance from the Operations point of View. He is interested to
@@ -1010,12 +1031,11 @@ const Home = () => {
             </div>
           </div>
           <div className="row content">
-          <div className="col-md-5">
+            <div className="col-md-5">
               {" "}
               <img src={logistic} className="img-fluid" alt="" />{" "}
             </div>
             <div className="col-md-7 pt-5 order-2 order-md-1">
-            
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
                 transition={{ duration: 0.3 }}
@@ -1032,11 +1052,8 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
-
-            
           </div>
           <div className="row content">
-           
             <div className="col-md-7 pt-5">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
@@ -1057,7 +1074,7 @@ const Home = () => {
             </div>
           </div>
           <div className="row content">
-          <div className="col-md-5">
+            <div className="col-md-5">
               {" "}
               <img src={employee} className="img-fluid" alt="" />{" "}
             </div>
@@ -1075,12 +1092,10 @@ const Home = () => {
                 </p>
               </motion.div>
             </div>
-            
           </div>
           {/* <!--========================================================================================================================--> */}
 
           <div className="row content">
-            
             <div className="col-md-7 pt-4">
               <motion.div
                 whileHover={{ fontWeight: "bold" }}
@@ -1126,22 +1141,29 @@ const Home = () => {
       {/* <!-- End Features Section -->  */}
       {/* <!-- ======= Footer ======= --> */}
       <footer id="footer" className="footer1">
-        
         <div className="contact-info">
-        <div className="copyright">
-          {" "}
-          &copy; Copyright{" "}
-          <strong>
-            <span>Wisdomkart</span>
-          </strong>
-          . All Rights Reserved{" "}
+          <div className="copyright">
+            {" "}
+            &copy; Copyright{" "}
+            <strong>
+              <span>Wisdomkart</span>
+            </strong>
+            . All Rights Reserved{" "}
+          </div>
+          <ul>
+            <li>
+              <FaPhone /> +91 98863 18437
+            </li>
+            <li>
+              <FaEnvelope /> saptha@ssbts.in
+            </li>
+            <li>
+              <FaMapMarkerAlt /> #19, 10th Cross, Vijaya Bank Colony, Off
+              Basavanapura main road, Devasandra post, K R Puram, Bangalore
+              560036, India
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li><FaPhone /> +91 98863 18437</li>
-          <li><FaEnvelope /> saptha@ssbts.in</li>
-          <li><FaMapMarkerAlt /> #19, 10th Cross, Vijaya Bank Colony, Off Basavanapura main road, Devasandra post, K R Puram, Bangalore 560036, India</li>
-        </ul>
-      </div>
       </footer>
       {/* <!-- End Footer -->  */}
 
