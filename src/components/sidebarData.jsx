@@ -5,11 +5,13 @@ import {
   FaSignInAlt,
   FaCalendarAlt,
   FaSignOutAlt,
+
   FaBroadcastTower,
   FaUserGraduate,
   FaPlayCircle,
   FaSearch,
 } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
 
 import { RiCalendar2Fill } from "react-icons/ri";
 import { AiOutlineMail, AiFillHome } from "react-icons/ai";
@@ -65,6 +67,8 @@ export const userMenuLogin = [
     icons: <FaUserGraduate color="black" />,
     cName: "nav-text",
   },
+
+ 
   {
     title: "Contact Us",
     path: "/contactUs",
@@ -168,6 +172,12 @@ export const adminMenu = [
     title: "Dashboard",
     path: "/dashboard",
     icons: <MdDashboard color="black" />,
+    cName: "nav-text",
+  },
+  {
+    title: "Mentor Profiles",
+    path: "/admin/mentorprofiles",
+    icons: <GiTeacher color="black" />,
     cName: "nav-text",
   },
   {

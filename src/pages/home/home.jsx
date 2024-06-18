@@ -211,21 +211,32 @@ const Home = () => {
   // };
 
   const slideRef = useRef(null);
-  const [moveSlides, setMoveSlides] = useState(true);
+
+  // const [moveSlides, setMoveSlides] = useState(true);
+
+  
+  const newRef=useRef(null)
+
 
   useEffect(() => {
-    let intervalId;
-
-    if (moveSlides) {
-      intervalId = setInterval(() => {
+    // let intervalId;
+    
+    
+      newRef.current = setInterval(() => {
         if (slideRef.current) {
           slideRef.current.goNext();
         }
       }, 4000); // Change the duration as needed
-    }
+    
+    
+      
 
-    return () => clearInterval(intervalId);
-  }, [moveSlides]);
+    return () => clearInterval(newRef.current);
+  }, []);
+
+  // console.log(newRef)
+
+
 
   // Empty dependency array ensures the effect runs only once after the initial render
 
@@ -243,6 +254,14 @@ const Home = () => {
   }, []);
 
   const navigate = useNavigate();
+
+
+  const onSlideClickHandler=()=>{
+   
+    clearInterval(newRef.current);
+
+  }
+
 
   const slidesToShow = window.innerWidth <= 576 ? slidesm : slides;
   // const slidesToShow = slidesm;
@@ -276,16 +295,16 @@ const Home = () => {
 
         <Slide ref={slideRef} transitionDuration={2000}>
           {slidesToShow.map((image, index) => (
-            <div key={index}>
+            <div key={index}  onClick={() => onSlideClickHandler()}>
               <div
               // style={{ backgroundImage: `url(${image.url})` }}
-               onClick={() => setMoveSlides(!moveSlides)}
+              
               >
                 <img
                   src={image.url}
                   alt=""
                   className="mobile-display"
-                  onClick={() => setMoveSlides(!moveSlides)}
+                  // onClick={() => setMoveSlides(!moveSlides)}
                   // onMouseEnter={() => setMoveSlides(false)}
                   // onMouseLeave={() => setMoveSlides(true)}
                 />

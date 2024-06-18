@@ -12,7 +12,7 @@ import {
   FaCalendarAlt,
   FaSearch,
 } from "react-icons/fa";
-import { message } from "antd";
+import { Modal, message } from "antd";
 import { IconContext } from "react-icons";
 
 import { useEffect, useState } from "react";
@@ -29,7 +29,26 @@ function Navbar() {
   const dispatch = useDispatch(); // Initialize useDispatch
   const navigate = useNavigate(); // Initialize useNavigate
   const { user } = useSelector((state) => state.user);
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [cookies,removeCookie] = useCookies(["token"]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    // Implement logout functionality here
+    console.log("Logged out");
+    removeCookie("token");
+    message.success("Logged out Successfully");
+    setIsModalVisible(false);
+  };
+
+  
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const mentorMenu = [
     {
@@ -53,7 +72,7 @@ function Navbar() {
     {
       title: "Appointments",
       path: "/mentorAppointments ",
-      icons: <FaCalendarAlt color="black"/>,
+      icons: <FaCalendarAlt color="black" />,
       cName: "nav-text",
     },
     {
@@ -71,7 +90,7 @@ function Navbar() {
     {
       title: "Courses",
       path: "https://courses.wisdomkart.com",
-      icons: <FaPlayCircle  color="black"/>,
+      icons: <FaPlayCircle color="black" />,
       cName: "nav-text",
     },
 
@@ -84,13 +103,13 @@ function Navbar() {
     {
       title: "Contact Us",
       path: "/contactUs",
-      icons: <AiOutlineMail  color="black"/>,
+      icons: <AiOutlineMail color="black" />,
       cName: "nav-text",
     },
     {
       title: "Log out",
       path: "/logout",
-      icons: <FaSignOutAlt  color="black"/>,
+      icons: <FaSignOutAlt color="black" />,
       cName: "nav-text",
     },
   ];
@@ -130,7 +149,7 @@ function Navbar() {
         })
         .catch(() => {
           // removeCookie("token");
-          message.error("Error in fetching data from server please wait")
+          message.error("Error in fetching data from server please wait");
           navigate("/"); // Use navigate to redirect
         });
     } catch (error) {
@@ -143,7 +162,7 @@ function Navbar() {
     // if(user?.isMentor){
     //   window.location.reload()
     // }
-  }, [cookies,location]); // Include navigate in the dependencies array
+  }, [cookies, location]); // Include navigate in the dependencies array
   // This is very important if you dont the you will have the bug of using window object to refresh the page again to execute the getUserData
 
   const handleClick = () => {
@@ -184,13 +203,32 @@ function Navbar() {
                 <FaBell size={25} className="bell" color="black" />
               </div>
 
-              <div
-                // onClick={() =>
-                //   navigate(`/profile/:${user.firstName + " " + user.lastName}`)
-                // }
-                // className="style-user"
-              >
-                {user.firstName + " " + user.lastName}
+              <div>
+                <div
+                  onClick={showModal}
+                  className="style-user"
+                  style={{
+                    border: "1px solid #ccc",
+                    // padding: "10px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    width: "auto",
+                    textAlign: "center",
+                  }}
+                >
+                  {user.firstName + " " + user.lastName}
+                </div>
+
+                <Modal
+                  title="User Options"
+                  visible={isModalVisible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  okText="Logout"
+                  cancelText="Cancel"
+                >
+                  <p>Are you sure you want to logout?</p>
+                </Modal>
               </div>
             </div>
           )}

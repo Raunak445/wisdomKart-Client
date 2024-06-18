@@ -32,6 +32,8 @@ import RatingComponent from "./pages/customerRating/customerRating.jsx";
 import PaymentSuccess from "./pages/paymentSuccess/paymentSuccess.jsx";
 import ForgotPasswordPage from "./pages/forgotPassword/forgotPassword.jsx";
 import ResetPassword from "./pages/resetPassword/resetPassword.jsx";
+import MentorProfiles from "./pages/admin/MentorProfiles.jsx";
+import MentorProfileAdmin from "./pages/admin/MentorProfileAdmin.jsx";
 
 function App() {
   const { loading } = useSelector((state) => {
@@ -117,6 +119,22 @@ function App() {
               element={
                 <ProtectedRoutes>
                   <Users />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/admin/mentorprofile/:id"
+              element={
+                <ProtectedRoutes>
+                  <MentorProfileAdmin />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/admin/mentorprofiles"
+              element={
+                <ProtectedRoutes>
+                  <MentorProfiles />
                 </ProtectedRoutes>
               }
             />

@@ -182,7 +182,7 @@ const Price = () => {
   useEffect(() => {
     // console.log("Use Effect Called",selectedDate)
     fetchTimeSlots();
-  }, [selectedDate]); 
+  }, [selectedDate]);
 
   const handleBookSession = () => {
     if (!selectedDate || !appointmentTime) {
@@ -215,13 +215,18 @@ const Price = () => {
         const checkoutHandler = async () => {
           const {
             data: { key },
-          } = await axios.get("https://wisdomkart-server.onrender.com/api/v1/getKey");
+          } = await axios.get(
+            "https://wisdomkart-server.onrender.com/api/v1/getKey"
+          );
 
           const {
             data: { order },
-          } = await axios.post("https://wisdomkart-server.onrender.com/api/v1/checkout", {
-            amount: mentor.feesPerConsultation,
-          });
+          } = await axios.post(
+            "https://wisdomkart-server.onrender.com/api/v1/checkout",
+            {
+              amount: mentor.feesPerConsultation,
+            }
+          );
 
           console.log(order.amount);
 
@@ -241,9 +246,11 @@ const Price = () => {
                 // console.log(data);
 
                 if (data.success) {
-                 
-                  navigate('/')
-                  alert('Your appointment is confirmed, Please refer your registered email for more details')
+                  navigate("/");
+                  alert(
+                    "Your appointment is confirmed, Please refer your registered email for more details"
+                  );
+                  // https://wisdomkart-server.onrender.com
                   axios
                     .post(
                       "https://wisdomkart-server.onrender.com/api/v1/mentor/booking",
@@ -266,7 +273,7 @@ const Price = () => {
                       message.error(error.message);
                     });
 
-                    // window.location.reload()
+                  // window.location.reload()
                 } else {
                   message.error({
                     content: "Payment not received , please try again",
@@ -275,12 +282,7 @@ const Price = () => {
                       fontSize: "18px", // Adjust the font size as needed
                     },
                   });
-                
-                  
                 }
-
-
-
               } catch (error) {
                 console.log(error);
               }
@@ -339,7 +341,6 @@ const Price = () => {
             //     window.location.reload();
             //     message.error("Error while processing payment");
             // });
-            
           } catch (error) {
             window.location.reload();
             message.error("Error while loading the payment gateway");
@@ -349,13 +350,13 @@ const Price = () => {
         };
 
         if (user.orders != 0) {
-         
-          checkoutHandler();}
-        else {
+          checkoutHandler();
+        } else {
+          // navigate("/");
 
-          navigate("/");
-
-          alert('Your appointment is confirmed, Please refer your registered email for more details ')
+          alert(
+            "Your appointment is confirmed, Please refer your registered email for more details "
+          );
 
           axios
             .post(
@@ -378,7 +379,6 @@ const Price = () => {
               // dispatch(hideLoading());
               message.error(error.message);
             });
-
         }
 
         Modal.destroyAll();
@@ -495,9 +495,7 @@ const Price = () => {
                 key={mentor._id} // Ensure each component has a unique key
                 image={mentor.image}
                 name={`${mentor.firstName} ${mentor.lastName}`}
-               
                 intro={mentor.biodata}
-              
                 experience={`${mentor.experience} years`}
                 id={mentor._id} // Pass mentor's ID as the id prop
                 industry={mentor.industry}
@@ -514,12 +512,19 @@ const Price = () => {
 
       <div className={PriceCss.wrapperRight}>
         <div className={PriceCss.calendar}>
+          <div
+            style={{
+              backgroundColor: "lightblue",
+              borderRadius: "10px",
+              padding: "10px",
+            }}
+          >
+            <b style={{ fontSize: "20px", margin: "30px" }}>Hourly Charges</b>:{" "}
+            <span className={PriceCss.h}>
+              INR {mentor?.feesPerConsultation}
+            </span>
+          </div>
 
-              <div style={{backgroundColor:'lightblue',borderRadius:'10px',padding:'10px'}}>
-              <b style={{fontSize:'20px',margin:'30px'}}>Hourly Charges</b>:{" "}
-              <span className={PriceCss.h}>INR {mentor?.feesPerConsultation}</span>
-              </div>
-         
           <h1>Select a Date</h1>
           <Calendar
             // onChange={(date) => dateChangeHandler(date)}
@@ -602,13 +607,15 @@ const Price = () => {
           </div>
         )}
 
-        <div className={PriceCss.bookingSection}>
-          <h2>Book a Session</h2>
+        {user?._id !== mentor?.userId && (
+          <div className={PriceCss.bookingSection}>
+            <h2>Book a Session</h2>
 
-          <button onClick={handleBookSession} className={PriceCss.button}>
-            Book Session
-          </button>
-        </div>
+            <button onClick={handleBookSession} className={PriceCss.button}>
+              Book Session
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

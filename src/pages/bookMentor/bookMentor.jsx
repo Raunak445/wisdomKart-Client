@@ -21,7 +21,7 @@ const BookMentor = () => {
   const { user } = useSelector((state) => state.user);
 
   const [time, setTime] = useState("12:08");
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [cookies] = useCookies(['token']);
   const format = "hh:mm A";
   const [date, setDate] = useState();
   const disabledDate = (current) => {

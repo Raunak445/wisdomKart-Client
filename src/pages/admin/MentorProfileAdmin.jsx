@@ -1,20 +1,27 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import {  useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Input, Button, Select, TimePicker, message, Spin } from "antd";
-import style from "./mentorProfile.module.css";
+import style from "./mentorProfileAdmin.module.css";
 import moment from "moment";
 import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 // Make sure you import Option from Select component
 const { Option } = Select;
 const format = "hh:mm A";
 
-const MentorProfile = () => {
+const MentorProfileAdmin = () => {
+  //   const { user } = useSelector((state) => state.user);
+  const { id } = useParams();
   const { user } = useSelector((state) => state.user);
+  // const location = useLocation();
+  
+
+  // console.log("id",id)
   const [mentor, setMentor] = useState(null);
-  const params = useParams();
+
   const navigate = useNavigate();
   const [cookies] = useCookies(["token"]);
   const [image, setImage] = useState(null);
@@ -64,8 +71,6 @@ const MentorProfile = () => {
   // Define onFinish function for form submission
   const onFinish = async (values) => {
     try {
-      // dispatch(showLoading()); // Assuming showLoading and hideLoading are action creators
-
       if (image != null) {
         const reader = new FileReader();
 
@@ -135,8 +140,8 @@ const MentorProfile = () => {
               const res = await axios.post(
                 "https://wisdomkart-server.onrender.com/api/v1/mentor/updateProfile",
                 {
-                  data:{...values,image: imageD},
-                  find: user._id,
+                  data:{...values,image: imageD,},
+                   find: id,
                   
                 },
                 {
@@ -150,18 +155,17 @@ const MentorProfile = () => {
 
               if (res.data.success) {
                 message.success("Profile Updated Successfully");
-                navigate("/");
+                // navigate("/");
+                console.log("values", values);
               } else {
                 message.error("Couldnt Update Profile");
               }
             } catch (error) {
-              message.error(error.message)
+              message.error(error.message);
             }
           };
         };
       } else {
-
-
         try {
           if (timeMon != null) {
             values.mondayTime = timeMon;
@@ -186,11 +190,14 @@ const MentorProfile = () => {
             values.sundayTime = timeSun;
           }
 
+          console.log(values);
+
           const res = await axios.post(
             "https://wisdomkart-server.onrender.com/api/v1/mentor/updateProfile",
             {
               data:{...values},
-              find: user._id,
+              find:id
+              // user_id: mentor.userId,
             },
             {
               headers: {
@@ -203,17 +210,19 @@ const MentorProfile = () => {
 
           if (res.data.success) {
             message.success("Profile Updated Successfully");
-            navigate("/");
+            // navigate("/");
           } else {
             message.error("Couldnt Update Profile");
           }
+          
+
         } catch (error) {
           console.log(error);
         }
       }
     } catch (error) {
       // dispatch(hideLoading());
-     
+
       message.error("Something went wrong");
       message.error(error.message);
     }
@@ -274,28 +283,30 @@ const MentorProfile = () => {
     "Energy/Power",
   ];
 
- 
   // Define function to fetch mentor info
   const getMentorInfo = async () => {
     try {
       // dispatch(showLoading())
+      //   "https://wisdomkart-server.onrender.com/api/v1/mentor/getMentorInfo",
+
+      // console.log(id)
+
       const res = await axios.post(
         "https://wisdomkart-server.onrender.com/api/v1/mentor/getMentorInfo",
-        { find: params.id },
+        { find: id },
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },
         }
       );
-     
 
       setMentor(res.data.data);
+
       setLoading(false);
 
       setTimeMon(res.data.data.mondayTime);
     } catch (error) {
-      
       console.log(error);
     }
   };
@@ -308,7 +319,16 @@ const MentorProfile = () => {
   // Render the MentorProfile component
   return (
     <div>
-      <div className="text-blue">Mentor Profile</div>
+      <Button
+        type="primary"
+        icon={<ArrowLeftOutlined />}
+        onClick={() => navigate("/admin/mentorprofiles")}
+        style={{ marginTop: "20px",width:'auto',paddingLeft:'0px' }}
+      >
+        Back
+      </Button>
+
+      
       {loading ? (
         <div
           style={{
@@ -322,6 +342,7 @@ const MentorProfile = () => {
         </div>
       ) : (
         <>
+        <div className="text-blue">Mentor Profile</div>
           <h3 className={style.text}>Personal Details:</h3>
           <Form
             labelCol={{ span: 6 }}
@@ -359,6 +380,17 @@ const MentorProfile = () => {
             >
               <Input />
             </Form.Item>
+
+            {user.isAdmin && mentor.rank && (
+              <Form.Item
+                label="Rank"
+                name="rank"
+                // rules={[{ required: true, message: "First Name is required" }]}
+                className={style.item}
+              >
+                <Input />
+              </Form.Item>
+            )}
 
             <Form.Item
               label="Last Name"
@@ -409,7 +441,6 @@ const MentorProfile = () => {
             >
               <Input />
             </Form.Item>
-
 
             <Form.Item
               label="Profile"
@@ -635,4 +666,4 @@ const MentorProfile = () => {
   );
 };
 
-export default MentorProfile;
+export default MentorProfileAdmin;

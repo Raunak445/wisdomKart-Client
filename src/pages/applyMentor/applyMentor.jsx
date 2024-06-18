@@ -30,6 +30,21 @@ const ApplyMentor = () => {
   const format = "hh:mm A";
   const onFinish = async (values) => {
     try {
+
+      // console.log("data",values.displaydata)
+
+      const displayDataWordCount = values.displaydata.trim().split(/\s+/).length;
+      if (displayDataWordCount < 30 || displayDataWordCount > 50) {
+        message.error("Profile display data must be between 30 and 50 words.");
+      }
+
+      const biodataWordCount = values.biodata.trim().split(/\s+/).length;
+      if (biodataWordCount < 200 || biodataWordCount > 500) {
+        message.error("Biodata must be between 200 and 500 words.");
+      }
+
+
+
       // Convert image to binary format
       const reader = new FileReader();
 
@@ -71,7 +86,7 @@ const ApplyMentor = () => {
           const imageData = canvas.toDataURL("image/jpeg", 0.8); // Quality set to 90%
 
           imageD = imageData.split(",")[1];
-          console.log(imageD);
+          // console.log(imageD);
 
           try {
             const res = await axios.post(
@@ -108,6 +123,9 @@ const ApplyMentor = () => {
             message.error("Something went wrong");
             message.error(error.message);
           }
+
+
+
         };
       };
 
@@ -352,26 +370,26 @@ const ApplyMentor = () => {
               <Form.Item
                 name="biodata"
                 label="Biodata"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your bio data",
-                    validator: (_, value) => {
-                      const wordCount = value.trim().split(/\s+/).length;
-                      if (wordCount < 200) {
-                        return Promise.reject("Minimum 200 words required");
-                      } else if (wordCount > 500) {
-                        return Promise.reject("Maximum 300 words allowed");
-                      }
-                      return Promise.resolve();
-                    },
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Please enter your bio data in 200 to 500 words",
+                //     validator: (_, value) => {
+                //       return new Promise((resolve, reject) => {
+                //         const wordCount = value.trim().split(/\s+/).length;
+                //         if (wordCount < 200) {
+                //           reject("Minimum 200 words required in bio data");
+                //         } else if (wordCount > 500) {
+                //           reject("Maximum 500 words allowed in bio data");
+                //         } else {
+                //           resolve();
+                //         }
+                //       });
+                //     },
+                //   },
+                // ]}
               >
-                <TextArea
-                  rows={4}
-                  placeholder="This will be used by admin to approve you mentor profile"
-                />
+                <Input.TextArea />
               </Form.Item>
 
               <div
@@ -382,26 +400,31 @@ const ApplyMentor = () => {
               <Form.Item
                 name="displaydata"
                 label="Profile"
-                rules={[
-                  {
-                    required: true,
-                    message:
-                      "Please enter your brief about yourself ,this will we used to display to mentee",
-                    validator: (_, value) => {
-                      const wordCount = value.trim().split(/\s+/).length;
-                      if (wordCount < 30) {
-                        return Promise.reject("Minimum 30 words required");
-                      } else if (wordCount > 50) {
-                        return Promise.reject("Maximum 50 words allowed");
-                      }
-                      return Promise.resolve();
-                    },
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message:
+                //       "Please enter your brief about yourself, this will be used to display to mentee in 30 to 50 words",
+                //     validator: (_, value) => {
+                //       return new Promise((resolve, reject) => {
+                //         const wordCount = value.trim().split(/\s+/).length;
+                //         if (wordCount < 30) {
+                //           reject("Minimum 30 words required in profile");
+                //         } else if (wordCount > 50) {
+                //           reject("Maximum 50 words allowed in profile");
+                //         } else {
+                //           resolve();
+                //         }
+                //       }).catch((error) => {
+                //         alert(error); // Display alert with validation error message
+                //       });
+                //     },
+                //   },
+                // ]}
               >
                 <TextArea
                   rows={4}
-                  placeholder="Please enter your brief about yourself ,this will be displayed to mentee"
+                  placeholder="Please enter your brief about yourself, this will be displayed to mentee"
                 />
               </Form.Item>
 
